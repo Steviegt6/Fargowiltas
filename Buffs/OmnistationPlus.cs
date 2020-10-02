@@ -1,11 +1,9 @@
 //using CalamityMod.CalPlayer;
 using Fargowiltas.Items.Tiles;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
+
 //using ThoriumMod;
 using static Terraria.ModLoader.ModContent;
 
@@ -92,7 +90,6 @@ namespace Fargowiltas.Buffs
             player.GetModPlayer<CalamityPlayer>().yellowCandle = true;
             player.GetModPlayer<CalamityPlayer>().pinkCandle = true;
             player.GetModPlayer<CalamityPlayer>().blueCandle = true;*/
-
         }
     }
 }

@@ -1,6 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -26,7 +26,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.BewitchingTable, 5);
             recipe.AddIngredient(ItemID.TitaniumBar, 5);
             recipe.AddTile(TileID.MythrilAnvil);
-            
+
             recipe.Register();
         }
     }

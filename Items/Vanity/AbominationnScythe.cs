@@ -1,6 +1,5 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Vanity
 {
@@ -27,7 +26,7 @@ namespace Fargowiltas.Items.Vanity
             recipe.AddIngredient(ItemID.DeathSickle);
             recipe.AddIngredient(ItemID.ChristmasHook); //meme ass recipe might change
             recipe.AddTile(TileID.TinkerersWorkbench);
-            
+
             recipe.Register();
         }*/
     }

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ObjectData;
 
 namespace Fargowiltas.Items.Tiles
@@ -24,9 +21,9 @@ namespace Fargowiltas.Items.Tiles
             name.SetDefault("Multitask Center");
             AddMapEntry(new Color(200, 200, 200), name);
             // TODO: Uncomment when tML adds this back
-//disableSmartCursor = true;
+            //disableSmartCursor = true;
             //counts as
-            adjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.Furnaces,  TileID.Anvils,  TileID.Bottles, TileID.Sawmill, TileID.Loom, TileID.Tables, TileID.Chairs, TileID.CookingPots, TileID.Sinks, TileID.Kegs };
+            adjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.Furnaces, TileID.Anvils, TileID.Bottles, TileID.Sawmill, TileID.Loom, TileID.Tables, TileID.Chairs, TileID.CookingPots, TileID.Sinks, TileID.Kegs };
 
             animationFrameHeight = 54;
         }

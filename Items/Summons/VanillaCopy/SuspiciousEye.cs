@@ -1,11 +1,5 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons
 {
@@ -33,7 +27,7 @@ namespace Fargowiltas.Items.Summons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.SuspiciousLookingEye);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
         }
     }

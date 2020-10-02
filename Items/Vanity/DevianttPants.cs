@@ -1,6 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Vanity
 {
@@ -24,9 +24,9 @@ namespace Fargowiltas.Items.Vanity
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.SoulofFlight, 5); 
+            recipe.AddIngredient(ItemID.SoulofFlight, 5);
             recipe.AddTile(TileID.TinkerersWorkbench);
-            
+
             recipe.Register();
         }
     }

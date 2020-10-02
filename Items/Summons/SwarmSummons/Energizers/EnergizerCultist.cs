@@ -1,6 +1,5 @@
-﻿using Terraria.ModLoader;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons.Energizers
 {

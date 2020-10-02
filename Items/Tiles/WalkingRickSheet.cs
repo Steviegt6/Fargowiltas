@@ -1,9 +1,5 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ObjectData;
 
 namespace Fargowiltas.Items.Tiles
@@ -20,7 +16,7 @@ namespace Fargowiltas.Items.Tiles
             TileObjectData.addTile(Type);
             dustType = 7;
             // TODO: Uncomment when tML adds this back
-//disableSmartCursor = true;
+            //disableSmartCursor = true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

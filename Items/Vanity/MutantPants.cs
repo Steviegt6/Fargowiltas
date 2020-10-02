@@ -1,6 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Vanity
 {
@@ -26,7 +26,7 @@ namespace Fargowiltas.Items.Vanity
             recipe.AddIngredient(ItemID.BeeMask);
             recipe.AddIngredient(ItemID.PlanteraMask);
             recipe.AddTile(TileID.TinkerersWorkbench);
-            
+
             recipe.Register();
         }
     }

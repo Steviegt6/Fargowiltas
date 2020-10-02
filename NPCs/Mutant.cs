@@ -1,16 +1,12 @@
-using System.Collections.Generic;
+using Fargowiltas.Projectiles;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
-using Fargowiltas.Projectiles;
-using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -185,7 +181,7 @@ namespace Fargowiltas.NPCs
                 {
                     dialogue.Add($"{Main.npc[partyGirl].GivenName} is the one who invited me, I don't understand why though.");
                 }
-                
+
                 dialogue.Add("I don't know what everyone's so happy about, but as long as nobody mistakes me for a Pigronata, I'm happy too.");
             }
 
@@ -319,10 +315,12 @@ namespace Fargowiltas.NPCs
                         prehardmodeShop = true;
                         hardmodeShop = false;
                         break;
+
                     case 2:
                         hardmodeShop = true;
                         prehardmodeShop = false;
                         break;
+
                     default:
                         prehardmodeShop = false;
                         hardmodeShop = false;
