@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Projectiles.Explosives
 {
@@ -37,10 +40,10 @@ namespace Fargowiltas.Projectiles.Explosives
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("Explosion"), 0, projectile.knockBack, projectile.owner);
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, ModContent.ProjectileType<Explosion>(), 0, projectile.knockBack, projectile.owner);
 
             Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
             int radius = 16;     // bigger = boomer
 
             for (int x = -radius; x <= radius; x++)

@@ -1,6 +1,9 @@
 ﻿using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Projectiles
 {
@@ -35,7 +38,7 @@ namespace Fargowiltas.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X * 0, projectile.velocity.Y * 0, mod.ProjectileType("Explosion"), (int)(projectile.damage * 1f), projectile.knockBack, projectile.owner);
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X * 0, projectile.velocity.Y * 0, ModContent.ProjectileType<Explosion>(), (int)(projectile.damage * 1f), projectile.knockBack, projectile.owner);
         }
     }
 }

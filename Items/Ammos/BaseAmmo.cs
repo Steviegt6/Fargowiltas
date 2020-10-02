@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Ammos
 {
@@ -26,11 +27,11 @@ namespace Fargowiltas.Items.Ammos
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(AmmunitionItem, 3996);
             recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

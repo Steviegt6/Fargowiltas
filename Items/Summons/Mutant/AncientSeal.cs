@@ -1,8 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
+using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.Items.Summons.Mutant
 {
@@ -24,9 +28,9 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.rare = ItemRarityID.Purple;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
-            item.shoot = mod.ProjectileType("SpawnProj");
+            item.shoot = ModContent.ProjectileType<SpawnProj>();
         }
 
         public override bool CanUseItem(Player player)
@@ -39,7 +43,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             Vector2 pos = new Vector2((int)player.position.X + Main.rand.Next(-800, 800), (int)player.position.Y + Main.rand.Next(-1000, -250));
 
             // Vanilla
-            Projectile.NewProjectile(pos, Vector2.Zero, mod.ProjectileType("SpawnProj"), 0, 0, Main.myPlayer, 1, 3);
+            Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, 1, 3);
 
             // Modded
             for (int i = Main.maxNPCTypes; i < NPCLoader.NPCCount; i++)
@@ -55,14 +59,14 @@ namespace Fargowiltas.Items.Summons.Mutant
 
             if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Every boss has awoken!"), new Color(175, 75, 255));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Every boss has awoken!"), new Color(175, 75, 255));
             }
             else
             {
                 Main.NewText("Every boss has awoken!", new Color(175, 75, 255));
             }
 
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return false;
         }

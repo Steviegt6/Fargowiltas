@@ -1,8 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
+using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.Items.Summons.Mutant
 {
@@ -24,9 +28,9 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
-            item.shoot = mod.ProjectileType("SpawnProj");
+            item.shoot = ModContent.ProjectileType<SpawnProj>();
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -44,11 +48,11 @@ namespace Fargowiltas.Items.Summons.Mutant
                         NetMessage.SendData(MessageID.WorldData, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
                 }
 
-                Projectile.NewProjectile(pos, Vector2.Zero, mod.ProjectileType("SpawnProj"), 0, 0, Main.myPlayer, NPCID.SkeletronHead);
+                Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, NPCID.SkeletronHead);
 
                 if (Main.netMode == NetmodeID.Server)
                 {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron has awoken!"), new Color(175, 75, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron has awoken!"), new Color(175, 75, 255));
                 }
                 else
                 {
@@ -57,11 +61,11 @@ namespace Fargowiltas.Items.Summons.Mutant
             }
             else
             {
-                Projectile.NewProjectile(pos, Vector2.Zero, mod.ProjectileType("SpawnProj"), 0, 0, Main.myPlayer, NPCID.DungeonGuardian);
+                Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, NPCID.DungeonGuardian);
 
                 if (Main.netMode == NetmodeID.Server)
                 {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Dungeon Guardian has awoken!"), new Color(175, 75, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Dungeon Guardian has awoken!"), new Color(175, 75, 255));
                 }
                 else
                 {
@@ -69,18 +73,18 @@ namespace Fargowiltas.Items.Summons.Mutant
                 }
             }
 
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return false;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.ClothierVoodooDoll);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

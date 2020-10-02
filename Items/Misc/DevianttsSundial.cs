@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -21,7 +24,7 @@ namespace Fargowiltas.Items.Misc
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.UseSound = SoundID.Item4;
             item.consumable = true;
         }
@@ -42,7 +45,7 @@ namespace Fargowiltas.Items.Misc
 
             Main.fastForwardTime = true;
             NetMessage.SendData(MessageID.WorldData);
-            Main.PlaySound(SoundID.Item4, player.position);
+            SoundEngine.PlaySound(SoundID.Item4, player.position);
 
             return true;
         }

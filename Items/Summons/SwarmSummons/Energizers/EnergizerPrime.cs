@@ -1,4 +1,6 @@
 using Terraria.ModLoader;
+using Terraria;
+using Terraria.ID;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons.Energizers
 {
@@ -15,7 +17,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Energizers
             item.width = 20;
             item.height = 20;
             item.maxStack = 999;
-            item.rare = 1;
+            item.rare = ItemRarityID.Blue;
             item.value = 100000;
         }
     }

@@ -1,4 +1,6 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 

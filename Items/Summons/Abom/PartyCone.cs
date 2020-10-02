@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Summons.Abom
 {
@@ -23,7 +26,7 @@ namespace Fargowiltas.Items.Summons.Abom
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
         }
 
@@ -44,7 +47,7 @@ namespace Fargowiltas.Items.Summons.Abom
             }
 
             Main.NewText("Looks like someone's throwing a Party!", new Color(255, 0, 160));
-            Main.PlaySound(28, player.position);
+            SoundEngine.PlaySound(28, player.position);
 
             return true;
         }

@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Summons.VanillaCopy
 {
@@ -25,11 +28,11 @@ namespace Fargowiltas.Items.Summons.VanillaCopy
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.LihzahrdPowerCell);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

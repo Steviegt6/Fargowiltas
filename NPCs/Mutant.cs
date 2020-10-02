@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
+using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.NPCs
 {
@@ -17,12 +21,6 @@ namespace Fargowiltas.NPCs
         private static int shopNum = 1;
 
         internal bool spawned;
-
-        public override bool Autoload(ref string name)
-        {
-            name = "Mutant";
-            return mod.Properties.Autoload;
-        }
 
         public override void SetStaticDefaults()
         {
@@ -51,10 +49,10 @@ namespace Fargowiltas.NPCs
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Guide;
             Main.npcCatchable[npc.type] = true;
-            npc.catchItem = (short)mod.ItemType("Mutant");
+            npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.Mutant>();
             npc.buffImmune[BuffID.Suffocation] = true;
 
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
             {
                 npc.lifeMax = 7700000;
                 npc.defense = 400;
@@ -69,7 +67,7 @@ namespace Fargowiltas.NPCs
             if (!spawned)
             {
                 spawned = true;
-                if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+                if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
                 {
                     npc.lifeMax = 77000;
                     npc.life = npc.lifeMax;
@@ -80,7 +78,7 @@ namespace Fargowiltas.NPCs
 
         public override bool CanTownNPCSpawn(int numTownnpcs, int money)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("MutantAlive"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("MutantAlive"))
             {
                 return false;
             }
@@ -148,11 +146,11 @@ namespace Fargowiltas.NPCs
             {
                 dialogue.AddWithCondition("Now that you've defeated the big guy, I'd say it's time to start collecting those materials!", NPC.downedMoonlord);
 
-                if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+                if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
                 {
                     dialogue.Add("What's that? You want to fight me? ...sure, I guess.");
                 }
-                else if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedFishronEX") || (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedAbom"))
+                else if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedFishronEX") || (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedAbom"))
                 {
                     dialogue.Add("What's that? You want to fight me? ...maybe if I had a reason.");
                 }
@@ -183,7 +181,7 @@ namespace Fargowiltas.NPCs
                 dialogue.Add("I don't know what everyone's so happy about, but as long as nobody mistakes me for a Pigronata, I'm happy too.");
             }
 
-            int lumberJack = NPC.FindFirstNPC(mod.NPCType("LumberJack"));
+            int lumberJack = NPC.FindFirstNPC(ModContent.NPCType<LumberJack>());
             if (lumberJack >= 0)
             {
                 dialogue.Add($"It's okay {Main.npc[npc.whoAmI].GivenName}, just don't look straight into {Main.npc[lumberJack].GivenName}'s eyes. He can't scare you that way...");
@@ -336,19 +334,20 @@ namespace Fargowiltas.NPCs
                 return;
             }
 
-            shop.item[nextSlot].SetDefaults(ModLoader.GetMod(mod).ItemType(item));
-            shop.item[nextSlot].value = price;
+            // TODO: tML hates its users
+            //shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod(mod).ItemType(item));
+            //shop.item[nextSlot].value = price;
 
             // Lowered prices with discount card and pact
             if (Fargowiltas.ModLoaded["FargowiltasSouls"])
             {
                 float modifier = 1f;
-                if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("MutantDiscountCard"))
+                if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("MutantDiscountCard"))
                 {
                     modifier -= 0.2f;
                 }
 
-                if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("MutantPact"))
+                if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("MutantPact"))
                 {
                     modifier -= 0.3f;
                 }
@@ -409,7 +408,7 @@ namespace Fargowiltas.NPCs
 
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
             {
                 damage = 720;
                 knockback = 10f;
@@ -451,21 +450,21 @@ namespace Fargowiltas.NPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+            /*if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
             {
-                projType = ModLoader.GetMod("FargowiltasSouls").ProjectileType("MutantSpearThrownFriendly");
-            }
-            else if (NPC.downedMoonlord)
+                projType = Fargowiltas.FargosGetMod("FargowiltasSouls").ProjectileType("MutantSpearThrownFriendly");
+            }*/
+            if (NPC.downedMoonlord)
             {
-                projType = mod.ProjectileType("PhantasmalEyeProjectile");
+                projType = ModContent.ProjectileType<PhantasmalEyeProjectile>();
             }
             else if (Main.hardMode)
             {
-                projType = mod.ProjectileType("MechEyeProjectile");
+                projType = ModContent.ProjectileType<MechEyeProjectile>();
             }
             else
             {
-                projType = mod.ProjectileType("EyeProjectile");
+                projType = ModContent.ProjectileType<EyeProjectile>();
             }
 
             attackDelay = 1;
@@ -473,7 +472,7 @@ namespace Fargowiltas.NPCs
 
         public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
             {
                 multiplier = 25f;
                 randomOffset = 0f;
@@ -495,13 +494,13 @@ namespace Fargowiltas.NPCs
                 }
 
                 Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MutantGore3"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/MutantGore3"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MutantGore2"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/MutantGore2"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MutantGore1"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/MutantGore1"));
             }
             else
             {

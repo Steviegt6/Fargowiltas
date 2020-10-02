@@ -1,8 +1,16 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Audio;
+using Terraria.Chat;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
+using System;
+using System.Reflection;
+using Terraria.DataStructures;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -22,7 +30,7 @@ namespace Fargowiltas.Items.Misc
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 45;
             item.useTime = 45;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = false;
         }
 
@@ -40,7 +48,12 @@ namespace Fargowiltas.Items.Misc
 
         public override bool UseItem(Player player)
         {
-            Main.expertMode = !Main.expertMode;
+            FieldInfo currentGameModeInfoField = typeof(Main).Assembly.GetType("Terraria.Main").GetField("_currentGameModeInfo", BindingFlags.Static | BindingFlags.NonPublic);
+            GameModeData currentGameModeInfo = (GameModeData)currentGameModeInfoField.GetValue(null);
+            currentGameModeInfo = currentGameModeInfo == GameModeData.ExpertMode ? GameModeData.NormalMode : GameModeData.ExpertMode;
+            currentGameModeInfoField.SetValue(null, currentGameModeInfo);
+            // I have no fucking clue if this even works. - Stevie
+
 
             string text = Main.expertMode ? "Expert mode is now enabled!" : "Expert mode is now disabled!";
             if (Main.netMode == NetmodeID.SinglePlayer)
@@ -49,11 +62,11 @@ namespace Fargowiltas.Items.Misc
             }
             else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
-                NetMessage.SendData(7); //sync world
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), new Color(175, 75, 255));
+                NetMessage.SendData(MessageID.WorldData); //sync world
             }
 
-            Main.PlaySound(15, player.Center, 0);
+            SoundEngine.PlaySound(15, player.Center, 0);
 
             return true;
         }

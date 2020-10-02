@@ -1,5 +1,6 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -20,14 +21,14 @@ namespace Fargowiltas.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
-            item.createTile = mod.TileType("MultitaskCenterSheet");
+            item.createTile = ModContent.TileType<MultitaskCenterSheet>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
 
             recipe.AddIngredient(ItemID.WorkBench);
             recipe.AddIngredient(ItemID.HeavyWorkBench);
@@ -43,8 +44,8 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.Keg);
             recipe.AddTile(TileID.DemonAltar);
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

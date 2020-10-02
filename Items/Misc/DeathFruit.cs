@@ -1,9 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -20,8 +23,8 @@ namespace Fargowiltas.Items.Misc
             item.width = 18;
 			item.height = 18;
 			item.maxStack = 99;
-			item.rare = 1;
-			item.useStyle = 4;
+			item.rare = ItemRarityID.Blue;
+			item.useStyle = ItemUseStyleID.HoldUp;
 			item.useAnimation = 30;
 			item.useTime = 30;
 			item.consumable = true;

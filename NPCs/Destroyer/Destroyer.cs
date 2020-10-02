@@ -1,8 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.NPCs.Destroyer
 {
@@ -50,7 +53,7 @@ namespace Fargowiltas.NPCs.Destroyer
                 npc.alpha = 0;
             }
 
-            if (Main.netMode != 1)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (npc.ai[0] == 0f)
                 {
@@ -60,10 +63,10 @@ namespace Fargowiltas.NPCs.Destroyer
                     int bodySegments = 8;
                     for (int j = 0; j <= bodySegments; j++)
                     {
-                        int num4 = mod.NPCType("DestroyerBody");
+                        int num4 = ModContent.NPCType<DestroyerBody>();
                         if (j == bodySegments)
                         {
-                            num4 = mod.NPCType("DestroyerTail");
+                            num4 = ModContent.NPCType<DestroyerTail>();
                         }
 
                         int num5 = NPC.NewNPC((int)(npc.position.X + (float)(npc.width / 2)), (int)(npc.position.Y + npc.height), num4, npc.whoAmI, 0f, 0f, 0f, 0f, 255);
@@ -71,7 +74,7 @@ namespace Fargowiltas.NPCs.Destroyer
                         Main.npc[num5].realLife = npc.whoAmI;
                         Main.npc[num5].ai[1] = (float)num2;
                         Main.npc[num2].ai[0] = (float)num5;
-                        NetMessage.SendData(23, -1, -1, null, num5, 0f, 0f, 0f, 0, 0, 0);
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num5, 0f, 0f, 0f, 0, 0, 0);
                         num2 = num5;
                     }
                 }
@@ -275,7 +278,7 @@ namespace Fargowiltas.NPCs.Destroyer
                     }
 
                     npc.soundDelay = (int)num25;
-                    Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1, 1f, 0f);
+                    SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1, 1f, 0f);
                 }
 
                 num23 = (float)Math.Sqrt((double)(num21 * num21 + num22 * num22));

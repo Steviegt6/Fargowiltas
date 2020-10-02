@@ -1,14 +1,21 @@
 using System;
 using System.Collections.Generic;
+using Fargowiltas.Items.CaughtNPCs;
 using Fargowiltas.Items.Vanity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
+using Fargowiltas.Items.Tiles;
+using Fargowiltas.Items.Misc;
+using Fargowiltas.Buffs;
 
 namespace Fargowiltas.NPCs
 {
@@ -34,16 +41,17 @@ namespace Fargowiltas.NPCs
         {
             if (GetInstance<FargoConfig>().CatchNPCs)
             {
-                if (npc.townNPC && npc.type < NPCID.Count && npc.type != NPCID.OldMan)
+                // TODO: Re-add this.
+                /*if (npc.townNPC && npc.type < NPCID.Count && npc.type != NPCID.OldMan)
                 {
                     Main.npcCatchable[npc.type] = true;
-                    npc.catchItem = npc.type == NPCID.DD2Bartender ? (short)mod.ItemType("Tavernkeep") : (short)mod.ItemType(NPCID.GetUniqueKey(npc.type).Replace("Terraria ", string.Empty));
-                }
+                    npc.catchItem = npc.type == NPCID.DD2Bartender ? (short)ModContent.ItemType<Tavernkeep>() : (short)mod.ItemType(NPCID.GetUniqueKey(npc.type).Replace("Terraria ", string.Empty));
+                }*/
 
                 if (npc.type == NPCID.SkeletonMerchant)
                 {
                     Main.npcCatchable[npc.type] = true;
-                    npc.catchItem = (short)mod.ItemType("SkeletonMerchant");
+                    npc.catchItem = (short)ModContent.ItemType<SkeletonMerchant>();
                 }
             }
         }
@@ -86,12 +94,12 @@ namespace Fargowiltas.NPCs
 
             if (Fargowiltas.SwarmActive && Fargowiltas.ModLoaded["ThoriumMod"])
             {
-                Mod thorium = ModLoader.GetMod("ThoriumMod");
+                Mod thorium = Fargowiltas.FargosGetMod("ThoriumMod");
 
-                if (npc.type == thorium.NPCType("BoreanStriderPopped") || npc.type == thorium.NPCType("FallenDeathBeholder2") || npc.type == thorium.NPCType("LichHeadless") || npc.type == thorium.NPCType("AbyssionReleased"))
-                {
-                    SwarmActive = true;
-                }
+                //if (npc.type == thorium.NPCType("BoreanStriderPopped") || npc.type == thorium.NPCType("FallenDeathBeholder2") || npc.type == thorium.NPCType("LichHeadless") || npc.type == thorium.NPCType("AbyssionReleased"))
+                //{
+                //    SwarmActive = true;
+                //}
             }
         }
 
@@ -524,8 +532,8 @@ namespace Fargowiltas.NPCs
                         Swarm(npc, NPCID.WallofFlesh, NPCID.TheHungry, ItemID.WallOfFleshBossBag, ItemID.WallofFleshTrophy, "EnergizerWall");
                         break;
 
-                    /*case mod.NPCType(""):
-                        Swarm(npc, mod.NPCType("Destroyer"), mod.NPCType("DestroyerTail"), ItemID.DestroyerBossBag, "EnergizerDestroy");
+                    /*case ModContent.NPCType<>():
+                        Swarm(npc, ModContent.NPCType("Destroyer"), mod.NPCType<DestroyerTail"), ItemID.DestroyerBossBag, "EnergizerDestroy>();
                         break;*/
 
                     case NPCID.Retinazer:
@@ -601,9 +609,9 @@ namespace Fargowiltas.NPCs
                         break;
                 }
 
-                if (npc.type == mod.NPCType("Destroyer"))
+                if (npc.type == ModContent.NPCType<Destroyer.Destroyer>())
                 {
-                    Swarm(npc, mod.NPCType("Destroyer"), -1, ItemID.DestroyerBossBag, ItemID.DestroyerTrophy, "EnergizerDestroy");
+                    Swarm(npc, ModContent.NPCType<Destroyer.Destroyer>(), -1, ItemID.DestroyerBossBag, ItemID.DestroyerTrophy, "EnergizerDestroy");
                 }
 
 
@@ -611,7 +619,8 @@ namespace Fargowiltas.NPCs
 
                 if (Fargowiltas.ModLoaded["ThoriumMod"])
                 {
-                    Mod thorium = ModLoader.GetMod("ThoriumMod");
+                    // TODO: Thorium crossmod
+                    /*Mod thorium = Fargowiltas.FargosGetMod("ThoriumMod");
 
                     if (npc.type == thorium.NPCType("TheGrandThunderBirdv2"))
                     {
@@ -658,7 +667,7 @@ namespace Fargowiltas.NPCs
                         Swarm(npc, thorium.NPCType("Aquaius"), thorium.NPCType("AquaiusBubble"), thorium.ItemType("RagBag"), -1, string.Empty);
                         Swarm(npc, thorium.NPCType("Omnicide"), -1, -1, -1, string.Empty);
                         Swarm(npc, thorium.NPCType("SlagFury"), -1, -1, -1, string.Empty);
-                    }
+                    }*/
                 }
 
                 return false;
@@ -677,7 +686,7 @@ namespace Fargowiltas.NPCs
         public override void NPCLoot(NPC npc)
         {
             // Lumber Jaxe
-            if (npc.FindBuffIndex(mod.BuffType("WoodDrop")) != -1)
+            if (npc.FindBuffIndex(ModContent.BuffType<WoodDrop>()) != -1)
             {
                 Item.NewItem(npc.Hitbox, ItemID.Wood, Main.rand.Next(10, 30));
             }
@@ -779,7 +788,7 @@ namespace Fargowiltas.NPCs
                 case NPCID.Painter:
                     if (NPC.AnyNPCs(NPCID.MoonLordCore))
                     {
-                        Item.NewItem(npc.Hitbox, mod.ItemType("EchPainting"));
+                        Item.NewItem(npc.Hitbox, ModContent.ItemType<EchPainting>());
                     }
 
                     break;
@@ -827,7 +836,7 @@ namespace Fargowiltas.NPCs
                 case NPCID.GoblinTinkerer:
                     if (Main.rand.NextBool(10))
                     {
-                        Item.NewItem(npc.Hitbox, mod.ItemType("GoblinHead"));
+                        Item.NewItem(npc.Hitbox, ModContent.ItemType<GoblinHead>());
                     }
 
                     break;
@@ -1112,7 +1121,7 @@ namespace Fargowiltas.NPCs
                 else if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     // Broadcast swap request to server
-                    var netMessage = mod.GetPacket();
+                    var netMessage = Mod.GetPacket();
                     netMessage.Write((byte)3);
                     netMessage.Send();
                 }
@@ -1199,7 +1208,7 @@ namespace Fargowiltas.NPCs
             // Drop swarm reward every 100 kills
             if (Fargowiltas.SwarmKills % 100 == 0 && !string.IsNullOrEmpty(reward))
             {
-                Item.NewItem(npc.Hitbox, mod.ItemType(reward));
+                //Item.NewItem(npc.Hitbox, mod.ItemType(reward));
             }
 
             //drop trphy every 10 killa
@@ -1210,8 +1219,8 @@ namespace Fargowiltas.NPCs
 
             if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Killed: " + Fargowiltas.SwarmKills), new Color(206, 12, 15));
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Total: " + Fargowiltas.SwarmTotal), new Color(206, 12, 15));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Killed: " + Fargowiltas.SwarmKills), new Color(206, 12, 15));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Total: " + Fargowiltas.SwarmTotal), new Color(206, 12, 15));
             }
             else
             {
@@ -1282,7 +1291,7 @@ namespace Fargowiltas.NPCs
             {
                 if (Main.netMode == NetmodeID.Server)
                 {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The swarm has been defeated!"), new Color(206, 12, 15));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The swarm has been defeated!"), new Color(206, 12, 15));
                 }
                 else
                 {

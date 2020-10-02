@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Misc
@@ -34,7 +37,7 @@ namespace Fargowiltas.Items.Misc
             item.value = Item.sellPrice(0, 0, 2);
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
         }
 
         public override bool CanRightClick()
@@ -76,7 +79,7 @@ namespace Fargowiltas.Items.Misc
 
             if (target == null)
             {
-                tooltips.Add(new TooltipLine(mod, "1", "This goblin head seems drawn to weapons and accessories"));
+                tooltips.Add(new TooltipLine(Mod, "1", "This goblin head seems drawn to weapons and accessories"));
                 return;
             }
 
@@ -92,7 +95,7 @@ namespace Fargowiltas.Items.Misc
             }
             else
             {
-                tooltips.Add(new TooltipLine(mod, "1", "This goblin head seems drawn to weapons and accessories"));
+                tooltips.Add(new TooltipLine(Mod, "1", "This goblin head seems drawn to weapons and accessories"));
                 return;
             }
 
@@ -111,11 +114,11 @@ namespace Fargowiltas.Items.Misc
 
             if (accessory)
             {
-                tooltips.Add(new TooltipLine(mod, "1", "Right click to give the item to the right of this the " + accessoryPrefixNames[index] + " prefix"));
+                tooltips.Add(new TooltipLine(Mod, "1", "Right click to give the item to the right of this the " + accessoryPrefixNames[index] + " prefix"));
             }
             else if (weapon)
             {
-                tooltips.Add(new TooltipLine(mod, "1", "Right click to give the item to the right of this the " + weaponPrefixNames[index] + " prefix"));
+                tooltips.Add(new TooltipLine(Mod, "1", "Right click to give the item to the right of this the " + weaponPrefixNames[index] + " prefix"));
             }
         }
     }

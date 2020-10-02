@@ -1,8 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.CaughtNPCs
 {
@@ -22,8 +25,8 @@ namespace Fargowiltas.Items.CaughtNPCs
             item.width = 20;
             item.height = 20;
             item.maxStack = 10;
-            item.rare = 1;
-            item.useStyle = 1;
+            item.rare = ItemRarityID.Blue;
+            item.useStyle = ItemUseStyleID.Swing;
             item.useAnimation = 15;
             item.useTime = 10;
             item.consumable = true;

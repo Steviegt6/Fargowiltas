@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons
 {
@@ -22,10 +25,10 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             item.height = 20;
             item.maxStack = 1;
             item.value = 1000;
-            item.rare = 1;
+            item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = 4;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = false;
         }
 
@@ -42,9 +45,9 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 Main.pumpkinMoon = false;
                 FargoWorld.OverloadPumpkinMoon = false;
 
-                if (Main.netMode == 2)
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The Pumpkin Moon fades away!"), new Color(175, 75, 255));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Pumpkin Moon fades away!"), new Color(175, 75, 255));
                 }
                 else
                 {
@@ -53,9 +56,9 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             }
             else
             {
-                if (Main.netMode == 2)
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The Pumpkin Moon is rising..."), new Color(50, 255, 130));
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Pumpkin Moon is rising..."), new Color(50, 255, 130));
                 }
                 else
                 {
@@ -65,14 +68,14 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 Main.pumpkinMoon = true;
                 Main.snowMoon = false;
                 Main.bloodMoon = false;
-                if (Main.netMode != 1)
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.waveKills = 0f;
                     NPC.waveNumber = 15;
 
-                    if (Main.netMode == 2)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("Wave: 15: Everything"), new Color(175, 75, 255));
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Wave: 15: Everything"), new Color(175, 75, 255));
                     }
                     else
                     {
@@ -81,11 +84,11 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 }
                 else
                 {
-                    NetMessage.SendData(61, -1, -1, null, player.whoAmI, -4f);
+                    NetMessage.SendData(MessageID.SpawnBoss, -1, -1, null, player.whoAmI, -4f);
                 }
 
                 FargoWorld.OverloadPumpkinMoon = true;
-                Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+                SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             }
 
             return true;
@@ -93,12 +96,12 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.PumpkinMoonMedallion);
             recipe.AddIngredient(null, "Overloader", 10);
             recipe.AddTile(TileID.CrystalBall);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

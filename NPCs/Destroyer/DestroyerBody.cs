@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.NPCs.Destroyer
 {
@@ -63,7 +66,7 @@ namespace Fargowiltas.NPCs.Destroyer
                 npc.HitEffect(0, 10.0);
                 npc.checkDead();
             }
-            if (Main.netMode != 1)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
 
                 npc.localAI[0] += Main.rand.Next(4);
@@ -262,7 +265,7 @@ namespace Fargowiltas.NPCs.Destroyer
                         num25 = 20f;
                     }
                     npc.soundDelay = (int)num25;
-                    Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1, 1f, 0f);
+                    SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1, 1f, 0f);
                 }
                 num23 = (float)Math.Sqrt((double)(num21 * num21 + num22 * num22));
                 float num26 = Math.Abs(num21);

@@ -1,22 +1,22 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.NPCs
 {
+    [Autoload(false)]
 	[AutoloadHead]
 	public class Squirrel : ModNPC
 	{
-		public override bool Autoload(ref string name)
-		{
-			name = "Squirrel";
-			return ModLoader.GetMod("FargowiltasSouls") != null;
-		}
-
-		private readonly Mod fargosouls = ModLoader.GetMod("FargowiltasSouls");
+		private readonly Mod fargosouls = Fargowiltas.FargosGetMod("FargowiltasSouls");
 
 		public override void SetStaticDefaults()
 		{
@@ -46,11 +46,12 @@ namespace Fargowiltas.NPCs
 			animationType = NPCID.Squirrel;
 			npc.aiStyle = 7;
 
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"])
+            // TODO: Souls crossmod
+            /*if (Fargowiltas.ModLoaded["FargowiltasSouls"])
             {
                 Main.npcCatchable[npc.type] = true;
-                npc.catchItem = (short)ModLoader.GetMod("FargowiltasSouls").ItemType("TophatSquirrel");
-            }
+                npc.catchItem = (short)Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("TophatSquirrel");
+            }*/
         }
 
         public override void AI()
@@ -75,10 +76,11 @@ namespace Fargowiltas.NPCs
 
 				foreach (Item item in player.inventory)
 				{
-					if (item.type == fargosouls.ItemType("TophatSquirrel"))
+                    // TODO: Souls crossmod
+					/*if (item.type == fargosouls.ItemType("TophatSquirrel"))
 					{
 						return true;
-					}
+					}*/
 				}
 			}
 			return false;
@@ -133,8 +135,11 @@ namespace Fargowiltas.NPCs
         {
             const int maxShop = 40;
 
-            if (item.modItem == null || !item.modItem.mod.Name.Equals("FargowiltasSouls") || nextSlot >= maxShop)
-                return;
+            // TODO: Souls crossmod
+            /*if (item.modItem == null || !item.modItem.mod.Name.Equals("FargowiltasSouls") || nextSlot >= maxShop)
+                return;*/
+
+            return; // Souls doesn't even exist in 1.4 yet :GUN:
 
             bool duplicateItem = false;
 
@@ -259,7 +264,8 @@ namespace Fargowiltas.NPCs
                     nextSlot++;
                 }
             }
-            else if (item.type == ModLoader.GetMod("FargowiltasSouls").ItemType("AeolusBoots"))
+            // TODO: Souls crossmod
+            /*else if (item.type == Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("AeolusBoots"))
             {
                 foreach (Item item2 in shop.item)
                 {
@@ -279,16 +285,17 @@ namespace Fargowiltas.NPCs
                     shop.item[nextSlot].SetDefaults(ItemID.BalloonHorseshoeFart);
                     nextSlot++;
                 }
-            }
+            }*/
         }
 
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
             if (Fargowiltas.ModLoaded["FargowiltasSouls"])
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("FargowiltasSouls").ItemType("TophatSquirrel"));
+                // TODO: Souls crossmod
+                /*shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("TophatSquirrel"));
                 shop.item[nextSlot].shopCustomPrice = 100000;
-                nextSlot++;
+                nextSlot++;*/
             }
 
 			for (int k = 0; k < 255; k++)
@@ -318,7 +325,7 @@ namespace Fargowiltas.NPCs
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture2D13 = Main.npcTexture[npc.type];
+            Asset<Texture2D> texture2D13 = TextureAssets.Npc[npc.type];;
             //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
             //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
@@ -331,16 +338,16 @@ namespace Fargowiltas.NPCs
 
             if (Main.bloodMoon)
             {
-                Texture2D texture2D14 = mod.GetTexture("NPCs/Squirrel_Glow");
+                Texture2D texture2D14 = ModContent.GetTexture("Fargowiltas/NPCs/Squirrel_Glow").Value;
                 float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.3f + 0.9f;
                 Main.spriteBatch.Draw(texture2D14, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * npc.Opacity, npc.rotation, origin2, scale, effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture2D13, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
+            Main.spriteBatch.Draw(texture2D13.Value, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), npc.GetAlpha(lightColor), npc.rotation, origin2, npc.scale, effects, 0f);
 
             if (Main.bloodMoon)
             {
-                Texture2D texture2D14 = mod.GetTexture("NPCs/Squirrel_Eyes");
+                Texture2D texture2D14 = ModContent.GetTexture("Fargowiltas/NPCs/Squirrel_Eyes").Value;
                 Main.spriteBatch.Draw(texture2D14, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * npc.Opacity, npc.rotation, origin2, npc.scale, effects, 0f);
             }
             return false;

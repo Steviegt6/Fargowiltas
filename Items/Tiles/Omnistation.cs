@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -21,14 +22,14 @@ Right click while holding a weapon for its respective buff");
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("OmnistationSheet");
+            item.createTile = ModContent.TileType<OmnistationSheet>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Sunflower, 30);
             recipe.AddIngredient(ItemID.Campfire, 30);
             recipe.AddIngredient(ItemID.HeartLantern, 30);
@@ -40,8 +41,8 @@ Right click while holding a weapon for its respective buff");
             recipe.AddIngredient(ItemID.BewitchingTable, 5);
             recipe.AddIngredient(ItemID.AdamantiteBar, 5);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

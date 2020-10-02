@@ -2,22 +2,21 @@
 using Fargowiltas.Items.Summons.Deviantt;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
+using Fargowiltas.Items.Tiles;
+using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.NPCs
 {
     [AutoloadHead]
     public class Deviantt : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            name = "Deviantt";
-            return mod.Properties.Autoload;
-        }
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deviantt");
@@ -45,16 +44,16 @@ namespace Fargowiltas.NPCs
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Angler;
             Main.npcCatchable[npc.type] = true;
-            npc.catchItem = (short)mod.ItemType("Deviantt");
+            npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.Deviantt>();
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
         public override bool CanTownNPCSpawn(int numTownnpcs, int money)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DevianttAlive"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DevianttAlive"))
                 return false;
 
-            return GetInstance<FargoConfig>().Devi && !FargoGlobalNPC.AnyBossAlive() && (FargoWorld.DownedBools["rareEnemy"] || (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("Masomode")));
+            return GetInstance<FargoConfig>().Devi && !FargoGlobalNPC.AnyBossAlive() && (FargoWorld.DownedBools["rareEnemy"] || (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("Masomode")));
         }
 
         public override bool CanGoToStatue(bool toKingStatue) => !toKingStatue;
@@ -96,7 +95,7 @@ namespace Fargowiltas.NPCs
                 "The more rare things you kill, the more stuff I sell! Simple, right?",
             };
 
-            int mutant = NPC.FindFirstNPC(mod.NPCType("Mutant"));
+            int mutant = NPC.FindFirstNPC(ModContent.NPCType<Mutant>());
             if (mutant != -1)
             {
                 dialogue.Add($"Can you tell {Main.npc[mutant].GivenName} to put some clothes on?");
@@ -104,13 +103,13 @@ namespace Fargowiltas.NPCs
                 dialogue.Add($"{Main.npc[mutant].GivenName} is here! That's my big brother!");
             }
 
-            int abom = NPC.FindFirstNPC(mod.NPCType("Abominationn"));
+            int abom = NPC.FindFirstNPC(ModContent.NPCType<Abominationn>());
             if (abom != -1)
             {
                 dialogue.Add($"{Main.npc[abom].GivenName} is here! That's my big-but-not-biggest brother!");
             }
 
-            int lumberjack = NPC.FindFirstNPC(mod.NPCType("LumberJack"));
+            int lumberjack = NPC.FindFirstNPC(ModContent.NPCType<LumberJack>());
             if (lumberjack != -1)
             {
                 dialogue.Add($"What's that? You want to fight {Main.npc[lumberjack].GivenName}? ...even I know better than to try.");
@@ -122,7 +121,7 @@ namespace Fargowiltas.NPCs
                 dialogue.Add($"Have you ever considered throwing {Main.npc[angler].GivenName} back where you found him?");
             }
 
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("Masomode"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("Masomode"))
             {
                 dialogue.Add("Embrace suffering... and while you're at it, embrace another purchase!");
             }
@@ -133,9 +132,9 @@ namespace Fargowiltas.NPCs
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("Masomode"))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("Masomode"))
             {
-                button2 = (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant") ? "Lore" : "Help";
+                button2 = (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant") ? "Lore" : "Help";
             }
         }
 
@@ -145,9 +144,9 @@ namespace Fargowiltas.NPCs
             {
                 shop = true;
             }
-            else if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)ModLoader.GetMod("FargowiltasSouls").Call("Masomode"))
+            else if (Fargowiltas.ModLoaded["FargowiltasSouls"] && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("Masomode"))
             {
-                if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+                if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
                     FargosLore();
                 else
                     Fargos();
@@ -166,11 +165,12 @@ namespace Fargowiltas.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"])
+            // TODO: Souls crossmod
+            /*if (Fargowiltas.ModLoaded["FargowiltasSouls"])
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("FargowiltasSouls").ItemType("EurusSock"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("EurusSock"));
                 nextSlot++;
-            }
+            }*/
 
             AddItem(FargoWorld.DownedBools["pinky"], ItemType<PinkSlimeCrown>(), Item.buyPrice(0, 5), ref shop, ref nextSlot);
             AddItem(FargoWorld.DownedBools["doctorBones"], ItemType<Eggplant>(), Item.buyPrice(0, 2), ref shop, ref nextSlot);
@@ -231,7 +231,7 @@ namespace Fargowiltas.NPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = NPC.downedMoonlord ? mod.ProjectileType("FakeHeartMarkDeviantt") : mod.ProjectileType("FakeHeartDeviantt");
+            projType = NPC.downedMoonlord ? ModContent.ProjectileType<FakeHeartMarkDeviantt>() : ModContent.ProjectileType<FakeHeartDeviantt>();
             attackDelay = 1;
         }
 
@@ -251,13 +251,13 @@ namespace Fargowiltas.NPCs
                 }
 
                 Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/DevianttGore3"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/DevianttGore3"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/DevianttGore2"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/DevianttGore2"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/DevianttGore1"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/DevianttGore1"));
             }
             else
             {
@@ -273,9 +273,9 @@ namespace Fargowiltas.NPCs
             Player player = Main.LocalPlayer;
 
             //devi gifts
-            if (!(bool)ModLoader.GetMod("FargowiltasSouls").Call("GiftsReceived"))
+            if (!(bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("GiftsReceived"))
             {
-                ModLoader.GetMod("FargowiltasSouls").Call("GiveDevianttGifts");
+                Fargowiltas.FargosGetMod("FargowiltasSouls").Call("GiveDevianttGifts");
 
                 Main.npcChatText = "This world looks tougher than usual, so you can have these on the house just this once! Talk to me if you need any tips, yeah?";
 
@@ -284,11 +284,11 @@ namespace Fargowiltas.NPCs
 
             if (Main.rand.NextBool(4))
             {
-                if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedMutant"))
+                if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedMutant"))
                 {
                     Main.npcChatText = "What's that? You want to fight me for real? ...nah, I can't put up a good fight on my own.";
                 }
-                /*else if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedAbom") && (bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedFishronEX"))
+                /*else if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedAbom") && (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedFishronEX"))
                 {
                     if (Main.rand.Next(2) == 0)
                     {
@@ -299,11 +299,11 @@ namespace Fargowiltas.NPCs
                         Main.npcChatText = "Don't forget you can equip a soul and its components for extra stat boosts! Good luck out there against my big brothers!";
                     }
                 }
-                else if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedFishronEX"))
+                else if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedFishronEX"))
                 {
                     Main.npcChatText = "Big brother Abominationn mentioned he's pretty excited to fight you! Make sure you're really well prepared before taking him on, though!";
                 }*/
-                else if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedAbom"))
+                else if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedAbom"))
                 {
                     //Main.npcChatText = "When you're ready, go fishing with a Truffle Worm EX. But until then... yeah, keep farming. So what are you buying today?";
                     Main.npcChatText = "What's that? You want to fight my big brother? ...maybe if he had a reason to.";
@@ -360,7 +360,7 @@ namespace Fargowiltas.NPCs
                         Main.npcChatText = "Ever tried out those 'enchantment' thingies? Try breaking a couple altars and see what you can make.";
                     }
                 }
-                else if ((bool)ModLoader.GetMod("FargowiltasSouls").Call("DownedDevi"))
+                else if ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("DownedDevi"))
                 {
                     Main.npcChatText = "That thing's mouth is as good as immune to damage, so you'll have to aim for the eyes. What thing? You know, that thing.";
                 }
@@ -418,7 +418,7 @@ namespace Fargowiltas.NPCs
                     dialogue.Add("Watch out for those fish! Sharks will leave you alone if you leave them alone, but piranhas go wild when they smell blood.");
                 }
 
-                if (!player.accFlipper && !player.gills && !(bool)ModLoader.GetMod("FargowiltasSouls").Call("MutantAntibodies"))
+                if (!player.accFlipper && !player.gills && !(bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("MutantAntibodies"))
                 {
                     dialogue.Add("The water is bogging you down? Never had an issue with it, personally... Have you tried breathing water instead of air?");
                 }
@@ -428,7 +428,7 @@ namespace Fargowiltas.NPCs
                     dialogue.Add("The underworld has gotten a lot hotter since the last time I visited. I hear an obsidian skull is a good luck charm against burning alive, though.");
                 }
 
-                if (!player.buffImmune[BuffID.Suffocation] && !(bool)ModLoader.GetMod("FargowiltasSouls").Call("PureHeart"))
+                if (!player.buffImmune[BuffID.Suffocation] && !(bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("PureHeart"))
                 {
                     dialogue.Add("Want to have a breath-holding contest? The empty vacuum of space would be perfect.");
                 }
@@ -438,14 +438,14 @@ namespace Fargowiltas.NPCs
                     dialogue.Add("I don't have any more Life Crystals for you, but Cthulhu's eye is going on a new diet of them. Not that they would share.");
                 }
 
-                /*if (NPC.downedBoss3 && !(bool)ModLoader.GetMod("FargowiltasSouls").Call("SinisterIcon"))
+                /*if (NPC.downedBoss3 && !(bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("SinisterIcon"))
                 {
                     dialogue.Add("Dungeon Guardian sent me photos of their kids earlier. Cute little skull demons hiding in other skeletons, aren't they? Oh, and their drop wards off random boss spawns, I guess.");
                 }*/
 
                 if (Main.hardMode)
                 {
-                    if (!(bool)ModLoader.GetMod("FargowiltasSouls").Call("PureHeart"))
+                    if (!(bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("PureHeart"))
                     {
                         dialogue.Add("The spirits of light and dark stopped by and they sounded pretty upset with you. Don't be too surprised if something happens to you for entering their territory!");
                     }
@@ -495,8 +495,8 @@ namespace Fargowiltas.NPCs
 
         public override void NPCLoot()
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && NPC.AnyNPCs(ModLoader.GetMod("FargowiltasSouls").NPCType("CosmosChampion")))
-                Item.NewItem(npc.Hitbox, mod.ItemType("WalkingRick"));
+            //if (Fargowiltas.ModLoaded["FargowiltasSouls"] && NPC.AnyNPCs(Fargowiltas.FargosGetMod("FargowiltasSouls").NPCType("CosmosChampion")))
+            //    Item.NewItem(npc.Hitbox, ModContent.ItemType<WalkingRick>());
         }
     }
 }

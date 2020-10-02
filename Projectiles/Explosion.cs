@@ -1,7 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Projectiles
 {
@@ -32,7 +36,7 @@ namespace Fargowiltas.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item, projectile.position, 14);
+            SoundEngine.PlaySound(SoundID.Item, projectile.position, 14);
             projectile.position = projectile.Center;
             projectile.width = 100;
             projectile.height = 100;
@@ -46,11 +50,11 @@ namespace Fargowiltas.Projectiles
 
             for (int i = 0; i < 20; i++)
             {
-                int num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, Alpha: 100, Scale: 3.5f);
+                int num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch, Alpha: 100, Scale: 3.5f);
                 Main.dust[num618].noGravity = true;
                 Main.dust[num618].velocity *= 7f;
 
-                num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Fire, Alpha: 100, Scale: 1.5f);
+                num618 = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Torch, Alpha: 100, Scale: 1.5f);
                 Main.dust[num618].velocity *= 3f;
             }
 

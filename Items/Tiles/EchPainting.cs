@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -20,10 +21,10 @@ namespace Fargowiltas.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("EchPaintingSheet");
+            item.createTile = ModContent.TileType<EchPaintingSheet>();
         }
     }
 }

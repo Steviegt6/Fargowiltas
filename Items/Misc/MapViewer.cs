@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Summons
 {
@@ -31,7 +34,7 @@ namespace Fargowiltas.Items.Summons
             item.rare = ItemRarityID.White;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
         }
 
         public override bool UseItem(Player player)
@@ -74,15 +77,15 @@ namespace Fargowiltas.Items.Summons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.TrifoldMap);
             recipe.AddIngredient(ItemID.Goggles);
             recipe.AddIngredient(ItemID.Sunglasses);
             recipe.AddIngredient(ItemID.SuspiciousLookingEye);
             recipe.AddIngredient(ItemID.MechanicalEye);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

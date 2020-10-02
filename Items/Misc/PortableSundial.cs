@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -22,7 +25,7 @@ namespace Fargowiltas.Items.Misc
             item.rare = ItemRarityID.LightRed;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.mana = 50;
             item.UseSound = SoundID.Item4;
         }
@@ -50,7 +53,7 @@ namespace Fargowiltas.Items.Misc
 
                 Main.fastForwardTime = true;
                 NetMessage.SendData(MessageID.WorldData);
-                Main.PlaySound(SoundID.Item4, player.position);
+                SoundEngine.PlaySound(SoundID.Item4, player.position);
             }
             else
             {
@@ -70,14 +73,14 @@ namespace Fargowiltas.Items.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Sundial);
             recipe.AddIngredient(ItemID.SoulofLight, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 10);
             recipe.AddIngredient(ItemID.SoulofFlight, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

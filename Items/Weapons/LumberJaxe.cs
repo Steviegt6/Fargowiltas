@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Weapons
@@ -23,7 +26,7 @@ namespace Fargowiltas.Items.Weapons
             item.useTime = 30;
             item.useAnimation = 30;
             item.axe = 30;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.knockBack = 6;
             item.value = 5000;
             item.rare = ItemRarityID.Orange;

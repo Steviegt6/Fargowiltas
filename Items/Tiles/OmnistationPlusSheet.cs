@@ -1,23 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using Terraria.ObjectData;
 using System;
 using System.Collections.Generic;
-using ThoriumMod.Items;
-using ThoriumMod.Projectiles.Bard;
-using ThoriumMod.Utilities;
-using CalamityMod.NPCs;
+////using ThoriumMod.Items;
+////using ThoriumMod.Projectiles.Bard;
+////using ThoriumMod.Utilities;
+////using CalamityMod.NPCs;
 using static Terraria.ModLoader.ModContent;
+using Terraria.Audio;
 
 namespace Fargowiltas.Items.Tiles
 {
     public class OmnistationPlusSheet : ModTile
     {
-        private readonly Mod thorium = ModLoader.GetMod("ThoriumMod");
-        private readonly Mod calamity = ModLoader.GetMod("CalamityMod");
+        private Mod thorium;
+        private Mod calamity;
 
         public virtual Color color => new Color(221, 85, 125);
 
@@ -31,7 +35,11 @@ namespace Fargowiltas.Items.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Omnistation+");
             AddMapEntry(color, name);
-            disableSmartCursor = true;
+            // // TODO: Uncomment when tML adds this back
+//disableSmartCursor = true;
+
+            thorium = Fargowiltas.FargosGetMod("ThoriumMod");
+            calamity = Fargowiltas.FargosGetMod("CalamityMod");
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
@@ -51,11 +59,11 @@ namespace Fargowiltas.Items.Tiles
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            player.showItemIcon = true;
-            player.showItemIcon2 = ItemType<Omnistation>();
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ItemType<Omnistation>();
         }
 
-        public override bool NewRightClick(int i, int j)
+        public override bool RightClick(int i, int j)
         {
             Item item = Main.LocalPlayer.HeldItem;
             if (item.melee)
@@ -82,7 +90,7 @@ namespace Fargowiltas.Items.Tiles
 
             if (item.melee || item.ranged || item.magic || item.summon)
             {
-                Main.PlaySound(SoundID.Item44, i * 16 + 8, j * 16 + 8);
+                SoundEngine.PlaySound(SoundID.Item44, i * 16 + 8, j * 16 + 8);
             }
 
             return true;
@@ -97,18 +105,19 @@ namespace Fargowiltas.Items.Tiles
                 zero = Vector2.Zero;
             }
             int height = tile.frameY == 36 ? 18 : 16;
-            Main.spriteBatch.Draw(mod.GetTexture("Items/Tiles/OmnistationSheet_Glow"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(ModContent.GetTexture("Fargowiltas/Items/Tiles/OmnistationSheet_Glow").Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         private void Thorium(Item item, int i, int j)
         {
-            BardItem bardItem = item.modItem as BardItem;
+            // TODO: Thorium Crossmod
+            /*BardItem bardItem = item.modItem as BardItem;
             ThoriumItem healerItem = item.modItem as ThoriumItem;
 
-            /*if (item.thrown)
-            {
-                Main.LocalPlayer.AddBuff(thorium.BuffType("NinjaBuff"), 60 * 60 * 10);
-            }*/
+            //if (item.thrown)
+            //{
+            //    Main.LocalPlayer.AddBuff(thorium.BuffType("NinjaBuff"), 60 * 60 * 10);
+            //}
 
             if (bardItem != null && bardItem.item.damage > 0)
             {
@@ -120,15 +129,16 @@ namespace Fargowiltas.Items.Tiles
                 Main.LocalPlayer.AddBuff(thorium.BuffType("SpiritualConnection"), 60 * 60 * 10);
             }
 
-            if (/*item.thrown || */(bardItem != null && bardItem.item.damage > 0) || (healerItem != null && healerItem.isHealer))
+            if ((bardItem != null && bardItem.item.damage > 0) || (healerItem != null && healerItem.isHealer)) // || item.thrown
             {
-                Main.PlaySound(SoundID.Item44, i * 16 + 8, j * 16 + 8);
-            }
+                SoundEngine.PlaySound(SoundID.Item44, i * 16 + 8, j * 16 + 8);
+            }*/
         }
 
         private void Calamity()
         {
-            if (Main.netMode != 1)
+            // TODO: Calamity Crossmod
+            /*if (Main.netMode != 1)
             {
                 for (int k = 0; k < 200; k++)
                 {
@@ -142,7 +152,7 @@ namespace Fargowiltas.Items.Tiles
                         Main.npc[k].AddBuff(calamity.BuffType("YellowDamageCandle"), 0x14, false);
                     }
                 }
-            }
+            }*/
         }
 
     }

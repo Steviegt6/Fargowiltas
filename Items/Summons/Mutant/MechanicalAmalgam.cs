@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Summons.Mutant
 {
@@ -21,7 +24,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.rare = ItemRarityID.LightRed;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
         }
 
@@ -37,7 +40,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.Retinazer);
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.Spazmatism);
 
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;
         }

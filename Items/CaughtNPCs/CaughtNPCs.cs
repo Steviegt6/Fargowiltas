@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.CaughtNPCs
 {
@@ -16,7 +19,7 @@ namespace Fargowiltas.Items.CaughtNPCs
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.makeNPC = (short)mod.NPCType("Abominationn");
+            item.makeNPC = (short)ModContent.ItemType<Items.CaughtNPCs.Abominationn>();
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 25));
         }
     }
@@ -97,7 +100,7 @@ namespace Fargowiltas.Items.CaughtNPCs
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.makeNPC = (short)mod.NPCType("Deviantt");
+            item.makeNPC = (short)ModContent.ItemType<Items.CaughtNPCs.Deviantt>();
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 23));
         }
     }
@@ -166,7 +169,7 @@ namespace Fargowiltas.Items.CaughtNPCs
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.makeNPC = (short)mod.NPCType("LumberJack");
+            item.makeNPC = (short)ModContent.ItemType<Items.CaughtNPCs.LumberJack>();
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 25));
         }
     }
@@ -204,7 +207,7 @@ namespace Fargowiltas.Items.CaughtNPCs
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.makeNPC = (short)mod.NPCType("Mutant");
+            item.makeNPC = (short)ModContent.ItemType<Items.CaughtNPCs.Mutant>();
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 25));
         }
     }

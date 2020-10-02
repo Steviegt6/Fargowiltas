@@ -1,6 +1,10 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Terraria;
+using Terraria.ID;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons
 {
@@ -20,7 +24,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             item.width = 20;
             item.height = 20;
             item.maxStack = 999;
-            item.rare = 2;
+            item.rare = ItemRarityID.Green;
         }
     }
 }

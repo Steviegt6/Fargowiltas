@@ -4,12 +4,20 @@ using System.IO;
 using Fargowiltas.NPCs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 using Fargowiltas.Items.Misc;
 using Fargowiltas.Items.Tiles;
+using Terraria.Chat;
+using Fargowiltas.Items.Vanity;
+using Fargowiltas.Items.Summons.SwarmSummons.AA;
+using Fargowiltas.Items.Summons.SwarmSummons.Thorium;
+using Fargowiltas.Items.Summons.Deviantt;
 
 namespace Fargowiltas
 {
@@ -45,10 +53,10 @@ namespace Fargowiltas
             };
         }
 
-        public void AddToggle(String toggle, String name, String item, String color)
+        public void AddToggle(string toggle, string name, int item, string color)
         {
             ModTranslation text = CreateTranslation(toggle);
-            text.SetDefault("[i:" + Instance.ItemType(item) + "][c/" + color + ": " + name + "]");
+            text.SetDefault("[i:" + item + "][c/" + color + ": " + name + "]");
             AddTranslation(text);
         }
 
@@ -98,10 +106,12 @@ namespace Fargowiltas
                 ModLoaded.Add(mod, false);
             }
 
-            AddToggle("Mutant", "Mutant Can Spawn", "MutantMask", "ffffff");
-            AddToggle("Abom", "Abominationn Can Spawn", "AbominationnMask", "ffffff");
-            AddToggle("Devi", "Deviantt Can Spawn", "DevianttMask", "ffffff");
-            AddToggle("Lumber", "Lumberjack Can Spawn", "LumberjackMask", "ffffff");
+            AddToggle("Mutant", "Mutant Can Spawn", ModContent.ItemType<MutantMask>(), "ffffff");
+            AddToggle("Abom", "Abominationn Can Spawn", ModContent.ItemType<AbominationnMask>(), "ffffff");
+            AddToggle("Devi", "Deviantt Can Spawn", ModContent.ItemType<DevianttMask>(), "ffffff");
+            AddToggle("Lumber", "Lumberjack Can Spawn", ModContent.ItemType<LumberjackMask>(), "ffffff");
+
+            LoadCrossModContent();
 
             // DD2 Banner Effect hack
             ItemID.Sets.BannerStrength = ItemID.Sets.Factory.CreateCustomSet(new ItemID.BannerEffect(1f));
@@ -124,7 +134,7 @@ namespace Fargowiltas
             {
                 foreach (string mod in mods)
                 {
-                    ModLoaded[mod] = ModLoader.GetMod(mod) != null;
+                    ModLoaded[mod] = Fargowiltas.FargosGetMod(mod) != null;
                 }
             }
             catch (Exception e)
@@ -132,26 +142,29 @@ namespace Fargowiltas
                 Logger.Error("Fargowiltas PostSetupContent Error: " + e.StackTrace + e.Message);
             }
 
-            Mod censusMod = ModLoader.GetMod("Census");
+            Mod censusMod = Fargowiltas.FargosGetMod("Census");
             if (censusMod != null)
             {
-                censusMod.Call("TownNPCCondition", NPCType("Deviantt"), "Defeat any rare enemy or... embrace eternity");
-                censusMod.Call("TownNPCCondition", NPCType("Mutant"), "Defeat any boss or miniboss");
-                censusMod.Call("TownNPCCondition", NPCType("LumberJack"), $"Have a Wooden Token ([i:{ModContent.ItemType<Items.Tiles.WoodenToken>()}]) in your inventory");
-                censusMod.Call("TownNPCCondition", NPCType("Abominationn"), "Clear any event");
-                Mod fargoSouls = ModLoader.GetMod("FargowiltasSouls");
+                censusMod.Call("TownNPCCondition", ModContent.NPCType<Deviantt>(), "Defeat any rare enemy or... embrace eternity");
+                censusMod.Call("TownNPCCondition", ModContent.NPCType<Mutant>(), "Defeat any boss or miniboss");
+                censusMod.Call("TownNPCCondition", ModContent.NPCType<LumberJack>(), $"Have a Wooden Token ([i:{ModContent.ItemType<WoodenToken>()}]) in your inventory");
+                censusMod.Call("TownNPCCondition", ModContent.NPCType<Abominationn>(), "Clear any event");
+
+                // TODO: FargowiltasSouls Cross-Mod
+                /*Mod fargoSouls = Fargowiltas.FargosGetMod("FargowiltasSouls");
                 if (fargoSouls != null)
                 {
-                    censusMod.Call("TownNPCCondition", NPCType("Squirrel"), $"Have a Top Hat Squirrel ([i:{fargoSouls.ItemType("TophatSquirrel")}]) in your inventory");
-                }
+                    censusMod.Call("TownNPCCondition", ModContent.NPCType<Squirrel>(), $"Have a Top Hat Squirrel ([i:{soulsMod.ItemType("TophatSquirrel")}]) in your inventory");
+                }*/
             }
 
-            Mod soulsMod = ModLoader.GetMod("FargowiltasSouls");
+            // TODO: FargowiltasSouls Cross-Mod
+            /*Mod soulsMod = Fargowiltas.FargosGetMod("FargowiltasSouls");
             if (soulsMod != null)
             {
                 if (!ModRareEnemies.ContainsKey(soulsMod.NPCType("BabyGuardian")))
                     ModRareEnemies.Add(soulsMod.NPCType("BabyGuardian"), "babyGuardian");
-            }
+            }*/
         }
 
         public override object Call(params object[] args)
@@ -237,7 +250,7 @@ namespace Fargowiltas
                         if (ClearEvents(ref eventOccurring))
                         {
                             NetMessage.SendData(MessageID.WorldData);
-                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The event has been cancelled!"), new Color(175, 75, 255));
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The event has been cancelled!"), new Color(175, 75, 255));
                         }
                     }
 
@@ -381,7 +394,7 @@ namespace Fargowiltas
 
             foreach (MutantSummonInfo summon in summonTracker.EventSummons)
             {
-                if ((bool)ModLoader.GetMod(summon.modSource).Call("AbominationnClearEvents", canClearEvent))
+                if ((bool)Fargowiltas.FargosGetMod(summon.modSource).Call("AbominationnClearEvents", canClearEvent))
                 {
                     eventOccurring = true;
                 }
@@ -395,7 +408,7 @@ namespace Fargowiltas
             return eventOccurring && canClearEvent;
         }
 
-        // SpawnBoss(player, mod.NPCType("MyBoss"), true, 0, 0, "DerpyBoi 2", false);
+        // SpawnBoss(player, ModContent.NPCType<MyBoss>(), true, 0, 0, "DerpyBoi 2", false);
         internal static void SpawnBoss(Player player, int bossType, bool spawnMessage = true, int overrideDirection = 0, int overrideDirectionY = 0, string overrideDisplayName = "", bool namePlural = false)
         {
             if (overrideDirection == 0)
@@ -412,7 +425,7 @@ namespace Fargowiltas
             SpawnBoss(player, bossType, spawnMessage, npcCenter, overrideDisplayName, namePlural);
         }
 
-        // SpawnBoss(player, mod.NPCType("MyBoss"), true, player.Center + new Vector2(0, 800f), "DerpFromBelow", false);
+        // SpawnBoss(player, ModContent.NPCType<MyBoss>(), true, player.Center + new Vector2(0, 800f), "DerpFromBelow", false);
         internal static int SpawnBoss(Player player, int bossType, bool spawnMessage = true, Vector2 npcCenter = default, string overrideDisplayName = "", bool namePlural = false)
         {
             if (npcCenter == default)
@@ -443,7 +456,7 @@ namespace Fargowiltas
                         else
                         if (Main.netMode == NetmodeID.Server)
                         {
-                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(npcName + " have awoken!"), new Color(175, 75, 255));
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(npcName + " have awoken!"), new Color(175, 75, 255));
                         }
                     }
                     else
@@ -455,7 +468,7 @@ namespace Fargowiltas
                         else
                         if (Main.netMode == NetmodeID.Server)
                         {
-                            NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[] { NetworkText.FromLiteral(npcName) }), new Color(175, 75, 255));
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[] { NetworkText.FromLiteral(npcName) }), new Color(175, 75, 255));
                         }
                     }
                 }
@@ -467,6 +480,56 @@ namespace Fargowiltas
             }
 
             return 200;
+        }
+
+        public void LoadCrossModContent()
+        {
+            if (Fargowiltas.FargosGetMod("FargowiltasSouls") != null)
+            {
+                AddContent<Squirrel>();
+                AddContent<InnocuousSkull>();
+            }
+
+            if (Fargowiltas.FargosGetMod("Thorium") != null)
+            {
+                AddContent<OmnistationPlus>();
+                AddContent<OverloadStrider>();
+                AddContent<OverloadCoznix>();
+                AddContent<Buffs.OmnistationPlus>();
+                AddContent<OverloadAbyssion>();
+                AddContent<OverloadJelly>();
+                AddContent<OverloadLich>();
+                AddContent<OverloadSaucer>();
+                AddContent<OverloadThunderbird>();
+                AddContent<OverloadViscount>();
+                //AddContent<OverloadChampion>();
+                //AddContent<OverloadGranite>();
+                //AddContent<OverloadRag>();
+            }
+
+            if (Fargowiltas.FargosGetMod("CalamityMod") != null)
+            {
+                if (Fargowiltas.FargosGetMod("Thorium") == null)
+                {
+                    AddContent<Buffs.OmnistationPlus>();
+                    AddContent<OmnistationPlus>();
+                }
+            }
+
+            if (Fargowiltas.FargosGetMod("AAMod") != null)
+            {
+                AddContent<Clawbomination>();
+                AddContent<GlowingMasshroom>();
+                AddContent<Masshroom>();
+            }
+        }
+
+        public static Mod FargosGetMod(string modName)
+        {
+            // Does nothing
+            // Too lazy to go through and comment out GetMod shit
+
+            return null;
         }
     }
 }

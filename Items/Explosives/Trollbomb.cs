@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -18,7 +21,7 @@ namespace Fargowiltas.Items.Explosives
             item.width = 10;
             item.height = 32;
             item.consumable = false;
-            item.useStyle = ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.Shoot;
             item.mana = 10;
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item18;
@@ -76,15 +79,15 @@ namespace Fargowiltas.Items.Explosives
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Bomb, 10);
             recipe.AddIngredient(ItemID.StickyBomb, 10);
             recipe.AddIngredient(ItemID.BouncyBomb, 10);
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.ManaCrystal);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

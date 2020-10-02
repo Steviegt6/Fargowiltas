@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Fargowiltas.NPCs;
 using System;
@@ -77,16 +80,14 @@ namespace Fargowiltas
             }
         }
 
-        public override void SetupStartInventory(IList<Item> items, bool mediumCoreDeath)
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            Item item = new Item();
-            item.SetDefaults(ItemType<Items.Misc.Stats>());
-            items.Add(item);
-
             foreach (string tag in tags)
             {
                 FirstDyeIngredients[tag] = false;
             }
+
+            return new[] { new Item(ModContent.ItemType<Items.Misc.Stats>()) };
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -111,7 +112,7 @@ namespace Fargowiltas
         {
             if (player.GetModPlayer<FargowiltasSouls.FargoPlayer>().NinjaEnchant)
             {
-                player.AddBuff(ModLoader.GetMod("FargowiltasSouls").BuffType("FirstStrike"), 60);
+                player.AddBuff(Fargowiltas.FargosGetMod("FargowiltasSouls").BuffType("FirstStrike"), 60);
             }
         }*/
 
@@ -129,7 +130,7 @@ namespace Fargowiltas
 
         public override void PostUpdateEquips()
         {
-            Mod soulsMod = ModLoader.GetMod("FargowiltasSouls");
+            Mod soulsMod = Fargowiltas.FargosGetMod("FargowiltasSouls");
             
             if (Fargowiltas.SwarmActive)
             {
@@ -169,31 +170,31 @@ namespace Fargowiltas
 
             if (GetInstance<FargoConfig>().Fountains)
             {
-                switch (Main.fountainColor)
+                switch (Main.SceneMetrics.ActiveFountainColor)
                 {
                     case 0:
                         player.ZoneBeach = true;
                         break;
-                    case 6:
-                        player.ZoneDesert = true;
+                    case 2:
+                        player.ZoneCorrupt = true;
                         break;
                     case 3:
                         player.ZoneJungle = true;
                         break;
-                    case 5:
-                        player.ZoneSnow = true;
-                        break;
-                    case 2:
-                        player.ZoneCorrupt = true;
-                        break;
-                    case 10:
-                        player.ZoneCrimson = true;
-                        break;
                     case 4:
                         if (Main.hardMode)
                         {
-                            player.ZoneHoly = true;
+                            player.ZoneHallow = true;
                         }
+                        break;
+                    case 5:
+                        player.ZoneSnow = true;
+                        break;
+                    case 6:
+                        player.ZoneDesert = true;
+                        break;
+                    case 10:
+                        player.ZoneCrimson = true;
                         break;
 
                         //oasis and cavern fountains
@@ -233,7 +234,7 @@ namespace Fargowiltas
 
         public void QuickUseItemAt(int index, bool use = true)
         {
-            if (!autoRevertSelectedItem && player.selectedItem != index && player.inventory[index].type != 0)
+            if (!autoRevertSelectedItem && player.selectedItem != index && player.inventory[index].type != ItemID.None)
             {
                 originalSelectedItem = player.selectedItem;
                 autoRevertSelectedItem = true;

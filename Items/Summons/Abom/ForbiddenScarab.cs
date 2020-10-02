@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Reflection;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Summons.Abom
 {
@@ -26,7 +29,7 @@ namespace Fargowiltas.Items.Summons.Abom
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
         }
 
@@ -42,7 +45,7 @@ namespace Fargowiltas.Items.Summons.Abom
 
             NetMessage.SendData(MessageID.WorldData);
             Main.NewText("A sandstorm has begun.", new Color(175, 75, 255));
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;
         }

@@ -1,10 +1,14 @@
+using Fargowiltas.Items.Tiles;
 using Fargowiltas.NPCs;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 
@@ -175,7 +179,7 @@ namespace Fargowiltas
         {
             ref bool current = ref CurrentSpawnRateTile[0];
             bool oldSpawnRateTile = current;
-            current = tileCounts[mod.TileType("RegalStatueSheet")] > 0;
+            current = tileCounts[ModContent.TileType<RegalStatueSheet>()] > 0;
 
             if (Main.netMode == NetmodeID.MultiplayerClient && current != oldSpawnRateTile)
             {

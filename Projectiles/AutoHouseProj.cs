@@ -1,8 +1,11 @@
 using Fargowiltas.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Projectiles
 {
@@ -85,7 +88,7 @@ namespace Fargowiltas.Projectiles
                 wallType = WallID.PalmWood;
                 tileType = TileID.PalmWood;
             }
-            else if (player.ZoneHoly)
+            else if (player.ZoneHallow)
             {
                 wallType = WallID.Pearlwood;
                 tileType = TileID.Pearlwood;
@@ -154,7 +157,7 @@ namespace Fargowiltas.Projectiles
                     {
                         placeStyle = 29;
                     }
-                    else if (player.ZoneHoly)
+                    else if (player.ZoneHallow)
                     {
                         placeStyle = 3;
                     }
@@ -202,7 +205,7 @@ namespace Fargowiltas.Projectiles
                     {
                         placeStyle = 29;
                     }
-                    else if (player.ZoneHoly)
+                    else if (player.ZoneHallow)
                     {
                         placeStyle = 4;
                     }
@@ -250,7 +253,7 @@ namespace Fargowiltas.Projectiles
                     {
                         placeStyle = 26;
                     }
-                    else if (player.ZoneHoly)
+                    else if (player.ZoneHallow)
                     {
                         placeStyle = 3;
                     }
@@ -280,7 +283,7 @@ namespace Fargowiltas.Projectiles
         public override void Kill(int timeLeft)
         {
             Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
             Player player = Main.player[projectile.owner];
 
             if (player.Center.X < position.X)

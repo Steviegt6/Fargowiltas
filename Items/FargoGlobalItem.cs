@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items
@@ -27,42 +30,42 @@ namespace Fargowiltas.Items
             switch (item.type)
             {
                 case ItemID.CrystalBall:
-                    line = new TooltipLine(mod, "Altar", "Functions as a Demon altar as well");
+                    line = new TooltipLine(Mod, "Altar", "Functions as a Demon altar as well");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.PureWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Ocean upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Ocean upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.DesertWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Desert upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Desert upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.JungleWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Jungle upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Jungle upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.IcyWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Snow upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Snow upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.CorruptWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Corruption upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Corruption upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.CrimsonWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip1", "Forces surrounding biome state to Crimson upon activation");
+                    line = new TooltipLine(Mod, "Tooltip1", "Forces surrounding biome state to Crimson upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.HallowedWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip1", "In hardmode, forces surrounding biome state to Hallow upon activation");
+                    line = new TooltipLine(Mod, "Tooltip1", "In hardmode, forces surrounding biome state to Hallow upon activation");
                     tooltips.Add(line);
                     break;
 
@@ -74,25 +77,25 @@ namespace Fargowiltas.Items
             {
                 if (item.type == ItemID.FishingPotion)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "Also grants one extra lure");
+                    line = new TooltipLine(Mod, "Tooltip1", "Also grants one extra lure");
                     tooltips.Insert(3, line);
                 }
 
                 if (item.type == ItemID.FiberglassFishingPole || item.type == ItemID.FisherofSouls || item.type == ItemID.Fleshcatcher)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "This rod fires 2 lures");
+                    line = new TooltipLine(Mod, "Tooltip1", "This rod fires 2 lures");
                     tooltips.Insert(3, line);
                 }
 
                 if (item.type == ItemID.MechanicsRod || item.type == ItemID.SittingDucksFishingRod)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "This rod fires 3 lures");
+                    line = new TooltipLine(Mod, "Tooltip1", "This rod fires 3 lures");
                     tooltips.Insert(3, line);
                 }
 
                 if (item.type == ItemID.GoldenFishingRod || item.type == ItemID.HotlineFishingHook)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "This rod fires 5 lures");
+                    line = new TooltipLine(Mod, "Tooltip1", "This rod fires 5 lures");
                     tooltips.Insert(3, line);
                 }
             }
@@ -102,7 +105,7 @@ namespace Fargowiltas.Items
         {
             if (GetInstance<FargoConfig>().IncreaseMaxStack)
             {
-                if (item.maxStack > 10 && (item.maxStack != 100 || ModLoader.GetMod("TerrariaOverhaul") != null) && !(item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin))
+                if (item.maxStack > 10 && (item.maxStack != 100 || Fargowiltas.FargosGetMod("TerrariaOverhaul") != null) && !(item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin))
                 {
                     item.maxStack = 9999;
                 }
@@ -317,7 +320,7 @@ namespace Fargowiltas.Items
 
         public override bool OnPickup(Item item, Player player)
         {
-            String dye = "";
+            string dye = "";
 
             switch (item.type)
             {

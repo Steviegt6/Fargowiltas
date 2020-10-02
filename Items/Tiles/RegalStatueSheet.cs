@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ModLoader;
+using Terraria;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
 
@@ -18,7 +21,8 @@ namespace Fargowiltas.Items.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Regal Statue");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
+            // TODO: Uncomment when tML adds this back
+//disableSmartCursor = true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

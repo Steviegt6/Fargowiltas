@@ -3,10 +3,14 @@ using System.Linq;
 using Fargowiltas.Items.Vanity;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
+using Fargowiltas.Items.Weapons;
 
 namespace Fargowiltas.NPCs
 {
@@ -16,12 +20,6 @@ namespace Fargowiltas.NPCs
         private bool dayOver;
         private bool nightOver;
         //private int woodAmount = 100;
-
-        public override bool Autoload(ref string name)
-        {
-            name = "LumberJack";
-            return mod.Properties.Autoload;
-        }
 
         public override void SetStaticDefaults()
         {
@@ -51,7 +49,7 @@ namespace Fargowiltas.NPCs
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Guide;
             Main.npcCatchable[npc.type] = true;
-            npc.catchItem = (short)mod.ItemType("LumberJack");
+            npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.LumberJack>();
         }
 
         public override bool CanTownNPCSpawn(int numTownnpcs, int money)
@@ -158,7 +156,7 @@ namespace Fargowiltas.NPCs
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Buggy, ItemID.Sluggy, ItemID.Grubby, ItemID.Frog }));
                     //add mango and pineapple
                 }
-                else if (player.ZoneHoly)
+                else if (player.ZoneHallow)
                 {
                     quote = "This place is a bit fanciful for my tastes, but the wood's as choppable as any. Nighttime has these cool bugs though, take a few.";
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.LightningBug }));
@@ -262,19 +260,20 @@ namespace Fargowiltas.NPCs
             shop.item[nextSlot].value = 15;
             nextSlot++;
 
-            if (Fargowiltas.ModLoaded["CrystiliumMod"])
+            // TODO: MORE FUCKING CROSSMOD
+            /*if (Fargowiltas.ModLoaded["CrystiliumMod"])
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("CrystiliumMod").ItemType("CrystalWood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("CrystiliumMod").ItemType("CrystalWood"));
                 shop.item[nextSlot].value = 20;
                 nextSlot++;
             }
 
-            if (ModLoader.GetMod("CosmeticVariety") != null && NPC.downedBoss2)
+            if (Fargowiltas.FargosGetMod("CosmeticVariety") != null && NPC.downedBoss2)
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("CosmeticVariety").ItemType("Starwood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("CosmeticVariety").ItemType("Starwood"));
                 shop.item[nextSlot].value = 20;
                 nextSlot++;
-            }
+            }*/
 
             shop.item[nextSlot].SetDefaults(ItemID.Pearlwood);
             shop.item[nextSlot].value = 20;
@@ -287,27 +286,28 @@ namespace Fargowiltas.NPCs
                 nextSlot++;
             }
 
-            if (Fargowiltas.ModLoaded["Redemption"])
+            // TODO: THE SECOND COMING OF CHRIST (CROSSMOD)
+            /*if (Fargowiltas.ModLoaded["Redemption"])
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("Redemption").ItemType("AncientWood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("Redemption").ItemType("AncientWood"));
                 shop.item[nextSlot].value = 20;
                 nextSlot++;
             }
 
             if (Fargowiltas.ModLoaded["AAMod"])
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("AAmod").ItemType("Razewood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("AAmod").ItemType("Razewood"));
                 shop.item[nextSlot].value = 50;
                 nextSlot++;
 
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("AAmod").ItemType("Bogwood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("AAmod").ItemType("Bogwood"));
                 shop.item[nextSlot].value = 50;
                 nextSlot++;
 
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod("AAmod").ItemType("OroborosWood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("AAmod").ItemType("OroborosWood"));
                 shop.item[nextSlot].value = 50;
                 nextSlot++;
-            }
+            }*/
 
             shop.item[nextSlot].SetDefaults(ItemID.Cactus);
             shop.item[nextSlot].value = 10;
@@ -325,7 +325,7 @@ namespace Fargowiltas.NPCs
             shop.item[nextSlot].value = 10000;
             nextSlot++;
 
-            shop.item[nextSlot].SetDefaults(mod.ItemType("LumberJaxe"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LumberJaxe>());
             shop.item[nextSlot].value = 10000;
             nextSlot++;
 
@@ -348,7 +348,7 @@ namespace Fargowiltas.NPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = mod.ProjectileType("LumberJaxe");
+            projType = ModContent.ProjectileType<Projectiles.LumberJaxe>();
             attackDelay = 1;
         }
 
@@ -373,13 +373,13 @@ namespace Fargowiltas.NPCs
                 }
 
                 Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/LumberGore3"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/LumberGore3"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/LumberGore2"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/LumberGore2"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/LumberGore1"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/LumberGore1"));
             }
             else
             {

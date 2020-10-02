@@ -6,9 +6,12 @@ using Fargowiltas.Items.Summons.Mutant;
 using Fargowiltas.Items.Summons.Abom;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Fargowiltas.Items.Vanity;
 
@@ -17,12 +20,6 @@ namespace Fargowiltas.NPCs
     [AutoloadHead]
     public class Abominationn : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            name = "Abominationn";
-            return mod.Properties.Autoload;
-        }
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominationn");
@@ -51,13 +48,13 @@ namespace Fargowiltas.NPCs
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Guide;
             Main.npcCatchable[npc.type] = true;
-            npc.catchItem = (short)mod.ItemType("Abominationn");
+            npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.Abominationn>();
             npc.buffImmune[BuffID.Suffocation] = true;
         }
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && ((bool)ModLoader.GetMod("FargowiltasSouls").Call("MutantAlive") || (bool)ModLoader.GetMod("FargowiltasSouls").Call("AbomAlive")))
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("MutantAlive") || (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("AbomAlive")))
             {
                 return false;
             }
@@ -146,7 +143,7 @@ namespace Fargowiltas.NPCs
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
                     {
-                        var netMessage = mod.GetPacket();
+                        var netMessage = Mod.GetPacket();
                         netMessage.Write((byte)2);
                         netMessage.Send();
                     }
@@ -155,7 +152,7 @@ namespace Fargowiltas.NPCs
                         Main.NewText("The event has been cancelled!", 175, 75, 255);
                     }
 
-                    Main.PlaySound(SoundID.Roar, npc.position, 0);
+                    SoundEngine.PlaySound(SoundID.Roar, npc.position, 0);
                     Main.npcChatText = "Hocus pocus, the event is over.";
                 }
                 else
@@ -174,12 +171,13 @@ namespace Fargowiltas.NPCs
 
         public static void AddModItem(bool condition, string modName, string itemName, int price, ref Chest shop, ref int nextSlot)
         {
-            if (condition)
+            // TODO: What the fuck, tML? I seriously don't fucking get why you removed Mod.XType(string)?? It's not fucking obsolete! It still has its fucking uses! Like what the fuck?
+            /*if (condition)
             {
-                shop.item[nextSlot].SetDefaults(ModLoader.GetMod(modName).ItemType(itemName));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod(modName).ItemType(itemName));
                 shop.item[nextSlot].shopCustomPrice = price;
                 nextSlot++;
-            }
+            }*/
         }
 
         public static void AddItem(bool check, int item, int price, ref Chest shop, ref int nextSlot)
@@ -199,8 +197,9 @@ namespace Fargowiltas.NPCs
                 return;
             }
 
-            shop.item[nextSlot].SetDefaults(ModLoader.GetMod(mod).ItemType(item));
-            shop.item[nextSlot].value = price;
+            // TODO: Fuck you, tMod.
+            //shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod(mod).ItemType(item));
+            //shop.item[nextSlot].value = price;
 
             nextSlot++;
         }
@@ -282,13 +281,13 @@ namespace Fargowiltas.NPCs
                 }
 
                 Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/AbomGore3"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/AbomGore3"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/AbomGore2"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/AbomGore2"));
 
                 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-                Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/AbomGore1"));
+                Gore.NewGore(pos, npc.velocity, Mod.GetGoreSlot("Gores/AbomGore1"));
             }
             else
             {

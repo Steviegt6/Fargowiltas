@@ -1,9 +1,12 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 using Terraria.Localization;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -24,14 +27,14 @@ namespace Fargowiltas.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
-            item.createTile = mod.TileType("ElementalAssemblerSheet");
+            item.createTile = ModContent.TileType<ElementalAssemblerSheet>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
 
             recipe.AddIngredient(ItemID.Hellforge);
             recipe.AddIngredient(ItemID.AlchemyTable);
@@ -48,8 +51,8 @@ namespace Fargowiltas.Items.Tiles
 
             recipe.AddTile(TileID.DemonAltar);
 
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }

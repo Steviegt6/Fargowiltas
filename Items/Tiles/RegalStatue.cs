@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -20,21 +21,21 @@ namespace Fargowiltas.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("RegalStatueSheet");
+            item.createTile = ModContent.TileType<RegalStatueSheet>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.KingStatue);
             recipe.AddIngredient(ItemID.QueenStatue);
             recipe.AddIngredient(ItemID.Bone, 15);
             recipe.AddTile(TileID.HeavyWorkBench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            
+            recipe.Register();
         }
     }
 }
