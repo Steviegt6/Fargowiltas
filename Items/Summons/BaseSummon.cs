@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -21,9 +24,9 @@ namespace Fargowiltas.Items.Summons
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
-            item.shoot = mod.ProjectileType("SpawnProj");
+            item.shoot = ModContent.ProjectileType<SpawnProj>();
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -32,19 +35,19 @@ namespace Fargowiltas.Items.Summons
 
             //if (Main.netMode != 1)
             //{
-                Projectile.NewProjectile(pos, Vector2.Zero, mod.ProjectileType("SpawnProj"), 0, 0, Main.myPlayer, Type);
+            Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, Type);
             //}
 
             if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral($"{NPCName} has awoken!"), new Color(175, 75, 255));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPCName} has awoken!"), new Color(175, 75, 255));
             }
-            else if(Type != NPCID.KingSlime)
+            else if (Type != NPCID.KingSlime)
             {
                 Main.NewText($"{NPCName} has awoken!", new Color(175, 75, 255));
             }
 
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return false;
         }

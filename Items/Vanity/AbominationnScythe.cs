@@ -22,12 +22,12 @@ namespace Fargowiltas.Items.Vanity
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.DeathSickle);
             recipe.AddIngredient(ItemID.ChristmasHook); //meme ass recipe might change
             recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }*/
     }
 }

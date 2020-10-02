@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,23 +21,23 @@ namespace Fargowiltas.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("WoodenTokenSheet");
+            item.createTile = ModContent.TileType<WoodenTokenSheet>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Wood, 25);
             recipe.AddIngredient(ItemID.BorealWood, 25);
             recipe.AddIngredient(ItemID.RichMahogany, 25);
             recipe.AddIngredient(ItemID.PalmWood, 25);
             recipe.AddRecipeGroup("Fargowiltas:AnyEvilWood", 25);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

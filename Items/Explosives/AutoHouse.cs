@@ -18,23 +18,23 @@ namespace Fargowiltas.Items.Explosives
             item.height = 32;
             item.maxStack = 99;
             item.consumable = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.rare = ItemRarityID.Blue;
             item.UseSound = SoundID.Item1;
             item.useAnimation = 20;
             item.useTime = 20;
             item.value = Item.buyPrice(0, 0, 3);
-            item.createTile = mod.TileType("AutoHouseTile");
+            item.createTile = ModContent.TileType<AutoHouseTile>(); ;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddRecipeGroup("Wood", 50);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.Sawmill);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

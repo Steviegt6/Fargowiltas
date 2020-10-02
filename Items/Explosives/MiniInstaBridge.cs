@@ -21,7 +21,7 @@ namespace Fargowiltas.Items.Explosives
             item.height = 32;
             item.maxStack = 99;
             item.consumable = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item1;
             item.useAnimation = 20;
@@ -43,12 +43,12 @@ namespace Fargowiltas.Items.Explosives
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.FossilOre, 5);
             recipe.AddIngredient(ItemID.WoodPlatform, 100);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

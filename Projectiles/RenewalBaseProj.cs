@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,12 +9,12 @@ namespace Fargowiltas.Projectiles
 {
     public class RenewalBaseProj : ModProjectile
     {
-        private readonly String name;
+        private readonly string name;
         private readonly int projType;
         private readonly int convertType;
         private readonly bool supreme;
 
-        protected RenewalBaseProj(String name, int projType, int convertType, bool supreme)
+        protected RenewalBaseProj(string name, int projType, int convertType, bool supreme)
         {
             this.name = name;
             this.projType = projType;
@@ -46,7 +47,7 @@ namespace Fargowiltas.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Shatter, projectile.Center);
+            SoundEngine.PlaySound(SoundID.Shatter, projectile.Center);
 
             int radius = 150;
             float[] speedX = { 0, 0, 5, 5, 5, -5, -5, -5 };
@@ -66,7 +67,7 @@ namespace Fargowiltas.Projectiles
                         int xPosition = (int)(x + projectile.Center.X / 16.0f);
                         int yPosition = (int)(y + projectile.Center.Y / 16.0f);
 
-                        WorldGen.Convert(xPosition, yPosition, convertType, 1); 
+                        WorldGen.Convert(xPosition, yPosition, convertType, 1);
                     }
                 }
             }

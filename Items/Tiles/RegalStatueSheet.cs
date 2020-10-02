@@ -18,7 +18,8 @@ namespace Fargowiltas.Items.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Regal Statue");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
+            // TODO: Uncomment when tML adds this back
+            //disableSmartCursor = true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Fargowiltas.Projectiles
@@ -27,11 +28,11 @@ namespace Fargowiltas.Projectiles
 
         public override void AI()
         {
-            if (Main.netMode != 1)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 for (int i = -3; i < 3; i++)
                 {
-                    Projectile.NewProjectile(projectile.Center, -projectile.velocity.RotatedBy(Math.PI / 7 * i), mod.ProjectileType("FakeHeart2Deviantt"), projectile.damage, projectile.knockBack, projectile.owner, -1, 120 + 20 * i);
+                    Projectile.NewProjectile(projectile.Center, -projectile.velocity.RotatedBy(Math.PI / 7 * i), ModContent.ProjectileType<FakeHeart2Deviantt>(), projectile.damage, projectile.knockBack, projectile.owner, -1, 120 + 20 * i);
                 }
             }
 

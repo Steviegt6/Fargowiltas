@@ -1,8 +1,5 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Summons.Mutant
 {
@@ -20,13 +17,13 @@ namespace Fargowiltas.Items.Summons.Mutant
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.ChlorophyteBar, 2);
             recipe.AddIngredient(ItemID.Moonglow, 5);
             recipe.AddIngredient(ItemID.Blinkroot, 5);
             recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

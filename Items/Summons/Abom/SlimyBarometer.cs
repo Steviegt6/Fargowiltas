@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,7 +22,7 @@ namespace Fargowiltas.Items.Summons.Abom
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
         }
 
@@ -36,7 +36,7 @@ namespace Fargowiltas.Items.Summons.Abom
             Main.StartSlimeRain();
             Main.slimeWarningDelay = 1;
             Main.slimeWarningTime = 1;
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;
         }

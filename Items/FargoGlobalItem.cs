@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,72 +25,71 @@ namespace Fargowiltas.Items
             switch (item.type)
             {
                 case ItemID.CrystalBall:
-                    line = new TooltipLine(mod, "Altar", "Functions as a Demon altar as well");
+                    line = new TooltipLine(Mod, "Altar", "Functions as a Demon altar as well");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.PureWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Ocean upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Ocean upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.DesertWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Desert upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Desert upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.JungleWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Jungle upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Jungle upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.IcyWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Snow upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Snow upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.CorruptWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip0", "Forces surrounding biome state to Corruption upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Corruption upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.CrimsonWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip1", "Forces surrounding biome state to Crimson upon activation");
+                    line = new TooltipLine(Mod, "Tooltip1", "Forces surrounding biome state to Crimson upon activation");
                     tooltips.Add(line);
                     break;
 
                 case ItemID.HallowedWaterFountain:
-                    line = new TooltipLine(mod, "Tooltip1", "In hardmode, forces surrounding biome state to Hallow upon activation");
+                    line = new TooltipLine(Mod, "Tooltip1", "In hardmode, forces surrounding biome state to Hallow upon activation");
                     tooltips.Add(line);
                     break;
 
                     //oasis and cavern? fountains
-
             }
 
             if (GetInstance<FargoConfig>().ExtraLures)
             {
                 if (item.type == ItemID.FishingPotion)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "Also grants one extra lure");
+                    line = new TooltipLine(Mod, "Tooltip1", "Also grants one extra lure");
                     tooltips.Insert(3, line);
                 }
 
                 if (item.type == ItemID.FiberglassFishingPole || item.type == ItemID.FisherofSouls || item.type == ItemID.Fleshcatcher)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "This rod fires 2 lures");
+                    line = new TooltipLine(Mod, "Tooltip1", "This rod fires 2 lures");
                     tooltips.Insert(3, line);
                 }
 
                 if (item.type == ItemID.MechanicsRod || item.type == ItemID.SittingDucksFishingRod)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "This rod fires 3 lures");
+                    line = new TooltipLine(Mod, "Tooltip1", "This rod fires 3 lures");
                     tooltips.Insert(3, line);
                 }
 
                 if (item.type == ItemID.GoldenFishingRod || item.type == ItemID.HotlineFishingHook)
                 {
-                    line = new TooltipLine(mod, "Tooltip1", "This rod fires 5 lures");
+                    line = new TooltipLine(Mod, "Tooltip1", "This rod fires 5 lures");
                     tooltips.Insert(3, line);
                 }
             }
@@ -102,7 +99,7 @@ namespace Fargowiltas.Items
         {
             if (GetInstance<FargoConfig>().IncreaseMaxStack)
             {
-                if (item.maxStack > 10 && (item.maxStack != 100 || ModLoader.GetMod("TerrariaOverhaul") != null) && !(item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin))
+                if (item.maxStack > 10 && (item.maxStack != 100 || Fargowiltas.FargosGetMod("TerrariaOverhaul") != null) && !(item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin))
                 {
                     item.maxStack = 9999;
                 }
@@ -127,7 +124,7 @@ namespace Fargowiltas.Items
                     break;
 
                 case ItemID.WoodenCrate:
-                //case Pearlwood
+                    //case Pearlwood
                     if (Main.rand.NextBool(40))
                     {
                         int[] drops = { ItemID.Spear, ItemID.Blowpipe, ItemID.WandofSparking, ItemID.WoodenBoomerang };
@@ -137,7 +134,7 @@ namespace Fargowiltas.Items
                     break;
 
                 case ItemID.GoldenCrate:
-                //case Titanium
+                    //case Titanium
                     if (Main.rand.NextBool(10))
                     {
                         int[] drops = { ItemID.BandofRegeneration, ItemID.MagicMirror, ItemID.CloudinaBottle, ItemID.EnchantedBoomerang, ItemID.ShoeSpikes, ItemID.FlareGun, ItemID.HermesBoots, ItemID.LavaCharm, ItemID.SandstorminaBottle, ItemID.FlyingCarpet };
@@ -205,84 +202,111 @@ namespace Fargowiltas.Items
                     case 1:
                         itemId = 0 + 562;
                         break;
+
                     case 2:
                         itemId = 1 + 562;
                         break;
+
                     case 3:
                         itemId = 2 + 562;
                         break;
+
                     case 4:
                         itemId = 4 + 562;
                         break;
+
                     case 5:
                         itemId = 5 + 562;
                         break;
+
                     case 6:
                         itemId = 3 + 562;
                         break;
+
                     case 7:
                         itemId = 6 + 562;
                         break;
+
                     case 8:
                         itemId = 7 + 562;
                         break;
+
                     case 9:
                         itemId = 9 + 562;
                         break;
+
                     case 10:
                         itemId = 8 + 562;
                         break;
+
                     case 11:
                         itemId = 11 + 562;
                         break;
+
                     case 12:
                         itemId = 10 + 562;
                         break;
+
                     case 13:
                         itemId = 12 + 562;
                         break;
+
                     case 28:
                         itemId = 1963;
                         break;
+
                     case 29:
                         itemId = 1610;
                         break;
+
                     case 30:
                         itemId = 1963;
                         break;
+
                     case 31:
                         itemId = 1964;
                         break;
+
                     case 32:
                         itemId = 1965;
                         break;
+
                     case 33:
                         itemId = 2742;
                         break;
+
                     case 34:
                         itemId = 3370;
                         break;
+
                     case 35:
                         itemId = 3236;
                         break;
+
                     case 36:
                         itemId = 3237;
                         break;
+
                     case 37:
                         itemId = 3235;
                         break;
+
                     case 38:
                         itemId = 3044;
                         break;
+
                     case 39:
                         itemId = 3371;
                         break;
+
                     case 40:
                         itemId = 3796;
                         break;
+
                     case 41:
                         itemId = 3869;
                         break;
+
                     default:
                         itemId = 1596 + Main.curMusic - 14;
                         break;
@@ -317,46 +341,58 @@ namespace Fargowiltas.Items
 
         public override bool OnPickup(Item item, Player player)
         {
-            String dye = "";
+            string dye = "";
 
             switch (item.type)
             {
                 case ItemID.RedHusk:
                     dye = "RedHusk";
                     break;
+
                 case ItemID.OrangeBloodroot:
                     dye = "OrangeBloodroot";
                     break;
+
                 case ItemID.YellowMarigold:
                     dye = "YellowMarigold";
                     break;
+
                 case ItemID.LimeKelp:
                     dye = "LimeKelp";
                     break;
+
                 case ItemID.GreenMushroom:
                     dye = "GreenMushroom";
                     break;
+
                 case ItemID.TealMushroom:
                     dye = "TealMushroom";
                     break;
+
                 case ItemID.CyanHusk:
                     dye = "CyanHusk";
                     break;
+
                 case ItemID.SkyBlueFlower:
                     dye = "SkyBlueFlower";
                     break;
+
                 case ItemID.BlueBerries:
                     dye = "BlueBerries";
                     break;
+
                 case ItemID.PurpleMucos:
                     dye = "PurpleMucos";
                     break;
+
                 case ItemID.VioletHusk:
                     dye = "VioletHusk";
                     break;
+
                 case ItemID.PinkPricklyPear:
                     dye = "PinkPricklyPear";
                     break;
+
                 case ItemID.BlackInk:
                     dye = "BlackInk";
                     break;

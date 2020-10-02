@@ -1,18 +1,21 @@
-using CalamityMod.CalPlayer;
+//using CalamityMod.CalPlayer;
 using Fargowiltas.Items.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ThoriumMod;
+
+//using ThoriumMod;
 using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Buffs
 {
     public class OmnistationPlus : ModBuff
     {
-        private readonly Mod thorium = ModLoader.GetMod("ThoriumMod");
+        private Mod thorium;
 
-        private readonly Mod calamity = ModLoader.GetMod("CalamityMod");
+        private Mod calamity;
+
+        public override string Texture => "Fargowiltas/Buffs/Omnistation";
 
         public override void SetDefaults()
         {
@@ -20,12 +23,9 @@ namespace Fargowiltas.Buffs
             Description.SetDefault("Effects of all stations, vanilla and modded");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-        }
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "Fargowiltas/Buffs/Omnistation";
-            return true;
+            thorium = Fargowiltas.FargosGetMod("ThoriumMod");
+            calamity = Fargowiltas.FargosGetMod("CalamityMod");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -39,10 +39,11 @@ namespace Fargowiltas.Buffs
 
             if (player.whoAmI == Main.myPlayer)
             {
-                Main.sunflower = true;
-                Main.campfire = true;
-                Main.heartLantern = true;
-                Main.starInBottle = true;
+                // sunflow, campfire, etc. bools moved to SceneMetrics and made readonly because Re-Logic hates modders
+                player.AddBuff(146, 2, quiet: false);
+                player.AddBuff(BuffID.Campfire, 2, quiet: false);
+                player.AddBuff(BuffID.HeartLamp, 2, quiet: false);
+                player.AddBuff(BuffID.StarInBottle, 2, quiet: false);
 
                 //dryad's blessing
                 player.lifeRegen += 6;
@@ -66,19 +67,21 @@ namespace Fargowiltas.Buffs
 
         private void Thorium(Player player)
         {
-            player.buffImmune[thorium.BuffType("SeasonsGreeting")] = true;
+            // TODO: Thorium Crossmod
+            /*player.buffImmune[thorium.BuffType("SeasonsGreeting")] = true;
 
             //mistletoe effect
             player.lifeRegenTime++;
             player.lifeRegen++;
             player.manaRegenBonus++;
             player.manaRegenDelayBonus++;
-            player.GetModPlayer<ThoriumPlayer>().inspirationRegenBonus += 0.02f;
+            player.GetModPlayer<ThoriumPlayer>().inspirationRegenBonus += 0.02f;*/
         }
 
         private void Calamity(Player player)
         {
-            player.buffImmune[calamity.BuffType("PurpleDefenseCandle")] = true;
+            // TODO: Calamity Crossmod
+            /*player.buffImmune[calamity.BuffType("PurpleDefenseCandle")] = true;
             player.buffImmune[calamity.BuffType("YellowDamageCandle")] = true;
             player.buffImmune[calamity.BuffType("PinkHealthCandle")] = true;
             player.buffImmune[calamity.BuffType("BlueSpeedCandle")] = true;
@@ -86,8 +89,7 @@ namespace Fargowiltas.Buffs
             player.GetModPlayer<CalamityPlayer>().purpleCandle = true;
             player.GetModPlayer<CalamityPlayer>().yellowCandle = true;
             player.GetModPlayer<CalamityPlayer>().pinkCandle = true;
-            player.GetModPlayer<CalamityPlayer>().blueCandle = true;
-
+            player.GetModPlayer<CalamityPlayer>().blueCandle = true;*/
         }
     }
 }

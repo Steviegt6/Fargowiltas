@@ -1,6 +1,8 @@
 ﻿using Fargowiltas.NPCs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -16,7 +18,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
         private readonly int maxSpawn; //energizer swarms are this size
         private readonly string spawnMessage;
         private readonly string material;
-        
+
         protected SwarmSummonBase(int npcType, string spawnMessage, int maxSpawn, string material)
         {
             this.npcType = npcType;
@@ -34,7 +36,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             item.rare = ItemRarityID.Blue;
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
 
             if (npcType == NPCID.WallofFlesh)
@@ -103,27 +105,27 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             // Kill whole stack
             player.inventory[player.selectedItem].stack = 0;
 
-            if (Main.netMode == 2)
+            if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(spawnMessage), new Color(175, 75, 255));
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(spawnMessage), new Color(175, 75, 255));
             }
             else
             {
                 Main.NewText(spawnMessage, 175, 75, 255);
             }
 
-            Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+            SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, material);
             recipe.AddIngredient(null, "Overloader");
             recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -78,6 +78,7 @@ namespace Fargowiltas
         /*
          * Used to sync custom ai float arrays. (the npc or projectile requires a method called 'public void SetAI(float[] ai, int type)' that sets the ai for this to work)
          */
+
         public static void SyncAI(int entType, int id, float[] ai, int aitype)
         {
             object[] ai2 = new object[ai.Length + 4];
@@ -96,6 +97,7 @@ namespace Fargowiltas
         /*
          * Writes a vector2 array to an obj[] array that can be sent via netmessaging.
          */
+
         public static object[] WriteVector2Array(Vector2[] array)
         {
             List<object> list = new List<object>
@@ -115,6 +117,7 @@ namespace Fargowiltas
         /*
          * Writes a vector2 array to a binary writer.
          */
+
         public static void WriteVector2Array(Vector2[] array, BinaryWriter writer)
         {
             writer.Write(array.Length);
@@ -128,6 +131,7 @@ namespace Fargowiltas
         /*
          * Reads a vector2 array from a binary reader.
          */
+
         public static Vector2[] ReadVector2Array(BinaryReader reader)
         {
             int arrayLength = reader.ReadInt32();

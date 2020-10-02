@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,7 +22,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.value = Item.sellPrice(0, 0, 2);
             item.useAnimation = 30;
             item.useTime = 30;
-            item.useStyle = ItemUseStyleID.HoldingUp;
+            item.useStyle = ItemUseStyleID.HoldUp;
             item.consumable = true;
         }
 
@@ -33,7 +34,7 @@ namespace Fargowiltas.Items.Summons.Mutant
         public override bool UseItem(Player player)
         {
             NPC.SpawnWOF(player.Center);
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+            SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;
         }
@@ -49,11 +50,11 @@ namespace Fargowiltas.Items.Summons.Mutant
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.GuideVoodooDoll);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

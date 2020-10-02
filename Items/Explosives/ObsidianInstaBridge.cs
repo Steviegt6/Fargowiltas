@@ -1,3 +1,4 @@
+using Fargowiltas.Projectiles.Explosives;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -21,7 +22,7 @@ namespace Fargowiltas.Items.Explosives
             item.height = 32;
             item.maxStack = 99;
             item.consumable = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item1;
             item.useAnimation = 20;
@@ -29,7 +30,7 @@ namespace Fargowiltas.Items.Explosives
             item.value = Item.buyPrice(0, 0, 3);
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.shoot = mod.ProjectileType("ObsInstabridgeProj");
+            item.shoot = ModContent.ProjectileType<ObsInstabridgeProj>();
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -43,13 +44,13 @@ namespace Fargowiltas.Items.Explosives
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.FossilOre, 20);
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.ObsidianPlatform, 1000);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

@@ -1,6 +1,7 @@
 using Fargowiltas.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -39,7 +40,7 @@ namespace Fargowiltas.Projectiles.Explosives
         public override void Kill(int timeLeft)
         {
             Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {

@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Fargowiltas.Projectiles.Explosives;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Explosives
@@ -22,7 +24,7 @@ namespace Fargowiltas.Items.Explosives
             item.noUseGraphic = true;
             item.scale = 0.75f;
             item.crit = 5;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.useTime = 10;
             item.useAnimation = 10;
             item.knockBack = 3f;
@@ -30,18 +32,17 @@ namespace Fargowiltas.Items.Explosives
             item.autoReuse = true;
             item.maxStack = 999;
             item.rare = ItemRarityID.Blue;
-            item.shoot = mod.ProjectileType("ShurikenProj");
+            item.shoot = ModContent.ProjectileType<ShurikenProj>();
             item.shootSpeed = 11f;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe(20);
             recipe.AddIngredient(ItemID.Shuriken, 20);
             recipe.AddIngredient(ItemID.Dynamite, 5);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 20);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

@@ -1,14 +1,12 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Tiles
 {
+    [Autoload(false)]
     public class OmnistationPlus : ModItem
     {
-        public override bool Autoload(ref string name)
-        {
-            return ModLoader.GetMod("ThoriumMod") != null || ModLoader.GetMod("CalamityMod") != null;
-        }
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Omnistation+");
@@ -26,18 +24,20 @@ Currently only supports Thorium and Calamity");
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("OmnistationPlusSheet");
+            item.createTile = ModContent.TileType<OmnistationPlusSheet>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddRecipeGroup("Fargowiltas:AnyOmnistation", 1);
-            if (Fargowiltas.ModLoaded["ThoriumMod"])
+
+            // TODO: Thorium + Calamity Crossmod
+            /*if (Fargowiltas.ModLoaded["ThoriumMod"])
             {
-                Mod thorium = ModLoader.GetMod("ThoriumMod");
+                Mod thorium = Fargowiltas.FargosGetMod("ThoriumMod");
                 recipe.AddIngredient(thorium.ItemType("Mistletoe"), 30);
                 recipe.AddIngredient(thorium.ItemType("ConductorsStand"), 5);
                 recipe.AddIngredient(thorium.ItemType("Altar"), 5);
@@ -45,17 +45,15 @@ Currently only supports Thorium and Calamity");
             }
             if (Fargowiltas.ModLoaded["CalamityMod"])
             {
-                Mod calamity = ModLoader.GetMod("CalamityMod");
+                Mod calamity = Fargowiltas.FargosGetMod("CalamityMod");
                 recipe.AddIngredient(calamity.ItemType("PurpleCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("YellowCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("PinkCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("BlueCandle"), 5);
-
-            }
+            }*/
 
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

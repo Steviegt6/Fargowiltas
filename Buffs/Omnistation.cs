@@ -25,10 +25,11 @@ namespace Fargowiltas.Buffs
 
             if (player.whoAmI == Main.myPlayer)
             {
-                Main.sunflower = true;
-                Main.campfire = true;
-                Main.heartLantern = true;
-                Main.starInBottle = true;
+                // sunflow, campfire, etc. bools moved to SceneMetrics and made readonly because Re-Logic hates modders
+                player.AddBuff(146, 2, quiet: false);
+                player.AddBuff(BuffID.Campfire, 2, quiet: false);
+                player.AddBuff(BuffID.HeartLamp, 2, quiet: false);
+                player.AddBuff(BuffID.StarInBottle, 2, quiet: false);
             }
 
             int type = Framing.GetTileSafely(player.Center).type;

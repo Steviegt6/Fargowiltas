@@ -60,8 +60,8 @@ namespace Fargowiltas.Items.Ammos.Bullets
             base.SetStaticDefaults();
             Tooltip.SetDefault("Decreases target's defense");
         }
-
     }
+
     public class LuminitePouch : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.MoonlordBullet;

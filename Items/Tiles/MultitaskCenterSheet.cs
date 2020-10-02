@@ -20,9 +20,10 @@ namespace Fargowiltas.Items.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Multitask Center");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
+            // TODO: Uncomment when tML adds this back
+            //disableSmartCursor = true;
             //counts as
-            adjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.Furnaces,  TileID.Anvils,  TileID.Bottles, TileID.Sawmill, TileID.Loom, TileID.Tables, TileID.Chairs, TileID.CookingPots, TileID.Sinks, TileID.Kegs };
+            adjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.Furnaces, TileID.Anvils, TileID.Bottles, TileID.Sawmill, TileID.Loom, TileID.Tables, TileID.Chairs, TileID.CookingPots, TileID.Sinks, TileID.Kegs };
 
             animationFrameHeight = 54;
         }
@@ -34,7 +35,7 @@ namespace Fargowiltas.Items.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("MultitaskCenter"));
+            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<MultitaskCenter>());
         }
 
         public override void AnimateTile(ref int frame, ref int frameCounter)

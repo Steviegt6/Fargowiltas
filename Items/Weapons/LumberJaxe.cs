@@ -23,7 +23,7 @@ namespace Fargowiltas.Items.Weapons
             item.useTime = 30;
             item.useAnimation = 30;
             item.axe = 30;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.knockBack = 6;
             item.value = 5000;
             item.rare = ItemRarityID.Orange;

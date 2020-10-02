@@ -1,3 +1,4 @@
+using Fargowiltas.Items.Tiles;
 using Fargowiltas.NPCs;
 using System.Collections.Generic;
 using System.IO;
@@ -61,7 +62,7 @@ namespace Fargowiltas
             "darkMage",
             "ogre",
             "headlessHorseman",
-            "babyGuardian", 
+            "babyGuardian",
             "squirrel"
         };
 
@@ -175,7 +176,7 @@ namespace Fargowiltas
         {
             ref bool current = ref CurrentSpawnRateTile[0];
             bool oldSpawnRateTile = current;
-            current = tileCounts[mod.TileType("RegalStatueSheet")] > 0;
+            current = tileCounts[ModContent.TileType<RegalStatueSheet>()] > 0;
 
             if (Main.netMode == NetmodeID.MultiplayerClient && current != oldSpawnRateTile)
             {

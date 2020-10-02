@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,12 +9,12 @@ namespace Fargowiltas.Items.Tiles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.createTile = mod.TileType("OmnistationSheet2");
+            item.createTile = ModContent.TileType<OmnistationSheet2>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Sunflower, 30);
             recipe.AddIngredient(ItemID.Campfire, 30);
             recipe.AddIngredient(ItemID.HeartLantern, 30);
@@ -25,8 +26,8 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.BewitchingTable, 5);
             recipe.AddIngredient(ItemID.TitaniumBar, 5);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

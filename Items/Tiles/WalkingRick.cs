@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -23,10 +20,10 @@ namespace Fargowiltas.Items.Tiles
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.consumable = true;
             item.rare = ItemRarityID.Blue;
-            item.createTile = mod.TileType("WalkingRickSheet");
+            item.createTile = ModContent.TileType<WalkingRickSheet>();
         }
     }
 }

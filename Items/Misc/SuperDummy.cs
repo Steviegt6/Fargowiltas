@@ -1,9 +1,8 @@
+using Fargowiltas.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Fargowiltas;
-using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -24,7 +23,7 @@ namespace Fargowiltas.Items.Misc
             item.height = 30;
             item.useTime = 15;
             item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.Swing;
             item.useTurn = true;
             item.rare = ItemRarityID.Blue;
         }
@@ -60,12 +59,12 @@ namespace Fargowiltas.Items.Misc
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.TargetDummy);
             recipe.AddIngredient(ItemID.FallenStar);
             recipe.AddTile(TileID.CookingPots);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+
+            recipe.Register();
         }
     }
 }

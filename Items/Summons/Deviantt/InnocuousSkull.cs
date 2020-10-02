@@ -1,13 +1,13 @@
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Summons.Deviantt
 {
+    [Autoload(false)]
     public class InnocuousSkull : BaseSummon
     {
         public override string Texture => "Fargowiltas/Items/Placeholder";
 
-        public override int Type => ModLoader.GetMod("FargowiltasSouls").NPCType("BabyGuardian");
+        public override int Type => 0; //Fargowiltas.FargosGetMod("FargowiltasSouls").NPCType("BabyGuardian");
 
         public override string NPCName => "Baby Guardian";
 
@@ -15,11 +15,6 @@ namespace Fargowiltas.Items.Summons.Deviantt
         {
             DisplayName.SetDefault("Innocuous Skull");
             Tooltip.SetDefault("Summons Baby Guardian");
-        }
-
-        public override bool Autoload(ref string name)
-        {
-            return ModLoader.GetMod("FargowiltasSouls") != null;
         }
     }
 }
