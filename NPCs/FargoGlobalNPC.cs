@@ -493,6 +493,9 @@ namespace Fargowiltas.NPCs
         // TODO: Find a way to re-add cancelling enemy loot from dropping? (NoLoot, Fargowiltas.SwarmActive && (npc.type == NPCID.BlueSlime || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.type == NPCID.Creeper || (npc.type >= NPCID.PirateCorsair && npc.type <= NPCID.PirateCrossbower)))
         public override bool PreKill(NPC npc)
         {
+            // Temp because this is broken
+            return base.PreKill(npc);
+
             if (SwarmActive && Fargowiltas.SwarmActive)
             {
                 switch (npc.type)
@@ -681,62 +684,98 @@ namespace Fargowiltas.NPCs
             // Lumber Jaxe
             database.RegisterToGlobal(ExtraItemDropRules.ByBoolean(npc.FindBuffIndex(ModContent.BuffType<WoodDrop>()) != -1, ItemID.Wood, minimumDropped: 10, maximumDropped: 30));
 
-            database.RegisterToNPC(NPCID.GreekSkeleton, ItemDropRule.OneFromOptions(15, new int[3] { ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings }));
+            switch (npc.type)
+            {
+                case NPCID.GreekSkeleton:
+                    database.RegisterToNPC(npc.type, ItemDropRule.OneFromOptions(15, new int[3] { ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings }));
+                    break;
 
-            database.RegisterToNPC(NPCID.Merchant, ExtraItemDropRules.AllFromOptions(8, new int[2] { ItemID.MiningShirt, ItemID.MiningPants }));
+                case NPCID.Merchant:
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.AllFromOptions(8, new int[2] { ItemID.MiningShirt, ItemID.MiningPants }));
+                    break;
 
-            database.RegisterToNPC(NPCID.Nurse, ItemDropRule.Common(ItemID.LifeCrystal, 5));
+                case NPCID.Nurse:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.LifeCrystal, 5));
+                    break;
 
-            database.RegisterToNPC(NPCID.Demolitionist, ItemDropRule.Common(ItemID.Dynamite, 2, 5, 5));
+                case NPCID.Demolitionist:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Dynamite, 2, 5, 5));
+                    break;
 
-            database.RegisterToNPC(NPCID.Dryad, ItemDropRule.Common(ItemID.HerbBag, 3));
+                case NPCID.Dryad:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.HerbBag, 3));
+                    break;
 
-            database.RegisterToNPC(NPCID.DD2Bartender, ItemDropRule.Common(ItemID.Ale, 2, 4, 4));
+                case NPCID.DD2Bartender:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Ale, 2, 4, 4));
+                    break;
 
-            database.RegisterToNPC(NPCID.ArmsDealer, ItemDropRule.Common(ItemID.NanoBullet, 4, 30, 30));
+                case NPCID.ArmsDealer:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.NanoBullet, 4, 30, 30));
+                    break;
 
-            database.RegisterToNPC(NPCID.Painter, ExtraItemDropRules.ByBoolean(NPC.AnyNPCs(NPCID.MoonLordCore), ModContent.ItemType<EchPainting>()));
+                case NPCID.Painter:
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.ByBoolean(NPC.AnyNPCs(NPCID.MoonLordCore), ModContent.ItemType<EchPainting>()));
+                    break;
 
-            database.RegisterToNPC(NPCID.Clothier, ItemDropRule.Common(ItemID.Skull, 20));
+                case NPCID.Clothier:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Skull, 20));
+                    break;
 
-            database.RegisterToNPC(NPCID.Mechanic, ItemDropRule.Common(ItemID.Wire, 5, 40, 40));
+                case NPCID.Mechanic:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Wire, 5, 40, 40));
+                    break;
 
-            database.RegisterToNPC(NPCID.Wizard, ItemDropRule.Common(ItemID.FallenStar, 5, 5, 5));
+                case NPCID.Wizard:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.FallenStar, 5, 5, 5));
+                    break;
 
-            database.RegisterToNPC(NPCID.TaxCollector, ItemDropRule.Common(ItemID.GoldCoin, 8, 10, 10));
+                case NPCID.TaxCollector:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.GoldCoin, 8, 10, 10));
+                    break;
 
-            database.RegisterToNPC(NPCID.Truffle, ItemDropRule.Common(ItemID.MushroomStatue, 8));
+                case NPCID.Truffle:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.MushroomStatue, 8));
+                    break;
 
-            database.RegisterToNPC(NPCID.GoblinTinkerer, ItemDropRule.Common(ModContent.ItemType<GoblinHead>(), 10));
+                case NPCID.GoblinTinkerer:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ModContent.ItemType<GoblinHead>(), 10));
+                    break;
 
-            database.RegisterToNPC(NPCID.DD2OgreT2, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskOgre, 14));
-            database.RegisterToNPC(NPCID.DD2OgreT2, ItemDropRule.OneFromOptions(1, new int[10] { ItemID.ApprenticeScarf, ItemID.SquireShield, ItemID.HuntressBuckler, ItemID.MonkBelt, ItemID.DD2SquireDemonSword, ItemID.MonkStaffT1, ItemID.MonkStaffT2, ItemID.BookStaff, ItemID.DD2PhoenixBow, ItemID.DD2PetGhost }));
-            database.RegisterToNPC(NPCID.DD2OgreT2, ItemDropRule.Common(ItemID.GoldCoin, 1, 4, 7));
+                case NPCID.DD2OgreT2:
+                case NPCID.DD2OgreT3:
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskOgre, 14));
+                    database.RegisterToNPC(npc.type, ItemDropRule.OneFromOptions(1, new int[10] { ItemID.ApprenticeScarf, ItemID.SquireShield, ItemID.HuntressBuckler, ItemID.MonkBelt, ItemID.DD2SquireDemonSword, ItemID.MonkStaffT1, ItemID.MonkStaffT2, ItemID.BookStaff, ItemID.DD2PhoenixBow, ItemID.DD2PetGhost }));
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.GoldCoin, 1, 4, 7));
+                    break;
 
-            database.RegisterToNPC(NPCID.DD2OgreT3, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskOgre, 14));
-            database.RegisterToNPC(NPCID.DD2OgreT3, ItemDropRule.OneFromOptions(1, new int[10] { ItemID.ApprenticeScarf, ItemID.SquireShield, ItemID.HuntressBuckler, ItemID.MonkBelt, ItemID.DD2SquireDemonSword, ItemID.MonkStaffT1, ItemID.MonkStaffT2, ItemID.BookStaff, ItemID.DD2PhoenixBow, ItemID.DD2PetGhost }));
-            database.RegisterToNPC(NPCID.DD2OgreT3, ItemDropRule.Common(ItemID.GoldCoin, 1, 4, 7));
+                case NPCID.DD2DarkMageT1:
+                case NPCID.DD2DarkMageT3:
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskDarkMage, 14));
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 10, new int[2] { ItemID.WarTableBanner, ItemID.WarTable }));
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 6, new int[2] { ItemID.DD2PetGato, ItemID.DD2PetDragon }));
+                    database.RegisterToNPC(npc.type, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing && DD2Event.ShouldDropCrystals(), ItemID.DD2EnergyCrystal));
+                    break;
 
-            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskDarkMage, 14));
-            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 10, new int[2] { ItemID.WarTableBanner, ItemID.WarTable }));
-            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 6, new int[2] { ItemID.DD2PetGato, ItemID.DD2PetDragon }));
-            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing && DD2Event.ShouldDropCrystals(), ItemID.DD2EnergyCrystal));
+                case NPCID.Raven:
+                    database.RegisterToNPC(NPCID.Raven, ItemDropRule.Common(ItemID.GoodieBag));
+                    break;
 
-            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskDarkMage, 14));
-            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 10, new int[2] { ItemID.WarTableBanner, ItemID.WarTable }));
-            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 6, new int[2] { ItemID.DD2PetGato, ItemID.DD2PetDragon }));
-            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing && DD2Event.ShouldDropCrystals(), ItemID.DD2EnergyCrystal));
+                case NPCID.SlimeRibbonRed:
+                case NPCID.SlimeRibbonGreen:
+                case NPCID.SlimeRibbonWhite:
+                case NPCID.SlimeRibbonYellow:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Present));
+                    break;
 
-            database.RegisterToNPC(NPCID.Raven, ItemDropRule.Common(ItemID.GoodieBag));
+                case NPCID.BloodZombie:
+                    database.RegisterToNPC(npc.type, ItemDropRule.OneFromOptions(200, new int[2] { ItemID.BladedGlove, ItemID.BloodyMachete }));
+                    break;
 
-            database.RegisterToNPC(NPCID.SlimeRibbonRed, ItemDropRule.Common(ItemID.Present));
-            database.RegisterToNPC(NPCID.SlimeRibbonGreen, ItemDropRule.Common(ItemID.Present));
-            database.RegisterToNPC(NPCID.SlimeRibbonWhite, ItemDropRule.Common(ItemID.Present));
-            database.RegisterToNPC(NPCID.SlimeRibbonYellow, ItemDropRule.Common(ItemID.Present));
-
-            database.RegisterToNPC(NPCID.BloodZombie, ItemDropRule.OneFromOptions(200, new int[2] { ItemID.BladedGlove, ItemID.BloodyMachete }));
-
-            database.RegisterToNPC(NPCID.Clown, ItemDropRule.Common(ItemID.Bananarang));
+                case NPCID.Clown:
+                    database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Bananarang));
+                    break;
+            }
 
         }
 
