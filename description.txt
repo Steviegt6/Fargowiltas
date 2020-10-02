@@ -1,11 +1,5 @@
-NEW UPDATE - V 2.2.2.4
--Deviantt always sells Eurus Socks instead of Squirrel
--Squirrel always sells Top Hat Squirrels
--Removed Abyssion, Viscount, and Leviathan summons 
--Removed Pandora's Tesseract
--Removed Ravens and Present Slimes spawing outside their season
--Beetle armor no longer requires Turtle armor, just Beetle Shells
--Autohouse Tiles Now Change Depending on Player's Biome
+NEW UPDATe - V 3.0.0.0
+-Ported to 1.4
 
 This is a Quality of life mod that adds the Mutant town NPC who sells boss summons of nearly every mod
 There are several other items such as infinite ammos, an instant hellevator, and thrown variants
