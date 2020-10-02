@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
 using Fargowiltas.Projectiles;
+using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -32,6 +33,7 @@ namespace Fargowiltas.NPCs
             NPCID.Sets.AttackType[npc.type] = 0;
             NPCID.Sets.AttackTime[npc.type] = 90;
             NPCID.Sets.AttackAverageChance[npc.type] = 30;
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f });
         }
 
         public override void SetDefaults()
@@ -57,6 +59,12 @@ namespace Fargowiltas.NPCs
                 npc.lifeMax = 7700000;
                 npc.defense = 400;
             }
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[1] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface });
+            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement("Called brother by its siblings, but refuses to confirm its gender. More interested in looking for fuzzy critters than talking about its past."));
         }
 
         public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;

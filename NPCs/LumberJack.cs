@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Fargowiltas.Items.Weapons;
+using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -32,6 +33,13 @@ namespace Fargowiltas.NPCs
             NPCID.Sets.AttackTime[npc.type] = 90;
             NPCID.Sets.AttackAverageChance[npc.type] = 30;
             NPCID.Sets.HatOffsetY[npc.type] = 2;
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f });
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[1] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface });
+            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement("LUMBERJACK WOOD MAN (Placeholder Text)"));
         }
 
         public override void SetDefaults()
@@ -358,7 +366,7 @@ namespace Fargowiltas.NPCs
             randomOffset = 2f;
         }
 
-        public override void NPCLoot()
+        public override void OnKill()
         {
             FargoWorld.MovedLumberjack = true;
         }

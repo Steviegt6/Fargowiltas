@@ -16,6 +16,8 @@ using static Terraria.ModLoader.ModContent;
 using Fargowiltas.Items.Tiles;
 using Fargowiltas.Items.Misc;
 using Fargowiltas.Buffs;
+using Terraria.GameContent.ItemDropRules;
+using Fargowiltas.ItemDropRules;
 
 namespace Fargowiltas.NPCs
 {
@@ -488,18 +490,9 @@ namespace Fargowiltas.NPCs
             }
         }
 
-        public override bool PreNPCLoot(NPC npc)
+        // TODO: Find a way to re-add cancelling enemy loot from dropping? (NoLoot, Fargowiltas.SwarmActive && (npc.type == NPCID.BlueSlime || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.type == NPCID.Creeper || (npc.type >= NPCID.PirateCorsair && npc.type <= NPCID.PirateCrossbower)))
+        public override bool PreKill(NPC npc)
         {
-            if (NoLoot)
-            {
-                return false;
-            }
-
-            if (Fargowiltas.SwarmActive && (npc.type == NPCID.BlueSlime || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.type == NPCID.Creeper || (npc.type >= NPCID.PirateCorsair && npc.type <= NPCID.PirateCrossbower)))
-            {
-                return false;
-            }
-
             if (SwarmActive && Fargowiltas.SwarmActive)
             {
                 switch (npc.type)
@@ -683,14 +676,72 @@ namespace Fargowiltas.NPCs
             return false;
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, ItemDropDatabase database)
         {
             // Lumber Jaxe
-            if (npc.FindBuffIndex(ModContent.BuffType<WoodDrop>()) != -1)
-            {
-                Item.NewItem(npc.Hitbox, ItemID.Wood, Main.rand.Next(10, 30));
-            }
+            database.RegisterToGlobal(ExtraItemDropRules.ByBoolean(npc.FindBuffIndex(ModContent.BuffType<WoodDrop>()) != -1, ItemID.Wood, minimumDropped: 10, maximumDropped: 30));
 
+            database.RegisterToNPC(NPCID.GreekSkeleton, ItemDropRule.OneFromOptions(15, new int[3] { ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings }));
+
+            database.RegisterToNPC(NPCID.Merchant, ExtraItemDropRules.AllFromOptions(8, new int[2] { ItemID.MiningShirt, ItemID.MiningPants }));
+
+            database.RegisterToNPC(NPCID.Nurse, ItemDropRule.Common(ItemID.LifeCrystal, 5));
+
+            database.RegisterToNPC(NPCID.Demolitionist, ItemDropRule.Common(ItemID.Dynamite, 2, 5, 5));
+
+            database.RegisterToNPC(NPCID.Dryad, ItemDropRule.Common(ItemID.HerbBag, 3));
+
+            database.RegisterToNPC(NPCID.DD2Bartender, ItemDropRule.Common(ItemID.Ale, 2, 4, 4));
+
+            database.RegisterToNPC(NPCID.ArmsDealer, ItemDropRule.Common(ItemID.NanoBullet, 4, 30, 30));
+
+            database.RegisterToNPC(NPCID.Painter, ExtraItemDropRules.ByBoolean(NPC.AnyNPCs(NPCID.MoonLordCore), ModContent.ItemType<EchPainting>()));
+
+            database.RegisterToNPC(NPCID.Clothier, ItemDropRule.Common(ItemID.Skull, 20));
+
+            database.RegisterToNPC(NPCID.Mechanic, ItemDropRule.Common(ItemID.Wire, 5, 40, 40));
+
+            database.RegisterToNPC(NPCID.Wizard, ItemDropRule.Common(ItemID.FallenStar, 5, 5, 5));
+
+            database.RegisterToNPC(NPCID.TaxCollector, ItemDropRule.Common(ItemID.GoldCoin, 8, 10, 10));
+
+            database.RegisterToNPC(NPCID.Truffle, ItemDropRule.Common(ItemID.MushroomStatue, 8));
+
+            database.RegisterToNPC(NPCID.GoblinTinkerer, ItemDropRule.Common(ModContent.ItemType<GoblinHead>(), 10));
+
+            database.RegisterToNPC(NPCID.DD2OgreT2, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskOgre, 14));
+            database.RegisterToNPC(NPCID.DD2OgreT2, ItemDropRule.OneFromOptions(1, new int[10] { ItemID.ApprenticeScarf, ItemID.SquireShield, ItemID.HuntressBuckler, ItemID.MonkBelt, ItemID.DD2SquireDemonSword, ItemID.MonkStaffT1, ItemID.MonkStaffT2, ItemID.BookStaff, ItemID.DD2PhoenixBow, ItemID.DD2PetGhost }));
+            database.RegisterToNPC(NPCID.DD2OgreT2, ItemDropRule.Common(ItemID.GoldCoin, 1, 4, 7));
+
+            database.RegisterToNPC(NPCID.DD2OgreT3, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskOgre, 14));
+            database.RegisterToNPC(NPCID.DD2OgreT3, ItemDropRule.OneFromOptions(1, new int[10] { ItemID.ApprenticeScarf, ItemID.SquireShield, ItemID.HuntressBuckler, ItemID.MonkBelt, ItemID.DD2SquireDemonSword, ItemID.MonkStaffT1, ItemID.MonkStaffT2, ItemID.BookStaff, ItemID.DD2PhoenixBow, ItemID.DD2PetGhost }));
+            database.RegisterToNPC(NPCID.DD2OgreT3, ItemDropRule.Common(ItemID.GoldCoin, 1, 4, 7));
+
+            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskDarkMage, 14));
+            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 10, new int[2] { ItemID.WarTableBanner, ItemID.WarTable }));
+            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 6, new int[2] { ItemID.DD2PetGato, ItemID.DD2PetDragon }));
+            database.RegisterToNPC(NPCID.DD2DarkMageT1, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing && DD2Event.ShouldDropCrystals(), ItemID.DD2EnergyCrystal));
+
+            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing, ItemID.BossMaskDarkMage, 14));
+            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 10, new int[2] { ItemID.WarTableBanner, ItemID.WarTable }));
+            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.OneFromOptionsByBoolean(!DD2Event.Ongoing, 6, new int[2] { ItemID.DD2PetGato, ItemID.DD2PetDragon }));
+            database.RegisterToNPC(NPCID.DD2DarkMageT3, ExtraItemDropRules.ByBoolean(!DD2Event.Ongoing && DD2Event.ShouldDropCrystals(), ItemID.DD2EnergyCrystal));
+
+            database.RegisterToNPC(NPCID.Raven, ItemDropRule.Common(ItemID.GoodieBag));
+
+            database.RegisterToNPC(NPCID.SlimeRibbonRed, ItemDropRule.Common(ItemID.Present));
+            database.RegisterToNPC(NPCID.SlimeRibbonGreen, ItemDropRule.Common(ItemID.Present));
+            database.RegisterToNPC(NPCID.SlimeRibbonWhite, ItemDropRule.Common(ItemID.Present));
+            database.RegisterToNPC(NPCID.SlimeRibbonYellow, ItemDropRule.Common(ItemID.Present));
+
+            database.RegisterToNPC(NPCID.BloodZombie, ItemDropRule.OneFromOptions(200, new int[2] { ItemID.BladedGlove, ItemID.BloodyMachete }));
+
+            database.RegisterToNPC(NPCID.Clown, ItemDropRule.Common(ItemID.Bananarang));
+
+        }
+
+        public override void OnKill(NPC npc)
+        {
             switch (npc.type)
             {
                 // Avoid lunar event with cultist summon
@@ -711,220 +762,19 @@ namespace Fargowiltas.NPCs
                             NPC.TowerActiveSolar = false;
                         }
                     }
-
-                    break;
-
-                case NPCID.GreekSkeleton:
-                    if (Main.rand.NextBool(15))
-                    {
-                        int i = Main.rand.Next(3);
-                        switch (i)
-                        {
-                            case 0:
-                                Item.NewItem(npc.Hitbox, ItemID.GladiatorHelmet);
-                                break;
-
-                            case 1:
-                                Item.NewItem(npc.Hitbox, ItemID.GladiatorBreastplate);
-                                break;
-
-                            default:
-                                Item.NewItem(npc.Hitbox, ItemID.GladiatorLeggings);
-                                break;
-                        }
-                    }
-
-                    break;
-
-                case NPCID.Merchant:
-                    if (Main.rand.NextBool(8))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.MiningShirt);
-                        Item.NewItem(npc.Hitbox, ItemID.MiningPants);
-                    }
-
-                    break;
-
-                case NPCID.Nurse:
-                    if (Main.rand.NextBool(5))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.LifeCrystal);
-                    }
-
-                    break;
-
-                case NPCID.Demolitionist:
-                    if (Main.rand.NextBool(2))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.Dynamite, 5);
-                    }
-
-                    break;
-
-                case NPCID.Dryad:
-                    if (Main.rand.NextBool(3))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.HerbBag);
-                    }
-
-                    break;
-
-                case NPCID.DD2Bartender:
-                    if (Main.rand.NextBool(2))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.Ale, 4);
-                    }
-
-                    break;
-
-                case NPCID.ArmsDealer:
-                    if (Main.rand.NextBool(4))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.NanoBullet, 30);
-                    }
-
-                    break;
-
-                case NPCID.Painter:
-                    if (NPC.AnyNPCs(NPCID.MoonLordCore))
-                    {
-                        Item.NewItem(npc.Hitbox, ModContent.ItemType<EchPainting>());
-                    }
-
-                    break;
-
-                case NPCID.Clothier:
-                    if (Main.rand.NextBool(20))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.Skull);
-                    }
-
-                    break;
-
-                case NPCID.Mechanic:
-                    if (Main.rand.NextBool(5))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.Wire, 40);
-                    }
-
-                    break;
-
-                case NPCID.Wizard:
-                    if (Main.rand.NextBool(5))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.FallenStar, 5);
-                    }
-
-                    break;
-
-                case NPCID.TaxCollector:
-                    if (Main.rand.NextBool(8))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.GoldCoin, 10);
-                    }
-
-                    break;
-
-                case NPCID.Truffle:
-                    if (Main.rand.NextBool(8))
-                    {
-                        Item.NewItem(npc.Hitbox, ItemID.MushroomStatue);
-                    }
-
-                    break;
-
-                case NPCID.GoblinTinkerer:
-                    if (Main.rand.NextBool(10))
-                    {
-                        Item.NewItem(npc.Hitbox, ModContent.ItemType<GoblinHead>());
-                    }
-
-                    break;
-
-                case NPCID.Pumpking:
-
-                    break;
-
-                case NPCID.IceQueen:
-
                     break;
 
                 case NPCID.DD2OgreT2:
                 case NPCID.DD2OgreT3:
                     FargoWorld.DownedBools["ogre"] = true;
-                    if (!DD2Event.Ongoing)
-                    {
-                        if (Main.rand.NextBool(14))
-                        {
-                            Item.NewItem(npc.Hitbox, ItemID.BossMaskOgre);
-                        }
-
-                        Item.NewItem(npc.Hitbox, Main.rand.Next(new short[] { ItemID.ApprenticeScarf, ItemID.SquireShield, ItemID.HuntressBuckler, ItemID.MonkBelt, ItemID.DD2SquireDemonSword, ItemID.MonkStaffT1, ItemID.MonkStaffT2, ItemID.BookStaff, ItemID.DD2PhoenixBow, ItemID.DD2PetGhost }));
-
-                        Item.NewItem(npc.Hitbox, ItemID.GoldCoin, Main.rand.Next(4, 7));
-                    }
-
                     break;
 
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2DarkMageT3:
                     FargoWorld.DownedBools["darkMage"] = true;
-                    if (!DD2Event.Ongoing)
-                    {
-                        if (Main.rand.NextBool(14))
-                        {
-                            Item.NewItem(npc.Hitbox, ItemID.BossMaskDarkMage);
-                        }
-
-                        if (Main.rand.NextBool(10))
-                        {
-                            if (Main.rand.NextBool(2))
-                            {
-                                Item.NewItem(npc.Hitbox, ItemID.WarTableBanner);
-                            }
-                            else
-                            {
-                                Item.NewItem(npc.Hitbox, ItemID.WarTable);
-                            }
-                        }
-
-                        if (Main.rand.NextBool(6))
-                        {
-                            Item.NewItem(npc.Hitbox, Main.rand.Next(new short[] { ItemID.DD2PetGato, ItemID.DD2PetDragon }));
-                        }
-
-                        if (DD2Event.ShouldDropCrystals())
-                        {
-                            Item.NewItem(npc.Hitbox, ItemID.DD2EnergyCrystal);
-                        }
-                    }
-
-                    break;
-
-                case NPCID.Raven:
-                    Item.NewItem(npc.Hitbox, ItemID.GoodieBag);
-
-                    break;
-
-                case NPCID.SlimeRibbonRed:
-                case NPCID.SlimeRibbonGreen:
-                case NPCID.SlimeRibbonWhite:
-                case NPCID.SlimeRibbonYellow:
-                    Item.NewItem(npc.Hitbox, ItemID.Present);
-
-                    break;
-
-                case NPCID.BloodZombie:
-                    if (Main.rand.NextBool(200))
-                    {
-                        Item.NewItem(npc.Hitbox, Main.rand.NextBool(2) ? ItemID.BladedGlove : ItemID.BloodyMachete);
-                    }
-
                     break;
 
                 case NPCID.Clown:
-                    Item.NewItem(npc.Hitbox, ItemID.Bananarang);
-
                     FargoWorld.DownedBools["rareEnemy"] = true;
                     FargoWorld.DownedBools["clown"] = true;
                     break;

@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Fargowiltas.NPCs
 {
@@ -318,7 +319,7 @@ namespace Fargowiltas.NPCs
 			}
 		}
 
-        public override void NPCLoot()
+        public override void OnKill()
         {
             FargoWorld.DownedBools["squirrel"] = true;
         }

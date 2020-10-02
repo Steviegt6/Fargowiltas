@@ -14,6 +14,7 @@ using Terraria.ModLoader;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Fargowiltas.Items.Vanity;
+using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -31,6 +32,7 @@ namespace Fargowiltas.NPCs
             NPCID.Sets.AttackTime[npc.type] = 90;
             NPCID.Sets.AttackAverageChance[npc.type] = 30;
             NPCID.Sets.HatOffsetY[npc.type] = 2;
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f });
         }
 
         public override void SetDefaults()
@@ -50,6 +52,12 @@ namespace Fargowiltas.NPCs
             Main.npcCatchable[npc.type] = true;
             npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.Abominationn>();
             npc.buffImmune[BuffID.Suffocation] = true;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[1] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface });
+            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement("His weapons are fused to his hands. Thankfully, he doesn’t need to eat and doors magically open when he approaches."));
         }
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)

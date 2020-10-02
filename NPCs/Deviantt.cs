@@ -11,6 +11,7 @@ using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Fargowiltas.Items.Tiles;
 using Fargowiltas.Projectiles;
+using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -27,6 +28,7 @@ namespace Fargowiltas.NPCs
             NPCID.Sets.AttackType[npc.type] = 0;
             NPCID.Sets.AttackTime[npc.type] = 90;
             NPCID.Sets.AttackAverageChance[npc.type] = 30;
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f });
         }
 
         public override void SetDefaults()
@@ -46,6 +48,12 @@ namespace Fargowiltas.NPCs
             Main.npcCatchable[npc.type] = true;
             npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.Deviantt>();
             npc.buffImmune[BuffID.Suffocation] = true;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[1] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface });
+            bestiaryEntry.Info.Add(new FlavorTextBestiaryInfoElement("This energetic creature knows more than she lets on about the state of the world. Gets pouty when told jokes about her name."));
         }
 
         public override bool CanTownNPCSpawn(int numTownnpcs, int money)
@@ -493,10 +501,10 @@ namespace Fargowiltas.NPCs
             Main.npcChatText = Main.rand.Next(dialogue);
         }
 
-        public override void NPCLoot()
+        /*public override void NPCLoot()
         {
-            //if (Fargowiltas.ModLoaded["FargowiltasSouls"] && NPC.AnyNPCs(Fargowiltas.FargosGetMod("FargowiltasSouls").NPCType("CosmosChampion")))
-            //    Item.NewItem(npc.Hitbox, ModContent.ItemType<WalkingRick>());
-        }
+            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && NPC.AnyNPCs(Fargowiltas.FargosGetMod("FargowiltasSouls").NPCType("CosmosChampion")))
+                Item.NewItem(npc.Hitbox, ModContent.ItemType<WalkingRick>());
+        }*/
     }
 }
