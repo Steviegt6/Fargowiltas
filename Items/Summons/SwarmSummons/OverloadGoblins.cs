@@ -5,7 +5,6 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons
 {
@@ -74,7 +73,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             recipe.AddIngredient(ItemID.GoblinBattleStandard);
             recipe.AddIngredient(null, "Overloader", 10);
             recipe.AddTile(TileID.CrystalBall);
-            
+
             recipe.Register();
         }
     }

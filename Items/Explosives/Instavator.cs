@@ -1,10 +1,7 @@
+using Fargowiltas.Projectiles.Explosives;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Projectiles.Explosives;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -43,7 +40,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddIngredient(ItemID.RopeCoil, 10);
             recipe.AddIngredient(ItemID.Torch, 99);
             recipe.AddTile(TileID.Anvils);
-            
+
             recipe.Register();
         }
     }

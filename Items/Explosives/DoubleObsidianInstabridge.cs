@@ -1,11 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.Projectiles.Explosives;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Projectiles.Explosives;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -50,7 +47,7 @@ namespace Fargowiltas.Items.Explosives
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<ObsidianInstaBridge>(), 2);
             recipe.AddTile(TileID.Anvils);
-            
+
             recipe.Register();
         }
     }

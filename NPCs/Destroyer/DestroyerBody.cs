@@ -2,10 +2,8 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.NPCs.Destroyer
 {
@@ -68,7 +66,6 @@ namespace Fargowiltas.NPCs.Destroyer
             }
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-
                 npc.localAI[0] += Main.rand.Next(4);
                 if (npc.localAI[0] >= Main.rand.Next(1400, 26000))
                 {
@@ -148,7 +145,6 @@ namespace Fargowiltas.NPCs.Destroyer
                     Lighting.AddLight((int)((npc.position.X + (float)(npc.width / 2)) / 16f), (int)((npc.position.Y + (float)(npc.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
                 }
                 npc.localAI[1] = 1f;
-                
             }
             else
             {
@@ -379,7 +375,6 @@ namespace Fargowiltas.NPCs.Destroyer
                 }
             }
             npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) + 1.57f;
-            
         }
     }
 }

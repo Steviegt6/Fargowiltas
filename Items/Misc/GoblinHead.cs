@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Misc

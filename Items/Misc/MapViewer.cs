@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons
 {
@@ -84,7 +81,7 @@ namespace Fargowiltas.Items.Summons
             recipe.AddIngredient(ItemID.SuspiciousLookingEye);
             recipe.AddIngredient(ItemID.MechanicalEye);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
         }
     }

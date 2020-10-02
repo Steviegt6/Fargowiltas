@@ -1,17 +1,14 @@
+using Fargowiltas.Items.Vanity;
+using Fargowiltas.Items.Weapons;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using Fargowiltas.Items.Vanity;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 using static Terraria.ModLoader.ModContent;
-using Fargowiltas.Items.Weapons;
-using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -178,7 +175,6 @@ namespace Fargowiltas.NPCs
                     quote = "Whatever causes these to glow is beyond me, you're probably gonna eat them anyway so have this while youre at it.";
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.GlowingSnail, ItemID.TruffleWorm }));
                     //add mushroom grass seeds
-
                 }
                 else if (player.ZoneCorrupt || player.ZoneCrimson)
                 {
@@ -226,7 +222,6 @@ namespace Fargowiltas.NPCs
                     //add underground dialogue, he gives you gems and gem critters
 
                     //move current dialogue to underworld
-
 
                     quote = "I looked around here for a while and didn't find any trees. I did find this little thing though. Maybe you'll want it?";
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Snail }));

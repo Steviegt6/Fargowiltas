@@ -1,18 +1,12 @@
 ﻿using Fargowiltas.Items.CaughtNPCs;
 using Fargowiltas.Items.Summons;
-using Fargowiltas.Items.Summons.Deviantt;
-using Fargowiltas.Items.Summons.Abom;
-using Fargowiltas.Items.Summons.SwarmSummons;
 using Fargowiltas.Items.Summons.Mutant;
+using Fargowiltas.Items.Summons.VanillaCopy;
 using Fargowiltas.Items.Tiles;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Items.Summons.VanillaCopy;
 
 namespace Fargowiltas
 {
@@ -25,7 +19,7 @@ namespace Fargowiltas
             RecipeGroup.RegisterGroup("Fargowiltas:AnyEvilWood", group);
 
             //iron anvil
-            group = new RecipeGroup(() => "Any Iron Anvil", new int[] { ItemID.IronAnvil, ItemID.LeadAnvil});
+            group = new RecipeGroup(() => "Any Iron Anvil", new int[] { ItemID.IronAnvil, ItemID.LeadAnvil });
             RecipeGroup.RegisterGroup("Fargowiltas:AnyAnvil", group);
 
             //anvil HM
@@ -72,7 +66,6 @@ namespace Fargowiltas
                 ItemID.SteampunkBookcase
             });
             RecipeGroup.RegisterGroup("Fargowiltas:AnyBookcase", group);
-
 
             // Bone Banners
             int[] boneBanners = { ItemID.BlueArmoredBonesBanner, ItemID.HellArmoredBonesBanner, ItemID.RustyArmoredBonesBanner };
@@ -264,10 +257,6 @@ namespace Fargowiltas
             AddFurnitureRecipes();
             AddMiscRecipes();
             AddVanillaRecipeChanges();
-
-
-            
-
         }
 
         private static void AddSummonConversions()
@@ -461,7 +450,7 @@ namespace Fargowiltas
             AddBannerToItemsRecipe(ItemID.PenguinBanner, new int[] { ItemID.PedguinHat, ItemID.PedguinShirt, ItemID.PedguinPants });
             AddBannerToItemsRecipe(ItemID.PirateBanner, new int[] { ItemID.SailorHat, ItemID.SailorShirt, ItemID.SailorPants });
             AddBannerToItemsRecipe(ItemID.RedDevilBanner, new int[] { ItemID.UnholyTrident, ItemID.FireFeather });
-			AddBannerToItemsRecipe(ItemID.SkeletonArcherBanner, new int[] { ItemID.MagicQuiver, ItemID.Marrow});
+            AddBannerToItemsRecipe(ItemID.SkeletonArcherBanner, new int[] { ItemID.MagicQuiver, ItemID.Marrow });
             AddBannerToItemsRecipe(ItemID.SkeletonSniperBanner, new int[] { ItemID.RifleScope, ItemID.SniperRifle });
             AddBannerToItemsRecipe(ItemID.TacticalSkeletonBanner, new int[] { ItemID.TacticalShotgun, ItemID.SWATHelmet });
             AddBannerToItemsRecipe(ItemID.VampireBanner, new int[] { ItemID.BrokenBatWing, ItemID.MoonStone });
@@ -475,7 +464,7 @@ namespace Fargowiltas
             AddBannerToItemRecipe(ItemID.AngryBonesBanner, ItemID.AncientNecroHelmet, 2);
             //gladiator
             AddBannerToItemsRecipe(ItemID.GreekSkeletonBanner, new int[] { ItemID.GladiatorHelmet, ItemID.GladiatorBreastplate, ItemID.GladiatorLeggings });
-            
+
             //boss trophy recipes
             AddBannerToItemRecipe(ItemID.KingSlimeTrophy, ItemID.SlimeStaff);
             AddBannerToItemRecipe(ItemID.EyeofCthulhuTrophy, ItemID.Binoculars);
@@ -693,7 +682,7 @@ namespace Fargowiltas
                 {
                     recipe.AddIngredient(ingredient, ingredientAmount);
                 }
-                
+
                 recipe.AddIngredient(ItemID.StoneBlock, 50);
                 recipe.AddTile(TileID.HeavyWorkBench);
                 recipe.Register();
@@ -732,7 +721,7 @@ namespace Fargowiltas
 
             //non functional
             AddStatueRecipe(ItemID.ShieldStatue, -1);
-            AddStatueRecipe(ItemID.AnvilStatue,-1);
+            AddStatueRecipe(ItemID.AnvilStatue, -1);
             AddStatueRecipe(ItemID.AxeStatue, -1);
             AddStatueRecipe(ItemID.BoomerangStatue, -1);
             AddStatueRecipe(ItemID.BootStatue, -1);
@@ -853,14 +842,13 @@ namespace Fargowiltas
             //pearlwood /////////////////////////////////////////////////
             AddGrabBagItemRecipe(ItemID.Anchor, ItemID.WoodenCrate, 5);
             //all else is the same except no extractinator? recipe group
-            
+
             //iron
             AddGrabBagItemRecipe(ItemID.FalconBlade, ItemID.IronCrate, 5);
             AddGrabBagItemRecipe(ItemID.TartarSauce, ItemID.IronCrate, 5);
             AddGrabBagItemRecipe(ItemID.GingerBeard, ItemID.IronCrate, 5);
             //mythril
             //same stuff recipe group
-
 
             //gold
             AddGrabBagItemRecipe(ItemID.HardySaddle, ItemID.GoldenCrate, 5);
@@ -873,7 +861,7 @@ namespace Fargowiltas
             AddGrabBagItemRecipe(ItemID.ShoeSpikes, ItemID.GoldenCrate, 5);
             AddGrabBagItemRecipe(ItemID.CloudinaBottle, ItemID.GoldenCrate, 5);
             //add mace here
-            
+
             //titanium
             //same shit recipe group
 
@@ -946,9 +934,6 @@ namespace Fargowiltas
             AddGrabBagItemRecipe(ItemID.FlyingCarpet, ItemID.GoldenCrate, 5); //make these from here instead
             AddGrabBagItemRecipe(ItemID.SandstorminaBottle, ItemID.GoldenCrate, 5);
             //mirage crate (same)
-
-
-
 
             //obsidian
             //10 for slice of hell cake and ornate shadow key
@@ -1062,9 +1047,8 @@ namespace Fargowiltas
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.Register();
 
-
             //engineers combat rench recipe
-            //engineer plus wrench 
+            //engineer plus wrench
         }
 
         private static void AddTreasureBagRecipes()
@@ -1243,49 +1227,49 @@ namespace Fargowiltas
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.Terrarian);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.StarWrath);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SDMG);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BeeGun);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LastPrism);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LunarFlareBook);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.RainbowCrystalStaff);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MoonlordTurretStaff);
             recipe.AddIngredient(ItemID.MoonLordBossBag);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //meowmere minecart here
@@ -1294,173 +1278,173 @@ namespace Fargowiltas
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2PetDragon);
             recipe.AddIngredient(ItemID.BossTrophyDarkmage);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2PetGato);
             recipe.AddIngredient(ItemID.BossTrophyDarkmage);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //ogre
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ApprenticeScarf);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SquireShield);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.HuntressBuckler);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MonkBelt);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2PhoenixBow);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BookStaff);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2SquireDemonSword);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MonkStaffT1);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MonkStaffT2);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2PetGhost);
             recipe.AddIngredient(ItemID.BossTrophyOgre);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //besty
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BetsyWings);
             recipe.AddIngredient(ItemID.BossBagBetsy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2BetsyBow);
             recipe.AddIngredient(ItemID.BossBagBetsy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DD2SquireBetsySword);
             recipe.AddIngredient(ItemID.BossBagBetsy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ApprenticeStaffT3);
             recipe.AddIngredient(ItemID.BossBagBetsy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MonkStaffT3);
             recipe.AddIngredient(ItemID.BossBagBetsy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //mourning wood
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SpookyHook);
             recipe.AddIngredient(ItemID.MourningWoodTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SpookyTwig);
             recipe.AddIngredient(ItemID.MourningWoodTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.StakeLauncher);
             recipe.AddIngredient(ItemID.MourningWoodTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.CursedSapling);
             recipe.AddIngredient(ItemID.MourningWoodTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.NecromanticScroll);
             recipe.AddIngredient(ItemID.MourningWoodTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //pumpking
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.TheHorsemansBlade);
             recipe.AddIngredient(ItemID.PumpkingTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BatScepter);
             recipe.AddIngredient(ItemID.PumpkingTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.RavenStaff);
             recipe.AddIngredient(ItemID.PumpkingTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.CandyCornRifle);
             recipe.AddIngredient(ItemID.PumpkingTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.JackOLanternLauncher);
             recipe.AddIngredient(ItemID.PumpkingTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlackFairyDust);
             recipe.AddIngredient(ItemID.PumpkingTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //add dark harvest
@@ -1469,166 +1453,164 @@ namespace Fargowiltas
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ChristmasTreeSword);
             recipe.AddIngredient(ItemID.EverscreamTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ChristmasHook);
             recipe.AddIngredient(ItemID.EverscreamTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.Razorpine);
             recipe.AddIngredient(ItemID.EverscreamTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.FestiveWings);
             recipe.AddIngredient(ItemID.EverscreamTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //santa nk1
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.EldMelter);
             recipe.AddIngredient(ItemID.SantaNK1Trophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ChainGun);
             recipe.AddIngredient(ItemID.SantaNK1Trophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //ice queen
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlizzardStaff);
             recipe.AddIngredient(ItemID.IceQueenTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SnowmanCannon);
             recipe.AddIngredient(ItemID.IceQueenTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.NorthPole);
             recipe.AddIngredient(ItemID.IceQueenTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BabyGrinchMischiefWhistle);
             recipe.AddIngredient(ItemID.IceQueenTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ReindeerBells);
             recipe.AddIngredient(ItemID.IceQueenTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //saucer
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.Xenopopper);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.XenoStaff);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LaserMachinegun);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ElectrosphereLauncher);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.InfluxWaver);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.CosmicCarKey);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.AntiGravityHook);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ChargedBlasterCannon);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LaserDrill);
             recipe.AddIngredient(ItemID.MartianSaucerTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //dutchman
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LuckyCoin);
             recipe.AddIngredient(ItemID.FlyingDutchmanTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DiscountCard);
             recipe.AddIngredient(ItemID.FlyingDutchmanTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.CoinGun);
             recipe.AddIngredient(ItemID.FlyingDutchmanTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PirateStaff);
             recipe.AddIngredient(ItemID.FlyingDutchmanTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GoldRing);
             recipe.AddIngredient(ItemID.FlyingDutchmanTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.Cutlass);
             recipe.AddIngredient(ItemID.FlyingDutchmanTrophy);
             recipe.AddTile(TileID.Solidifier);
-            
+
             recipe.Register();
 
             //add the dutchman minecart
-
-
         }
 
         private static void AddMiscRecipes()
@@ -1638,26 +1620,26 @@ namespace Fargowiltas
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.EnchantedSword);
             recipe.AddIngredient(ItemID.IceBlade);
             recipe.AddTile(TileID.CrystalBall);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.Terragrim);
             recipe.AddIngredient(ItemID.EnchantedSword, 2);
             recipe.AddIngredient(ItemID.SoulofLight, 5);
             recipe.AddTile(TileID.CrystalBall);
-             //terragrim
+            //terragrim
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MagicalPumpkinSeed);
             recipe.AddIngredient(ItemID.Pumpkin, 500);
             recipe.AddTile(TileID.LivingLoom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.Seaweed);
             recipe.AddIngredient(ItemID.FishingSeaweed, 5);
             recipe.AddTile(TileID.LivingLoom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.FlowerBoots);
@@ -1670,58 +1652,57 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Deathweed);
             recipe.AddIngredient(ItemID.Fireblossom);
             recipe.AddTile(TileID.LivingLoom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LivingLoom);
             recipe.AddIngredient(ItemID.Loom);
             recipe.AddIngredient(ItemID.Vine, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.JungleRose);
             recipe.AddIngredient(ItemID.NaturesGift);
             recipe.AddIngredient(ItemID.RedHusk);
             recipe.AddTile(TileID.LivingLoom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.AmberMosquito);
             recipe.AddIngredient(ItemID.Amber, 15);
             recipe.AddIngredient(ItemID.Firefly);
             recipe.AddTile(TileID.CookingPots);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.NaturesGift);
             recipe.AddIngredient(ItemID.Moonglow, 15);
             recipe.AddIngredient(ItemID.ManaCrystal);
             recipe.AddTile(TileID.AlchemyTable);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SandstorminaBottle);
             recipe.AddIngredient(ItemID.SandBlock, 50);
             recipe.AddIngredient(ItemID.Bottle);
             recipe.AddTile(TileID.AlchemyTable);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ShroomiteBar);
             recipe.AddIngredient(ItemID.ChlorophyteBar);
             recipe.AddIngredient(ItemID.DarkBlueSolution);
             recipe.AddTile(TileID.Autohammer);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.WebSlinger);
             recipe.AddIngredient(ItemID.GrapplingHook);
             recipe.AddIngredient(ItemID.WebRopeCoil, 8);
             recipe.AddTile(TileID.CookingPots);
-            
-            recipe.Register();
 
+            recipe.Register();
         }
 
         private static void AddFurnitureRecipes()
@@ -1730,47 +1711,47 @@ namespace Fargowiltas
             Recipe recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueBrickPlatform, 2);
             recipe.AddIngredient(ItemID.BlueBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonBathtub);
             recipe.AddIngredient(ItemID.BlueBrick, 14);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonBed);
             recipe.AddIngredient(ItemID.BlueBrick, 15);
             recipe.AddIngredient(ItemID.Silk, 5);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonBookcase);
             recipe.AddIngredient(ItemID.BlueBrick, 20);
             recipe.AddIngredient(ItemID.Book, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonCandelabra);
             recipe.AddIngredient(ItemID.BlueBrick, 5);
             recipe.AddIngredient(ItemID.Torch, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonCandle);
             recipe.AddIngredient(ItemID.BlueBrick, 4);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonChair);
             recipe.AddIngredient(ItemID.BlueBrick, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonChandelier);
@@ -1778,7 +1759,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Torch, 4);
             recipe.AddIngredient(ItemID.Chain, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DungeonClockBlue);
@@ -1786,26 +1767,26 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Glass, 6);
             recipe.AddIngredient(ItemID.BlueBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonDoor);
             recipe.AddIngredient(ItemID.BlueBrick, 6);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonDresser);
             recipe.AddIngredient(ItemID.BlueBrick, 16);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonLamp);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddIngredient(ItemID.BlueBrick, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonPiano);
@@ -1813,97 +1794,97 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.BlueBrick, 15);
             recipe.AddIngredient(ItemID.Book);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonSofa);
             recipe.AddIngredient(ItemID.BlueBrick, 5);
             recipe.AddIngredient(ItemID.Silk, 2);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonTable);
             recipe.AddIngredient(ItemID.BlueBrick, 8);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonVase);
             recipe.AddIngredient(ItemID.BlueBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueDungeonWorkBench);
             recipe.AddIngredient(ItemID.BlueBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueBrickWall, 4);
             recipe.AddIngredient(ItemID.BlueBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueSlabWall, 4);
             recipe.AddIngredient(ItemID.BlueBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BlueTiledWall, 4);
             recipe.AddIngredient(ItemID.BlueBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             //green
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenBrickPlatform, 2);
             recipe.AddIngredient(ItemID.GreenBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonBathtub);
             recipe.AddIngredient(ItemID.GreenBrick, 14);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonBed);
             recipe.AddIngredient(ItemID.GreenBrick, 15);
             recipe.AddIngredient(ItemID.Silk, 5);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonBookcase);
             recipe.AddIngredient(ItemID.GreenBrick, 20);
             recipe.AddIngredient(ItemID.Book, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonCandelabra);
             recipe.AddIngredient(ItemID.GreenBrick, 5);
             recipe.AddIngredient(ItemID.Torch, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonCandle);
             recipe.AddIngredient(ItemID.GreenBrick, 4);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonChair);
             recipe.AddIngredient(ItemID.GreenBrick, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonChandelier);
@@ -1911,7 +1892,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Torch, 4);
             recipe.AddIngredient(ItemID.Chain, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DungeonClockGreen);
@@ -1919,26 +1900,26 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Glass, 6);
             recipe.AddIngredient(ItemID.GreenBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonDoor);
             recipe.AddIngredient(ItemID.GreenBrick, 6);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonDresser);
             recipe.AddIngredient(ItemID.GreenBrick, 16);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonLamp);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddIngredient(ItemID.GreenBrick, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonPiano);
@@ -1946,97 +1927,97 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.GreenBrick, 15);
             recipe.AddIngredient(ItemID.Book);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonSofa);
             recipe.AddIngredient(ItemID.GreenBrick, 5);
             recipe.AddIngredient(ItemID.Silk, 2);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonTable);
             recipe.AddIngredient(ItemID.GreenBrick, 8);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonVase);
             recipe.AddIngredient(ItemID.GreenBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenDungeonWorkBench);
             recipe.AddIngredient(ItemID.GreenBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenBrickWall, 4);
             recipe.AddIngredient(ItemID.GreenBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenSlabWall, 4);
             recipe.AddIngredient(ItemID.GreenBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GreenTiledWall, 4);
             recipe.AddIngredient(ItemID.GreenBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             //pink
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkBrickPlatform, 2);
             recipe.AddIngredient(ItemID.PinkBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonBathtub);
             recipe.AddIngredient(ItemID.PinkBrick, 14);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonBed);
             recipe.AddIngredient(ItemID.PinkBrick, 15);
             recipe.AddIngredient(ItemID.Silk, 5);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonBookcase);
             recipe.AddIngredient(ItemID.PinkBrick, 20);
             recipe.AddIngredient(ItemID.Book, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonCandelabra);
             recipe.AddIngredient(ItemID.PinkBrick, 5);
             recipe.AddIngredient(ItemID.Torch, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonCandle);
             recipe.AddIngredient(ItemID.PinkBrick, 4);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonChair);
             recipe.AddIngredient(ItemID.PinkBrick, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonChandelier);
@@ -2044,7 +2025,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Torch, 4);
             recipe.AddIngredient(ItemID.Chain, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DungeonClockPink);
@@ -2052,26 +2033,26 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Glass, 6);
             recipe.AddIngredient(ItemID.PinkBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonDoor);
             recipe.AddIngredient(ItemID.PinkBrick, 6);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonDresser);
             recipe.AddIngredient(ItemID.PinkBrick, 16);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonLamp);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddIngredient(ItemID.PinkBrick, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonPiano);
@@ -2079,91 +2060,91 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.PinkBrick, 15);
             recipe.AddIngredient(ItemID.Book);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonSofa);
             recipe.AddIngredient(ItemID.PinkBrick, 5);
             recipe.AddIngredient(ItemID.Silk, 2);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonTable);
             recipe.AddIngredient(ItemID.PinkBrick, 8);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonVase);
             recipe.AddIngredient(ItemID.PinkBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkDungeonWorkBench);
             recipe.AddIngredient(ItemID.PinkBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkBrickWall, 4);
             recipe.AddIngredient(ItemID.PinkBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkSlabWall, 4);
             recipe.AddIngredient(ItemID.PinkBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.PinkTiledWall, 4);
             recipe.AddIngredient(ItemID.PinkBrick);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             //obsidian
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianBathtub);
             recipe.AddIngredient(ItemID.ObsidianBrick, 14);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianBed);
             recipe.AddIngredient(ItemID.ObsidianBrick, 15);
             recipe.AddIngredient(ItemID.Silk, 5);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianBookcase);
             recipe.AddIngredient(ItemID.ObsidianBrick, 20);
             recipe.AddIngredient(ItemID.Book, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianCandelabra);
             recipe.AddIngredient(ItemID.ObsidianBrick, 5);
             recipe.AddIngredient(ItemID.Torch, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianCandle);
             recipe.AddIngredient(ItemID.ObsidianBrick, 4);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianChair);
             recipe.AddIngredient(ItemID.ObsidianBrick, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianChandelier);
@@ -2171,7 +2152,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Torch, 4);
             recipe.AddIngredient(ItemID.Chain, 4);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianClock);
@@ -2179,26 +2160,26 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Glass, 6);
             recipe.AddIngredient(ItemID.ObsidianBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianDoor);
             recipe.AddIngredient(ItemID.ObsidianBrick, 6);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianDresser);
             recipe.AddIngredient(ItemID.ObsidianBrick, 16);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianLamp);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddIngredient(ItemID.ObsidianBrick, 3);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianPiano);
@@ -2206,38 +2187,38 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.ObsidianBrick, 15);
             recipe.AddIngredient(ItemID.Book);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianSofa);
             recipe.AddIngredient(ItemID.ObsidianBrick, 5);
             recipe.AddIngredient(ItemID.Silk, 2);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianTable);
             recipe.AddIngredient(ItemID.ObsidianBrick, 8);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianVase);
             recipe.AddIngredient(ItemID.ObsidianBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianWorkBench);
             recipe.AddIngredient(ItemID.ObsidianBrick, 10);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LihzahrdFurnace);
             recipe.AddIngredient(ItemID.LihzahrdBrick, 25);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             //lanterns
@@ -2246,7 +2227,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BrassLantern);
@@ -2254,7 +2235,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.CagedLantern);
@@ -2262,7 +2243,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.CarriageLantern);
@@ -2270,7 +2251,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.AlchemyLantern);
@@ -2278,7 +2259,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DiablostLamp);
@@ -2286,7 +2267,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.OilRagSconse);
@@ -2294,14 +2275,14 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Bone, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianLantern);
             recipe.AddIngredient(ItemID.Obsidian, 6);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             //platforms
@@ -2309,28 +2290,28 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.WoodPlatform, 5);
             recipe.AddIngredient(ItemID.Bone);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.WoodShelf, 5);
             recipe.AddIngredient(ItemID.WoodPlatform, 5);
             recipe.AddIngredient(ItemID.Bone);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MetalShelf, 5);
             recipe.AddIngredient(ItemID.WoodPlatform, 5);
             recipe.AddIngredient(ItemID.Bone);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.BrassShelf, 5);
             recipe.AddIngredient(ItemID.WoodPlatform, 5);
             recipe.AddIngredient(ItemID.Bone);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
 
             //banners
@@ -2339,42 +2320,42 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Bone, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.NecromanticSign);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Bone, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.RustedCompanyStandard);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Bone, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.RaggedBrotherhoodSigil);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Bone, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.MoltenLegionFlag);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Bone, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.DiabolicSigil);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Bone, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             //sky island
@@ -2382,21 +2363,21 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.SunplateBlock, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SunBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.SunplateBlock, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.GravityBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.SunplateBlock, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             //underworld
@@ -2404,42 +2385,42 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Obsidian, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.HellHammerBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Obsidian, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.HelltowerBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Obsidian, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LostHopesofManBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Obsidian, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.ObsidianWatcherBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Obsidian, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.LavaEruptsBanner);
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.Obsidian, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             //pyramid
@@ -2447,7 +2428,7 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.Silk, 3);
             recipe.AddIngredient(ItemID.SandstoneBrick, 10);
             recipe.AddTile(TileID.Loom);
-            
+
             recipe.Register();
 
             recipe = ModContent.GetInstance<Fargowiltas>().CreateRecipe(ItemID.SnakeBanner);
@@ -2461,7 +2442,6 @@ namespace Fargowiltas
             recipe.AddIngredient(ItemID.SandstoneBrick, 10);
             recipe.AddTile(TileID.Loom);
             recipe.Register();
-
         }
 
         private static void AddConvertRecipe(int item, int item2)

@@ -1,20 +1,15 @@
-using System.Collections.Generic;
-using Fargowiltas.Items.Summons;
-using Fargowiltas.Items.Summons.Deviantt;
-using Fargowiltas.Items.Summons.SwarmSummons;
-using Fargowiltas.Items.Summons.Mutant;
 using Fargowiltas.Items.Summons.Abom;
+using Fargowiltas.Items.Summons.Deviantt;
+using Fargowiltas.Items.Vanity;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 using static Terraria.ModLoader.ModContent;
-using Fargowiltas.Items.Vanity;
-using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {

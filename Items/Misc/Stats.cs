@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
+
 ////using ThoriumMod;
 
 namespace Fargowiltas.Items.Misc
@@ -12,6 +10,7 @@ namespace Fargowiltas.Items.Misc
     public class Stats : ModItem
     {
         private Mod thorium;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stat Sheet");

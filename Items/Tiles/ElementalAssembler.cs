@@ -1,12 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Terraria.Localization;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -51,7 +45,6 @@ namespace Fargowiltas.Items.Tiles
 
             recipe.AddTile(TileID.DemonAltar);
 
-            
             recipe.Register();
         }
     }

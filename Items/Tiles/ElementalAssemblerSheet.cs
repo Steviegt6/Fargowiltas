@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ObjectData;
 
 namespace Fargowiltas.Items.Tiles
@@ -23,12 +20,11 @@ namespace Fargowiltas.Items.Tiles
             name.SetDefault("Elemental Assembler");
             AddMapEntry(new Color(200, 200, 200), name);
             // TODO: Uncomment when tML adds this back
-//disableSmartCursor = true;
+            //disableSmartCursor = true;
             //counts as
-            adjTiles = new int[] { TileID.Hellforge, TileID.Furnaces, TileID.AlchemyTable, TileID.TinkerersWorkbench, TileID.ImbuingStation, TileID.DyeVat, TileID.LivingLoom, TileID.GlassKiln, TileID.IceMachine, TileID.HoneyDispenser, TileID.SkyMill, TileID.Solidifier, TileID.BoneWelder, TileID.Bottles};
+            adjTiles = new int[] { TileID.Hellforge, TileID.Furnaces, TileID.AlchemyTable, TileID.TinkerersWorkbench, TileID.ImbuingStation, TileID.DyeVat, TileID.LivingLoom, TileID.GlassKiln, TileID.IceMachine, TileID.HoneyDispenser, TileID.SkyMill, TileID.Solidifier, TileID.BoneWelder, TileID.Bottles };
 
             animationFrameHeight = 54;
-
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

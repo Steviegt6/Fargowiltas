@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-using Fargowiltas.Items.Summons.Deviantt;
+﻿using Fargowiltas.Items.Summons.Deviantt;
+using Fargowiltas.Projectiles;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 using static Terraria.ModLoader.ModContent;
-using Fargowiltas.Items.Tiles;
-using Fargowiltas.Projectiles;
-using Terraria.GameContent.Bestiary;
 
 namespace Fargowiltas.NPCs
 {
@@ -386,7 +382,7 @@ namespace Fargowiltas.NPCs
                 }
                 else if (NPC.downedBoss1)
                 {
-                    Main.npcChatText = WorldGen.crimson ? "When the brain gets mad, it'll confuse you every few seconds. Four rings to confuse you, one ring when it wears off!" 
+                    Main.npcChatText = WorldGen.crimson ? "When the brain gets mad, it'll confuse you every few seconds. Four rings to confuse you, one ring when it wears off!"
                         : "When you hurt the world eater, its segments will break off as smaller eaters. Don't let them pile up!";
                 }
                 else if (NPC.downedSlimeKing)

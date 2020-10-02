@@ -1,6 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -34,7 +34,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.QueenStatue);
             recipe.AddIngredient(ItemID.Bone, 15);
             recipe.AddTile(TileID.HeavyWorkBench);
-            
+
             recipe.Register();
         }
     }

@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Tiles

@@ -1,6 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -41,7 +41,7 @@ Right click while holding a weapon for its respective buff");
             recipe.AddIngredient(ItemID.BewitchingTable, 5);
             recipe.AddIngredient(ItemID.AdamantiteBar, 5);
             recipe.AddTile(TileID.MythrilAnvil);
-            
+
             recipe.Register();
         }
     }

@@ -1,12 +1,9 @@
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Terraria.Localization;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -65,7 +62,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.LunarCraftingStation);
             recipe.AddIngredient(ItemID.LunarBar, 25);
             recipe.AddTile(TileID.DemonAltar);
-            
+
             recipe.Register();
         }
     }

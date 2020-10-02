@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.Abom
 {
@@ -38,7 +36,7 @@ namespace Fargowiltas.Items.Summons.Abom
         public override bool UseItem(Player player)
         {
             BirthdayParty.ToggleManualParty();
-            
+
             NetMessage.SendData(MessageID.WorldData);
 
             if (!NPC.AnyNPCs(NPCID.PartyGirl))

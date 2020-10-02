@@ -1,12 +1,8 @@
+using Fargowiltas.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas;
-using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -67,7 +63,7 @@ namespace Fargowiltas.Items.Misc
             recipe.AddIngredient(ItemID.TargetDummy);
             recipe.AddIngredient(ItemID.FallenStar);
             recipe.AddTile(TileID.CookingPots);
-            
+
             recipe.Register();
         }
     }

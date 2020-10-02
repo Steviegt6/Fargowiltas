@@ -1,11 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.CaughtNPCs
 {

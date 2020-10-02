@@ -1,7 +1,7 @@
-﻿using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Fargowiltas.Projectiles.Explosives;
 using Terraria;
-using Fargowiltas.Projectiles.Explosives;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Explosives
 {

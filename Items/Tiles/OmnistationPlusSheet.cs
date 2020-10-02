@@ -2,19 +2,15 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ObjectData;
-using System;
-using System.Collections.Generic;
+
 ////using ThoriumMod.Items;
 ////using ThoriumMod.Projectiles.Bard;
 ////using ThoriumMod.Utilities;
 ////using CalamityMod.NPCs;
 using static Terraria.ModLoader.ModContent;
-using Terraria.Audio;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -36,7 +32,7 @@ namespace Fargowiltas.Items.Tiles
             name.SetDefault("Omnistation+");
             AddMapEntry(color, name);
             // // TODO: Uncomment when tML adds this back
-//disableSmartCursor = true;
+            //disableSmartCursor = true;
 
             thorium = Fargowiltas.FargosGetMod("ThoriumMod");
             calamity = Fargowiltas.FargosGetMod("CalamityMod");
@@ -154,6 +150,5 @@ namespace Fargowiltas.Items.Tiles
                 }
             }*/
         }
-
     }
 }

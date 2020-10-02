@@ -1,9 +1,7 @@
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.Mutant
 {
@@ -55,7 +53,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.GuideVoodooDoll);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
         }
     }

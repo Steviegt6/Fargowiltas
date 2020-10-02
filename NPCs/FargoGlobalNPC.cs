@@ -1,23 +1,19 @@
+using Fargowiltas.Buffs;
+using Fargowiltas.ItemDropRules;
+using Fargowiltas.Items.CaughtNPCs;
+using Fargowiltas.Items.Misc;
+using Fargowiltas.Items.Tiles;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using Fargowiltas.Items.CaughtNPCs;
-using Fargowiltas.Items.Vanity;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.GameContent.Events;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 using static Terraria.ModLoader.ModContent;
-using Fargowiltas.Items.Tiles;
-using Fargowiltas.Items.Misc;
-using Fargowiltas.Buffs;
-using Terraria.GameContent.ItemDropRules;
-using Fargowiltas.ItemDropRules;
 
 namespace Fargowiltas.NPCs
 {
@@ -278,7 +274,6 @@ namespace Fargowiltas.NPCs
                             shop.item[nextSlot++].SetDefaults(ItemID.TungstenOre);
                             shop.item[nextSlot++].SetDefaults(ItemID.GoldOre);
                             shop.item[nextSlot++].SetDefaults(ItemID.PlatinumOre);
-
                         }
 
                         break;
@@ -610,9 +605,6 @@ namespace Fargowiltas.NPCs
                     Swarm(npc, ModContent.NPCType<Destroyer.Destroyer>(), -1, ItemID.DestroyerBossBag, ItemID.DestroyerTrophy, "EnergizerDestroy");
                 }
 
-
-
-
                 if (Fargowiltas.ModLoaded["ThoriumMod"])
                 {
                     // TODO: Thorium crossmod
@@ -776,7 +768,6 @@ namespace Fargowiltas.NPCs
                     database.RegisterToNPC(npc.type, ItemDropRule.Common(ItemID.Bananarang));
                     break;
             }
-
         }
 
         public override void OnKill(NPC npc)
@@ -1042,12 +1033,6 @@ namespace Fargowiltas.NPCs
                         NetMessage.SendData(MessageID.SyncNPC, number: boss);
                     }
                 }
-
-
-
-                
-
-                
             }
             else
             {

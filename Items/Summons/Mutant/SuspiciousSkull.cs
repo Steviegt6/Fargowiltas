@@ -1,3 +1,4 @@
+using Fargowiltas.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -5,8 +6,6 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.Items.Summons.Mutant
 {
@@ -83,7 +82,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.ClothierVoodooDoll);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
         }
     }

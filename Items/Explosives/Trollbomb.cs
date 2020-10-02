@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -43,30 +40,39 @@ namespace Fargowiltas.Items.Explosives
                 case 0:
                     type = ProjectileID.Bomb;
                     break;
+
                 case 1:
                     type = ProjectileID.BouncyBomb;
                     break;
+
                 case 2:
                     type = ProjectileID.StickyBomb;
                     break;
+
                 case 3:
                     type = ProjectileID.SmokeBomb;
                     break;
+
                 case 4:
                     type = ProjectileID.Dynamite;
                     break;
+
                 case 5:
                     type = ProjectileID.StickyDynamite;
                     break;
+
                 case 6:
                     type = ProjectileID.BouncyDynamite;
                     break;
+
                 case 7:
                     type = ProjectileID.Grenade;
                     break;
+
                 case 8:
                     type = ProjectileID.StickyGrenade;
                     break;
+
                 case 9:
                     type = ProjectileID.BouncyGrenade;
                     break;
@@ -86,7 +92,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.ManaCrystal);
             recipe.AddTile(TileID.Anvils);
-            
+
             recipe.Register();
         }
     }

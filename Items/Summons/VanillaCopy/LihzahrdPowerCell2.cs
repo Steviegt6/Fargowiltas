@@ -1,11 +1,5 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.VanillaCopy
 {
@@ -31,7 +25,7 @@ namespace Fargowiltas.Items.Summons.VanillaCopy
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.LihzahrdPowerCell);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
         }
     }

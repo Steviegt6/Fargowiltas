@@ -1,9 +1,7 @@
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -79,7 +77,7 @@ namespace Fargowiltas.Items.Misc
             recipe.AddIngredient(ItemID.SoulofNight, 10);
             recipe.AddIngredient(ItemID.SoulofFlight, 10);
             recipe.AddTile(TileID.Anvils);
-            
+
             recipe.Register();
         }
     }

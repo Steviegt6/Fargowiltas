@@ -1,11 +1,9 @@
-﻿using System.Threading;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria.GameContent.ItemDropRules;
 
 namespace Fargowiltas.ItemDropRules
 {
     public static class ExtraItemDropRules
     {
-
         /// <summary>
         /// Makes NPCs drop an item based on a bool.
         /// </summary>

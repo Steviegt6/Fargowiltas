@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Fargowiltas.Items.Summons.Deviantt;
+using Fargowiltas.Items.Summons.SwarmSummons.AA;
+using Fargowiltas.Items.Summons.SwarmSummons.Thorium;
+using Fargowiltas.Items.Tiles;
+using Fargowiltas.Items.Vanity;
 using Fargowiltas.NPCs;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Items.Misc;
-using Fargowiltas.Items.Tiles;
-using Terraria.Chat;
-using Fargowiltas.Items.Vanity;
-using Fargowiltas.Items.Summons.SwarmSummons.AA;
-using Fargowiltas.Items.Summons.SwarmSummons.Thorium;
-using Fargowiltas.Items.Summons.Deviantt;
 
 namespace Fargowiltas
 {
@@ -27,17 +23,20 @@ namespace Fargowiltas
 
         // Hotkeys
         internal static ModHotKey CustomKey;
+
         internal static ModHotKey HomeKey;
         internal static ModHotKey RodKey;
 
         // Swarms
         internal static bool SwarmActive;
+
         internal static int SwarmKills;
         internal static int SwarmTotal;
         internal static int SwarmSpawned;
 
         // Mod loaded bools
         internal static Dictionary<string, bool> ModLoaded;
+
         internal static Dictionary<int, string> ModRareEnemies = new Dictionary<int, string>();
         private string[] mods;
 
@@ -183,7 +182,7 @@ namespace Fargowiltas
                             throw new Exception($"Call Error: Summons must be added before AddRecipes");
 
                         summonTracker.AddSummon(
-                            Convert.ToSingle(args[1]), 
+                            Convert.ToSingle(args[1]),
                             args[2] as string,
                             args[3] as string,
                             args[4] as Func<bool>,
@@ -209,7 +208,6 @@ namespace Fargowiltas
                             return true;
                         return false;
                 }
-
             }
             catch (Exception e)
             {

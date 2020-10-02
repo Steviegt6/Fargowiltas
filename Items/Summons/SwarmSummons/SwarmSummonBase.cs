@@ -6,7 +6,6 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons
 {
@@ -19,7 +18,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
         private readonly int maxSpawn; //energizer swarms are this size
         private readonly string spawnMessage;
         private readonly string material;
-        
+
         protected SwarmSummonBase(int npcType, string spawnMessage, int maxSpawn, string material)
         {
             this.npcType = npcType;
@@ -125,7 +124,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             recipe.AddIngredient(null, material);
             recipe.AddIngredient(null, "Overloader");
             recipe.AddTile(TileID.DemonAltar);
-            
+
             recipe.Register();
         }
     }

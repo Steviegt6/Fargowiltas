@@ -1,14 +1,10 @@
-﻿using Fargowiltas.NPCs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons.AA
 {
@@ -93,7 +89,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.AA
             recipe.AddIngredient(AAMod, "IntimidatingMushroom");
             recipe.AddIngredient(null, "Overloader");
             recipe.AddTile(TileID.DemonAltar);
-            
+
             recipe.Register();
         }
     }

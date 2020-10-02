@@ -1,9 +1,6 @@
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -53,7 +50,6 @@ Currently only supports Thorium and Calamity");
                 recipe.AddIngredient(calamity.ItemType("YellowCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("PinkCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("BlueCandle"), 5);
-
             }*/
 
             recipe.AddTile(TileID.MythrilAnvil);

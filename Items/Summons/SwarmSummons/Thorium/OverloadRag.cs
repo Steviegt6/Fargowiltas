@@ -1,12 +1,10 @@
-﻿using Fargowiltas.NPCs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
 {
@@ -96,7 +94,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
             recipe.AddIngredient(thorium, "LichCatalyst");
             recipe.AddIngredient(null, "Overloader");
             recipe.AddTile(TileID.DemonAltar);
-            
+
             recipe.Register();
         }
     }

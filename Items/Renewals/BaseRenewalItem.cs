@@ -1,10 +1,6 @@
-﻿using System;
-using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Renewals
 {
@@ -70,7 +66,6 @@ namespace Fargowiltas.Items.Renewals
                 recipe.AddTile(TileID.Bottles);
             }
 
-            
             recipe.Register();
         }
     }

@@ -2,11 +2,8 @@
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Projectiles
 {
@@ -70,7 +67,7 @@ namespace Fargowiltas.Projectiles
                         int xPosition = (int)(x + projectile.Center.X / 16.0f);
                         int yPosition = (int)(y + projectile.Center.Y / 16.0f);
 
-                        WorldGen.Convert(xPosition, yPosition, convertType, 1); 
+                        WorldGen.Convert(xPosition, yPosition, convertType, 1);
                     }
                 }
             }

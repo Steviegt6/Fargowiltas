@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Terraria.ID;
 using Terraria.ModLoader.Config;
 
 namespace Fargowiltas
@@ -103,7 +102,7 @@ namespace Fargowiltas
         [DefaultValue(true)]
         public bool IncreaseMaxStack { get; set; }
 
-        [Label("[i:997] Increased Extractinator Speed")] 
+        [Label("[i:997] Increased Extractinator Speed")]
         [DefaultValue(true)]
         public bool ExtractSpeed { get; set; }
 
@@ -120,6 +119,5 @@ namespace Fargowiltas
         {
             get; set;
         }
-
     }
 }

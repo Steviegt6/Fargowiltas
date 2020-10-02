@@ -2,10 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
 
@@ -26,7 +24,7 @@ namespace Fargowiltas.Items.Tiles
             name.SetDefault("Omnistation");
             AddMapEntry(color, name);
             // TODO: Uncomment when tML adds this back
-//disableSmartCursor = true;
+            //disableSmartCursor = true;
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
@@ -76,7 +74,7 @@ namespace Fargowiltas.Items.Tiles
 
             return true;
         }
-        
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Main.tile[i, j];

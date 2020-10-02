@@ -1,9 +1,6 @@
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -36,7 +33,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddRecipeGroup("Wood", 50);
             recipe.AddIngredient(ItemID.Torch);
             recipe.AddTile(TileID.Sawmill);
-            
+
             recipe.Register();
         }
     }

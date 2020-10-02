@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Projectiles;
 
 namespace Fargowiltas.Items.Summons
 {
@@ -36,14 +35,14 @@ namespace Fargowiltas.Items.Summons
 
             //if (Main.netMode != 1)
             //{
-                Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, Type);
+            Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, Type);
             //}
 
             if (Main.netMode == NetmodeID.Server)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPCName} has awoken!"), new Color(175, 75, 255));
             }
-            else if(Type != NPCID.KingSlime)
+            else if (Type != NPCID.KingSlime)
             {
                 Main.NewText($"{NPCName} has awoken!", new Color(175, 75, 255));
             }

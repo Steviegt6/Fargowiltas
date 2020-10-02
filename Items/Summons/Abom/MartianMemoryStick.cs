@@ -1,6 +1,3 @@
-using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 
 namespace Fargowiltas.Items.Summons.Abom

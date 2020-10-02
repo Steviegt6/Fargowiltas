@@ -1,6 +1,4 @@
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -281,8 +279,8 @@ namespace Fargowiltas.Items.CaughtNPCs
         {
             Tooltip.SetDefault("'Show me some gears!'");
         }
-
     }
+
     public class Stylist : BaseCaughtNPC
     {
         public override int Type => NPCID.Stylist;

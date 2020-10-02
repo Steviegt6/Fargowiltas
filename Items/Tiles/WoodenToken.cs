@@ -1,6 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.Items.Tiles
 {
@@ -36,7 +36,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.PalmWood, 25);
             recipe.AddRecipeGroup("Fargowiltas:AnyEvilWood", 25);
             recipe.AddTile(TileID.WorkBenches);
-            
+
             recipe.Register();
         }
     }

@@ -1,11 +1,8 @@
+using Fargowiltas.Projectiles.Explosives;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Projectiles.Explosives;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -52,7 +49,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.ObsidianPlatform, 1000);
             recipe.AddTile(TileID.Anvils);
-            
+
             recipe.Register();
         }
     }

@@ -1,9 +1,6 @@
-﻿using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.ModLoader;
+﻿using Fargowiltas.Projectiles;
 using Terraria;
-using Fargowiltas.Projectiles;
+using Terraria.ModLoader;
 
 namespace Fargowiltas.Items.Explosives
 {

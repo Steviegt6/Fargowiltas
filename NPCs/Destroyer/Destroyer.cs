@@ -1,11 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace Fargowiltas.NPCs.Destroyer
 {
@@ -20,7 +18,7 @@ namespace Fargowiltas.NPCs.Destroyer
         public override void SetDefaults()
         {
             npc.CloneDefaults(NPCID.TheDestroyer);
-            npc.lifeMax /= 4; 
+            npc.lifeMax /= 4;
             npc.aiStyle = -1;
         }
 

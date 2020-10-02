@@ -1,11 +1,8 @@
 using Fargowiltas.Items.Tiles;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ObjectData;
 
 namespace Fargowiltas.Tiles

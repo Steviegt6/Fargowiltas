@@ -1,11 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.Projectiles.Explosives;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Fargowiltas.Projectiles.Explosives;
 
 namespace Fargowiltas.Items.Explosives
 {
@@ -40,7 +37,7 @@ namespace Fargowiltas.Items.Explosives
         {
             Vector2 mouse = Main.MouseWorld;
 
-            Projectile.NewProjectile(mouse, Vector2.Zero, type, 0, 0, player.whoAmI );
+            Projectile.NewProjectile(mouse, Vector2.Zero, type, 0, 0, player.whoAmI);
 
             return false;
         }
@@ -52,7 +49,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.WoodPlatform, 1000);
             recipe.AddTile(TileID.Anvils);
-            
+
             recipe.Register();
         }
     }

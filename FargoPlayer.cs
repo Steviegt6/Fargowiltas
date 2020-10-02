@@ -1,17 +1,12 @@
+using Fargowiltas.NPCs;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using static Terraria.ModLoader.ModContent;
-using Fargowiltas.NPCs;
-using System;
 using Terraria.ModLoader.IO;
+using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas
 {
@@ -25,9 +20,8 @@ namespace Fargowiltas
         internal int originalSelectedItem;
         internal bool autoRevertSelectedItem = false;
 
-
         internal Dictionary<string, bool> FirstDyeIngredients = new Dictionary<string, bool>();
-            
+
         private readonly string[] tags = new string[]
        {
             "RedHusk",
@@ -131,13 +125,12 @@ namespace Fargowiltas
         public override void PostUpdateEquips()
         {
             Mod soulsMod = Fargowiltas.FargosGetMod("FargowiltasSouls");
-            
+
             if (Fargowiltas.SwarmActive)
             {
                 player.buffImmune[BuffID.Horrified] = true;
             }
 
-            
             for (int i = 0; i < player.bank.item.Length; i++)
             {
                 Item item = player.bank.item[i];
@@ -149,7 +142,7 @@ namespace Fargowiltas
             }
         }
 
-        int[] Informational = { ItemID.CopperWatch, ItemID.TinWatch, ItemID.TungstenWatch, ItemID.SilverWatch, ItemID.GoldWatch, ItemID.PlatinumWatch, ItemID.DepthMeter, ItemID.Compass, ItemID.Radar, ItemID.LifeformAnalyzer, ItemID.TallyCounter, ItemID.MetalDetector, ItemID.Stopwatch, ItemID.DPSMeter, ItemID.FishermansGuide, ItemID.Sextant, ItemID.WeatherRadio, ItemID.GPS, ItemID.REK, ItemID.GoblinTech, ItemID.FishFinder, ItemID.PDA, ItemID.CellPhone};
+        private int[] Informational = { ItemID.CopperWatch, ItemID.TinWatch, ItemID.TungstenWatch, ItemID.SilverWatch, ItemID.GoldWatch, ItemID.PlatinumWatch, ItemID.DepthMeter, ItemID.Compass, ItemID.Radar, ItemID.LifeformAnalyzer, ItemID.TallyCounter, ItemID.MetalDetector, ItemID.Stopwatch, ItemID.DPSMeter, ItemID.FishermansGuide, ItemID.Sextant, ItemID.WeatherRadio, ItemID.GPS, ItemID.REK, ItemID.GoblinTech, ItemID.FishFinder, ItemID.PDA, ItemID.CellPhone };
 
         public override void UpdateBiomes()
         {
@@ -175,24 +168,30 @@ namespace Fargowiltas
                     case 0:
                         player.ZoneBeach = true;
                         break;
+
                     case 2:
                         player.ZoneCorrupt = true;
                         break;
+
                     case 3:
                         player.ZoneJungle = true;
                         break;
+
                     case 4:
                         if (Main.hardMode)
                         {
                             player.ZoneHallow = true;
                         }
                         break;
+
                     case 5:
                         player.ZoneSnow = true;
                         break;
+
                     case 6:
                         player.ZoneDesert = true;
                         break;
+
                     case 10:
                         player.ZoneCrimson = true;
                         break;
@@ -200,8 +199,6 @@ namespace Fargowiltas
                         //oasis and cavern fountains
                 }
             }
-            
-
         }
 
         public void AutoUseMirror()
