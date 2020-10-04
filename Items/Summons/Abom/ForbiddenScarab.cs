@@ -10,8 +10,6 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class ForbiddenScarab : ModItem
     {
-        private static MethodInfo startSandstormMethod;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Forbidden Scarab");
@@ -31,15 +29,11 @@ namespace Fargowiltas.Items.Summons.Abom
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return player.ZoneDesert && !Sandstorm.Happening;
-        }
+        public override bool CanUseItem(Player player) => player.ZoneDesert && !Sandstorm.Happening;
 
         public override bool UseItem(Player player)
         {
-            startSandstormMethod = typeof(Sandstorm).GetMethod("StartSandstorm", BindingFlags.NonPublic | BindingFlags.Static);
-            startSandstormMethod.Invoke(null, null);
+            typeof(Sandstorm).GetMethod("StartSandstorm", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
 
             NetMessage.SendData(MessageID.WorldData);
             Main.NewText("A sandstorm has begun.", new Color(175, 75, 255));

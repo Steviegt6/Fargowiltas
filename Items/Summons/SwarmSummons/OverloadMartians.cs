@@ -53,7 +53,9 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Main.invasionDelay = 0;
+
                     Main.StartInvasion(4);
+
                     Main.invasionSize = 15000;
                     Main.invasionSizeStart = 15000;
                 }
@@ -63,6 +65,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 }
 
                 FargoWorld.OverloadMartians = true;
+
                 SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             }
 
@@ -74,9 +77,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "RunawayProbe");
             recipe.AddIngredient(null, "Overloader", 10);
-            recipe.AddTile(TileID.CrystalBall);
-
-            recipe.Register();
+            recipe.AddTile(TileID.CrystalBall);            recipe.Register();
         }
     }
 }

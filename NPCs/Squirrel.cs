@@ -13,11 +13,10 @@ namespace Fargowiltas.NPCs
     [AutoloadHead]
     public class Squirrel : ModNPC
     {
-        private readonly Mod fargosouls = Fargowiltas.FargosGetMod("FargowiltasSouls");
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Squirrel");
+
             Main.npcFrameCount[npc.type] = 6;
             NPCID.Sets.ExtraFramesCount[npc.type] = 9;
             NPCID.Sets.AttackFrameCount[npc.type] = 4;
@@ -40,22 +39,17 @@ namespace Fargowiltas.NPCs
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = .25f;
-
             animationType = NPCID.Squirrel;
             npc.aiStyle = 7;
 
-            // TODO: Souls crossmod
-            /*if (Fargowiltas.ModLoaded["FargowiltasSouls"])
+            if (Fargowiltas.ModLoaded("FargowiltasSouls"))
             {
                 Main.npcCatchable[npc.type] = true;
-                npc.catchItem = (short)Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("TophatSquirrel");
-            }*/
+                npc.catchItem = (short)Fargowiltas.LoadedMods["FargowiltasSouls"].ItemType("TophatSquirrel");
+            }
         }
 
-        public override void AI()
-        {
-            npc.dontTakeDamage = Main.bloodMoon;
-        }
+        public override void AI() => npc.dontTakeDamage = Main.bloodMoon;
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
         {
@@ -67,6 +61,7 @@ namespace Fargowiltas.NPCs
             for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
+
                 if (!player.active)
                 {
                     continue;
@@ -74,11 +69,10 @@ namespace Fargowiltas.NPCs
 
                 foreach (Item item in player.inventory)
                 {
-                    // TODO: Souls crossmod
-                    /*if (item.type == fargosouls.ItemType("TophatSquirrel"))
-					{
-						return true;
-					}*/
+                    if (item.type == Fargowiltas.LoadedMods["FargowiltasSouls"].ItemType("TophatSquirrel"))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -104,7 +98,9 @@ namespace Fargowiltas.NPCs
         public override string GetChat()
         {
             if (Main.bloodMoon)
+            {
                 return "You will suffer.";
+            }
 
             switch (Main.rand.Next(3))
             {
@@ -119,10 +115,7 @@ namespace Fargowiltas.NPCs
             }
         }
 
-        public override void SetChatButtons(ref string button, ref string button2)
-        {
-            button = Language.GetTextValue("LegacyInterface.28");
-        }
+        public override void SetChatButtons(ref string button, ref string button2) => button = Language.GetTextValue("LegacyInterface.28");
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
         {
@@ -136,11 +129,8 @@ namespace Fargowiltas.NPCs
         {
             const int maxShop = 40;
 
-            // TODO: Souls crossmod
-            /*if (item.modItem == null || !item.modItem.mod.Name.Equals("FargowiltasSouls") || nextSlot >= maxShop)
-                return;*/
-
-            return; // Souls doesn't even exist in 1.4 yet :GUN:
+            if (item.modItem == null || !item.modItem.Mod.Name.Equals("FargowiltasSouls") || nextSlot >= maxShop)
+                return;
 
             bool duplicateItem = false;
 
@@ -151,9 +141,11 @@ namespace Fargowiltas.NPCs
                     if (item2.type == item.type)
                     {
                         duplicateItem = true;
+
                         break;
                     }
                 }
+
                 if (duplicateItem == false && nextSlot < maxShop)
                 {
                     shop.item[nextSlot].SetDefaults(item.type);
@@ -163,8 +155,11 @@ namespace Fargowiltas.NPCs
             else if (item.Name.Contains("Force"))
             {
                 RecipeFinder finder = new RecipeFinder();
+
                 finder.SetResult(item.type);
+
                 Recipe exactRecipe = finder.SearchRecipes()[0];
+
                 foreach (Item item2 in exactRecipe.requiredItem)
                 {
                     foreach (Item item3 in shop.item)
@@ -172,9 +167,11 @@ namespace Fargowiltas.NPCs
                         if (item3.type == item2.type)
                         {
                             duplicateItem = true;
+
                             break;
                         }
                     }
+
                     if (duplicateItem == false && nextSlot < maxShop)
                     {
                         if (item2.Name.Contains("Enchantment"))
@@ -188,8 +185,11 @@ namespace Fargowiltas.NPCs
             else if (item.Name.StartsWith("Soul"))
             {
                 RecipeFinder finder = new RecipeFinder();
+
                 finder.SetResult(item.type);
+
                 Recipe exactRecipe = finder.SearchRecipes()[0];
+
                 foreach (Item item2 in exactRecipe.requiredItem)
                 {
                     foreach (Item item3 in shop.item)
@@ -197,9 +197,11 @@ namespace Fargowiltas.NPCs
                         if (item3.type == item2.type)
                         {
                             duplicateItem = true;
+
                             break;
                         }
                     }
+
                     if (duplicateItem == false && nextSlot < maxShop)
                     {
                         if (item2.Name.Contains("Force") || item2.Name.Contains("Soul"))
@@ -220,6 +222,7 @@ namespace Fargowiltas.NPCs
                         break;
                     }
                 }
+
                 if (duplicateItem == false && nextSlot < maxShop)
                 {
                     shop.item[nextSlot].SetDefaults(item.type);
@@ -229,8 +232,11 @@ namespace Fargowiltas.NPCs
             else if (item.Name.EndsWith("Soul"))
             {
                 RecipeFinder finder = new RecipeFinder();
+
                 finder.SetResult(item.type);
+
                 Recipe exactRecipe = finder.SearchRecipes()[0];
+
                 foreach (Item item2 in exactRecipe.requiredItem)
                 {
                     foreach (Item item3 in shop.item)
@@ -241,6 +247,7 @@ namespace Fargowiltas.NPCs
                             break;
                         }
                     }
+
                     if (duplicateItem == false && nextSlot < maxShop)
                     {
                         if (item2.Name.EndsWith("Essence"))
@@ -250,7 +257,9 @@ namespace Fargowiltas.NPCs
                         }
                     }
                 }
+
                 duplicateItem = false;
+
                 foreach (Item item4 in shop.item)
                 {
                     if (item4.type == item.type)
@@ -259,49 +268,52 @@ namespace Fargowiltas.NPCs
                         break;
                     }
                 }
+
                 if (duplicateItem == false && nextSlot < maxShop)
                 {
                     shop.item[nextSlot].SetDefaults(item.type);
                     nextSlot++;
                 }
             }
-            // TODO: Souls crossmod
-            /*else if (item.type == Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("AeolusBoots"))
+            else if (item.type == Fargowiltas.LoadedMods["FargowiltasSouls"].ItemType("AeolusBoots"))
             {
                 foreach (Item item2 in shop.item)
                 {
                     if (item2.type == ItemID.FrostsparkBoots || item2.type == ItemID.BalloonHorseshoeFart)
                     {
                         duplicateItem = true;
+
                         break;
                     }
                 }
+
                 if (duplicateItem == false && nextSlot < maxShop)
                 {
                     shop.item[nextSlot].SetDefaults(ItemID.FrostsparkBoots);
                     nextSlot++;
                 }
+
                 if (duplicateItem == false && nextSlot < maxShop)
                 {
                     shop.item[nextSlot].SetDefaults(ItemID.BalloonHorseshoeFart);
                     nextSlot++;
                 }
-            }*/
+            }
         }
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"])
+            if (Fargowiltas.ModLoaded("FargowiltasSouls"))
             {
-                // TODO: Souls crossmod
-                /*shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("FargowiltasSouls").ItemType("TophatSquirrel"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["FargowiltasSouls"].ItemType("TophatSquirrel"));
                 shop.item[nextSlot].shopCustomPrice = 100000;
-                nextSlot++;*/
+                nextSlot++;
             }
 
             for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
+
                 if (!player.active)
                 {
                     continue;
@@ -319,28 +331,22 @@ namespace Fargowiltas.NPCs
             }
         }
 
-        public override void OnKill()
-        {
-            FargoWorld.DownedBools["squirrel"] = true;
-        }
+        public override void OnKill() => FargoWorld.DownedBools["squirrel"] = true;
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Asset<Texture2D> texture2D13 = TextureAssets.Npc[npc.type]; ;
-            //int num156 = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
-            //int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
+            Asset<Texture2D> texture2D13 = TextureAssets.Npc[npc.type];
+            int num156 = TextureAssets.Npc[npc.type].Height() / Main.npcFrameCount[npc.type]; //ypos of lower right corner of sprite to draw
+            int y3 = num156 * npc.frame.Y; //ypos of upper left corner of sprite to draw
             Rectangle rectangle = npc.frame;//new Rectangle(0, y3, texture2D13.Width, num156);
             Vector2 origin2 = rectangle.Size() / 2f;
-
-            Color color26 = lightColor;
-            color26 = npc.GetAlpha(color26);
-
             SpriteEffects effects = npc.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             if (Main.bloodMoon)
             {
                 Texture2D texture2D14 = ModContent.GetTexture("Fargowiltas/NPCs/Squirrel_Glow").Value;
                 float scale = (Main.mouseTextColor / 200f - 0.35f) * 0.3f + 0.9f;
+
                 Main.spriteBatch.Draw(texture2D14, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * npc.Opacity, npc.rotation, origin2, scale, effects, 0f);
             }
 
@@ -349,8 +355,10 @@ namespace Fargowiltas.NPCs
             if (Main.bloodMoon)
             {
                 Texture2D texture2D14 = ModContent.GetTexture("Fargowiltas/NPCs/Squirrel_Eyes").Value;
+
                 Main.spriteBatch.Draw(texture2D14, npc.Center - Main.screenPosition + new Vector2(0f, npc.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White * npc.Opacity, npc.rotation, origin2, npc.scale, effects, 0f);
             }
+
             return false;
         }
     }

@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Mutant
 {
     public class PlanterasFruit : BaseSummon
     {
-        public override int Type => NPCID.Plantera;
+        public override int NPCType => NPCID.Plantera;
 
         public override string NPCName => "Plantera";
 
@@ -21,9 +21,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             recipe.AddIngredient(ItemID.ChlorophyteBar, 2);
             recipe.AddIngredient(ItemID.Moonglow, 5);
             recipe.AddIngredient(ItemID.Blinkroot, 5);
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

@@ -22,16 +22,13 @@ namespace Fargowiltas.Items.Tiles
             AddMapEntry(new Color(200, 200, 200), name);
             // TODO: Uncomment when tML adds this back
             //disableSmartCursor = true;
+
             //counts as
             adjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.Furnaces, TileID.Anvils, TileID.Bottles, TileID.Sawmill, TileID.Loom, TileID.Tables, TileID.Chairs, TileID.CookingPots, TileID.Sinks, TileID.Kegs };
-
             animationFrameHeight = 54;
         }
 
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
-            num = fail ? 1 : 3;
-        }
+        public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
@@ -41,6 +38,7 @@ namespace Fargowiltas.Items.Tiles
         public override void AnimateTile(ref int frame, ref int frameCounter)
         {
             frameCounter++;
+
             if (frameCounter >= 10) //replace with duration of frame in ticks
             {
                 frameCounter = 0;

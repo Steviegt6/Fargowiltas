@@ -15,9 +15,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Tooltip.SetDefault("Summons several Walls of Flesh");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive && player.ZoneUnderworldHeight;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive && player.ZoneUnderworldHeight;
     }
 }

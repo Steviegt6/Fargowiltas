@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class SpookyBranch : BaseSummon
     {
-        public override int Type => NPCID.MourningWood;
+        public override int NPCType => NPCID.MourningWood;
 
         public override string NPCName => "Mourning Wood";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Abom
                                "\nOnly usable at night");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
     }
 }

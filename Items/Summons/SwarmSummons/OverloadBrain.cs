@@ -15,9 +15,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Tooltip.SetDefault("Summons several Brains of Cthulhu");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive;
     }
 }

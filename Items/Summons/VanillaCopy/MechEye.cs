@@ -28,16 +28,14 @@ namespace Fargowiltas.Items.Summons
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.dayTime != true;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
 
         public override bool UseItem(Player player)
         {
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.Retinazer);
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.Spazmatism);
             SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+
             return true;
         }
 
@@ -45,9 +43,7 @@ namespace Fargowiltas.Items.Summons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.MechanicalEye);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

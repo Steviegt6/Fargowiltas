@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Body)]
     public class DevianttBody : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Deviantt Body");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Deviantt Body");
 
         public override void SetDefaults()
         {
@@ -26,9 +23,7 @@ namespace Fargowiltas.Items.Vanity
             recipe.AddIngredient(ItemID.Robe);
             recipe.AddIngredient(ItemID.PinkGel);
             recipe.AddIngredient(ItemID.AncientBattleArmorMaterial);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

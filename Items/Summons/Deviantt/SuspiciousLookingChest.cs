@@ -4,7 +4,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class SuspiciousLookingChest : BaseSummon
     {
-        public override int Type => NPCID.Mimic;
+        public override int NPCType => NPCID.Mimic;
 
         public override string NPCName => "Mimic";
 

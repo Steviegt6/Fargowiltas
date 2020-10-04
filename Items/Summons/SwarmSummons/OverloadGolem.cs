@@ -15,9 +15,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Tooltip.SetDefault("Summons several Golems");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive && NPC.downedPlantBoss;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive && NPC.downedPlantBoss;
     }
 }

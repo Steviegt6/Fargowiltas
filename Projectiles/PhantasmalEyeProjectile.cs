@@ -7,16 +7,9 @@ namespace Fargowiltas.Projectiles
 {
     public class PhantasmalEyeProjectile : ModProjectile
     {
-        private float HomingCooldown
-        {
-            get => projectile.ai[0];
-            set => projectile.ai[0] = value;
-        }
+        private float HomingCooldown { get => projectile.ai[0]; set => projectile.ai[0] = value; }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("PhantasmalEyeProjectile");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("PhantasmalEyeProjectile");
 
         public override void SetDefaults()
         {
@@ -48,11 +41,13 @@ namespace Fargowiltas.Projectiles
             const int lerpFrameAmount = 20; // minimum of 1
 
             HomingCooldown++;
+
             if (HomingCooldown > homingDelay)
             {
                 HomingCooldown = homingDelay; // cap this value
 
                 int foundTarget = HomeOnTarget();
+
                 if (foundTarget != -1)
                 {
                     NPC n = Main.npc[foundTarget];
@@ -80,12 +75,14 @@ namespace Fargowiltas.Projectiles
             const float HOMING_MAXIMUM_RANGE_IN_PIXELS = 1000;
 
             int selectedTarget = -1;
+
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC n = Main.npc[i];
                 if (n.CanBeChasedBy(projectile) && (!n.wet || HOMING_CAN_AIM_AT_WET_ENEMIES))
                 {
                     float distance = projectile.Distance(n.Center);
+
                     if (distance <= HOMING_MAXIMUM_RANGE_IN_PIXELS && (selectedTarget == -1 || projectile.Distance(Main.npc[selectedTarget].Center) > distance))
                     {
                         selectedTarget = i;

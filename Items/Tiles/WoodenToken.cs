@@ -35,9 +35,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.RichMahogany, 25);
             recipe.AddIngredient(ItemID.PalmWood, 25);
             recipe.AddRecipeGroup("Fargowiltas:AnyEvilWood", 25);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class ForbiddenTome : BaseSummon
     {
-        public override int Type => NPCID.DD2DarkMageT1;
+        public override int NPCType => NPCID.DD2DarkMageT1;
 
         public override string NPCName => "Dark Mage";
 

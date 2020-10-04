@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Projectiles
 {
@@ -17,7 +16,7 @@ namespace Fargowiltas.Projectiles
             {
                 if (firstTick)
                 {
-                    if (GetInstance<FargoConfig>().ExtraLures && projectile.bobber)
+                    if (ModContent.GetInstance<FargoConfig>().ExtraLures && projectile.bobber)
                     {
                         int split = 1;
 
@@ -53,7 +52,7 @@ namespace Fargowiltas.Projectiles
                 }
             }
 
-            if (projectile.type == ProjectileID.FlyingPiggyBank && GetInstance<FargoConfig>().StalkerMoneyTrough)
+            if (projectile.type == ProjectileID.FlyingPiggyBank && ModContent.GetInstance<FargoConfig>().StalkerMoneyTrough)
             {
                 Player player = Main.player[projectile.owner];
                 float dist = Vector2.Distance(projectile.Center, player.Center);
@@ -70,7 +69,9 @@ namespace Fargowiltas.Projectiles
             }
 
             if (firstTick)
+            {
                 firstTick = false;
+            }
 
             return true;
         }
@@ -86,6 +87,7 @@ namespace Fargowiltas.Projectiles
                 for (int j = 0; j < 2; j++)
                 {
                     int factor = (j == 0) ? 1 : -1;
+
                     split = NewProjectileDirectSafe(projectile.Center, projectile.velocity.RotatedBy(factor * spread * (i + 1)), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
 
                     if (split != null)
@@ -105,6 +107,7 @@ namespace Fargowiltas.Projectiles
         public static Projectile NewProjectileDirectSafe(Vector2 pos, Vector2 vel, int type, int damage, float knockback, int owner = 255, float ai0 = 0f, float ai1 = 0f)
         {
             int p = Projectile.NewProjectile(pos, vel, type, damage, knockback, owner, ai0, ai1);
+
             return (p < 1000) ? Main.projectile[p] : null;
         }
     }

@@ -6,10 +6,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.HandsOff)]
     public class AbominationnScythe : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Abominationn's Scythe");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Abominationn's Scythe");
 
         public override void SetDefaults()
         {
@@ -26,8 +23,7 @@ namespace Fargowiltas.Items.Vanity
             recipe.AddIngredient(ItemID.DeathSickle);
             recipe.AddIngredient(ItemID.ChristmasHook); //meme ass recipe might change
             recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.Register();
         }*/
     }
 }

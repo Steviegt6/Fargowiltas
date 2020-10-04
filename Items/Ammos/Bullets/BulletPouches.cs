@@ -6,22 +6,14 @@ namespace Fargowiltas.Items.Ammos.Bullets
     {
         public override int AmmunitionItem => ItemID.ChlorophyteBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Chases after your enemy");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Chases after your enemy");
     }
 
     public class CrystalPouch : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.CrystalBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Creates several crystal shards on impact");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Creates several crystal shards on impact");
     }
 
     public class CursedPouch : BaseAmmo
@@ -33,44 +25,28 @@ namespace Fargowiltas.Items.Ammos.Bullets
     {
         public override int AmmunitionItem => ItemID.ExplodingBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Explodes on impact");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Explodes on impact");
     }
 
     public class GoldenPouch : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.GoldenBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Enemies killed will drop more money");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Enemies killed will drop more money");
     }
 
     public class IchorPouch : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.IchorBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Decreases target's defense");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Decreases target's defense");
     }
 
     public class LuminitePouch : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.MoonlordBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("'Line 'em up and knock 'em down...'");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("'Line 'em up and knock 'em down...'");
     }
 
     public class MeteorPouch : BaseAmmo
@@ -82,22 +58,14 @@ namespace Fargowiltas.Items.Ammos.Bullets
     {
         public override int AmmunitionItem => ItemID.NanoBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Causes confusion");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Causes confusion");
     }
 
     public class PartyPouch : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.PartyBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Explodes into confetti on impact");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Explodes into confetti on impact");
     }
 
     public class SilverPouch : BaseAmmo
@@ -109,14 +77,12 @@ namespace Fargowiltas.Items.Ammos.Bullets
     {
         public override int AmmunitionItem => ItemID.HighVelocityBullet;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Endless High Velocity Pouch");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Endless High Velocity Pouch");
 
         public override void SetDefaults()
         {
             base.SetDefaults();
+
             item.shootSpeed = 28f;
         }
     }
@@ -125,10 +91,6 @@ namespace Fargowiltas.Items.Ammos.Bullets
     {
         public override int AmmunitionItem => ItemID.VenomBullet;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Inflicts target with venom");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Inflicts target with venom");
     }
 }

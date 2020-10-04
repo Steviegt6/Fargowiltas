@@ -43,8 +43,7 @@ namespace Fargowiltas.Items.Renewals
             item.value = Item.buyPrice(0, 0, 3);
             item.noUseGraphic = true;
             item.noMelee = true;
-            // TODO: WHAT A FUCKING PAIN
-            //item.shoot = mod.ProjectileType(projType);
+            item.shoot = Mod.ProjectileType(projType);
             item.shootSpeed = 5f;
         }
 
@@ -54,8 +53,7 @@ namespace Fargowiltas.Items.Renewals
 
             if (supreme)
             {
-                // TODO: FUCK
-                //recipe.AddIngredient(mod.ItemType(supremeMaterial), 10);
+                recipe.AddIngredient(Mod.ItemType(supremeMaterial), 10);
                 recipe.AddIngredient(ItemID.ChlorophyteBar, 5);
                 recipe.AddTile(TileID.AlchemyTable);
             }

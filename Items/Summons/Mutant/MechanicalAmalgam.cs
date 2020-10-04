@@ -26,10 +26,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.dayTime != true;
-        }
+        public override bool CanUseItem(Player player) => Main.dayTime != true;
 
         public override bool UseItem(Player player)
         {
@@ -37,7 +34,6 @@ namespace Fargowiltas.Items.Summons.Mutant
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.SkeletronPrime);
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.Retinazer);
             NPC.SpawnOnPlayer(player.whoAmI, NPCID.Spazmatism);
-
             SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;

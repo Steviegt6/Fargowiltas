@@ -26,10 +26,7 @@ namespace Fargowiltas.Items.Summons.Abom
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.slimeRain;
-        }
+        public override bool CanUseItem(Player player) => !Main.slimeRain;
 
         public override bool UseItem(Player player)
         {

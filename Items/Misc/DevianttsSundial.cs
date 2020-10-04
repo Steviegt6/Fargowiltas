@@ -12,7 +12,8 @@ namespace Fargowiltas.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deviantt's Sundial");
-            Tooltip.SetDefault("'For getting through those early nights'\nActivates the Enchanted Sundial effect\nCan only be used once");
+            Tooltip.SetDefault("'For getting through those early nights'\nActivates the Enchanted Sundial effect" +
+                "\nCan only be used once");
         }
 
         public override void SetDefaults()
@@ -27,21 +28,21 @@ namespace Fargowiltas.Items.Misc
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.fastForwardTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.fastForwardTime;
 
         public override bool UseItem(Player player)
         {
             Main.sundialCooldown = 0;
+
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 NetMessage.SendData(MessageID.Assorted1, number: Main.myPlayer, number2: 3f);
+
                 return true;
             }
 
             Main.fastForwardTime = true;
+
             NetMessage.SendData(MessageID.WorldData);
             SoundEngine.PlaySound(SoundID.Item4, player.position);
 

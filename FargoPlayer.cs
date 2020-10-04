@@ -6,21 +6,18 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas
 {
     public class FargoPlayer : ModPlayer
     {
         internal bool BattleCry;
+        internal int originalSelectedItem;
+        internal bool autoRevertSelectedItem = false;
+        internal Dictionary<string, bool> FirstDyeIngredients = new Dictionary<string, bool>();
 
         private int oldSelected;
         private bool isReuse = false;
-
-        internal int originalSelectedItem;
-        internal bool autoRevertSelectedItem = false;
-
-        internal Dictionary<string, bool> FirstDyeIngredients = new Dictionary<string, bool>();
 
         private readonly string[] tags = new string[]
        {
@@ -39,10 +36,38 @@ namespace Fargowiltas
             "BlackInk"
        };
 
+        private int[] Informational = new int[]
+        {
+            ItemID.CopperWatch,
+            ItemID.TinWatch,
+            ItemID.TungstenWatch,
+            ItemID.SilverWatch,
+            ItemID.GoldWatch,
+            ItemID.PlatinumWatch,
+            ItemID.DepthMeter,
+            ItemID.Compass,
+            ItemID.Radar,
+            ItemID.LifeformAnalyzer,
+            ItemID.TallyCounter,
+            ItemID.MetalDetector,
+            ItemID.Stopwatch,
+            ItemID.DPSMeter,
+            ItemID.FishermansGuide,
+            ItemID.Sextant,
+            ItemID.WeatherRadio,
+            ItemID.GPS,
+            ItemID.REK,
+            ItemID.GoblinTech,
+            ItemID.FishFinder,
+            ItemID.PDA,
+            ItemID.CellPhone
+        };
+
         public override TagCompound Save()
         {
             string name = "FargoDyes" + player.name;
             List<string> dyes = new List<string>();
+
             foreach (string tag in tags)
             {
                 bool value;
@@ -68,6 +93,7 @@ namespace Fargowiltas
             string name = "FargoDyes" + player.name;
 
             IList<string> dyes = tag.GetList<string>(name);
+
             foreach (string downedTag in tags)
             {
                 FirstDyeIngredients[downedTag] = dyes.Contains(downedTag);
@@ -124,8 +150,6 @@ namespace Fargowiltas
 
         public override void PostUpdateEquips()
         {
-            Mod soulsMod = Fargowiltas.FargosGetMod("FargowiltasSouls");
-
             if (Fargowiltas.SwarmActive)
             {
                 player.buffImmune[BuffID.Horrified] = true;
@@ -141,8 +165,6 @@ namespace Fargowiltas
                 }
             }
         }
-
-        private int[] Informational = { ItemID.CopperWatch, ItemID.TinWatch, ItemID.TungstenWatch, ItemID.SilverWatch, ItemID.GoldWatch, ItemID.PlatinumWatch, ItemID.DepthMeter, ItemID.Compass, ItemID.Radar, ItemID.LifeformAnalyzer, ItemID.TallyCounter, ItemID.MetalDetector, ItemID.Stopwatch, ItemID.DPSMeter, ItemID.FishermansGuide, ItemID.Sextant, ItemID.WeatherRadio, ItemID.GPS, ItemID.REK, ItemID.GoblinTech, ItemID.FishFinder, ItemID.PDA, ItemID.CellPhone };
 
         public override void UpdateBiomes()
         {
@@ -161,7 +183,7 @@ namespace Fargowiltas
                 player.ZoneJungle = true;
             }
 
-            if (GetInstance<FargoConfig>().Fountains)
+            if (ModContent.GetInstance<FargoConfig>().Fountains)
             {
                 switch (Main.SceneMetrics.ActiveFountainColor)
                 {
@@ -189,14 +211,21 @@ namespace Fargowiltas
                         break;
 
                     case 6:
+                        // This is the oasis. The oasis itself is determined by water in a surface desert biome, which we can't replicate properly and reliably.
                         player.ZoneDesert = true;
+                        break;
+
+                    case 8:
+                        player.ZoneRockLayerHeight = true;
                         break;
 
                     case 10:
                         player.ZoneCrimson = true;
                         break;
 
-                        //oasis and cavern fountains
+                    case 12:
+                        player.ZoneUndergroundDesert = true;
+                        break;
                 }
             }
         }
@@ -237,6 +266,7 @@ namespace Fargowiltas
                 autoRevertSelectedItem = true;
                 player.selectedItem = index;
                 player.controlUseItem = true;
+
                 if (use)
                 {
                     player.ItemCheck(Main.myPlayer);

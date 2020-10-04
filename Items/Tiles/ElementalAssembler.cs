@@ -42,10 +42,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.SkyMill);
             recipe.AddIngredient(ItemID.Solidifier);
             recipe.AddIngredient(ItemID.BoneWelder);
-
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

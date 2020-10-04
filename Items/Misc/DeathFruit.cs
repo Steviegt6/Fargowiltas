@@ -22,14 +22,15 @@ namespace Fargowiltas.Items.Misc
             item.useAnimation = 30;
             item.useTime = 30;
             item.consumable = true;
-
             item.UseSound = SoundID.Item27;
         }
 
         public override bool ConsumeItem(Player player)
         {
             if (player.statLifeMax <= 20)
+            {
                 return false;
+            }
 
             return true;
         }
@@ -41,6 +42,7 @@ namespace Fargowiltas.Items.Misc
                 player.statLifeMax -= 20;
                 player.statLifeMax2 -= 20;
                 player.statLife -= 20;
+
                 if (Main.myPlayer == player.whoAmI)
                 {
                     player.HealEffect(-20, true);

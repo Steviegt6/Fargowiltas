@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class HolyGrail : BaseSummon
     {
-        public override int Type => NPCID.Tim;
+        public override int NPCType => NPCID.Tim;
 
         public override string NPCName => "Tim";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Deviantt
                                "\nOnly usable at night or underground");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight;
     }
 }

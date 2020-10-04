@@ -29,7 +29,6 @@ namespace Fargowiltas.Items.Tiles
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-
             recipe.AddIngredient(ItemID.WorkBench);
             recipe.AddIngredient(ItemID.HeavyWorkBench);
             recipe.AddIngredient(ItemID.Furnace);
@@ -42,9 +41,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.CookingPot);
             recipe.AddIngredient(ItemID.WoodenSink);
             recipe.AddIngredient(ItemID.Keg);
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

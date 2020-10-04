@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items
 {
     public class FargoGlobalItem : GlobalItem
     {
-        private static readonly int[] Hearts = new int[] { ItemID.Heart, ItemID.CandyApple, ItemID.CandyCane };
-        private static readonly int[] Stars = new int[] { ItemID.Star, ItemID.SoulCake, ItemID.SugarPlum };
+        private static readonly int[] Hearts = new int[]
+        {
+            ItemID.Heart,
+            ItemID.CandyApple,
+            ItemID.CandyCane
+        };
+
+        private static readonly int[] Stars = new int[]
+        {
+            ItemID.Star,
+            ItemID.SoulCake,
+            ItemID.SugarPlum
+        };
 
         private bool firstTick = true;
 
@@ -25,7 +35,7 @@ namespace Fargowiltas.Items
             switch (item.type)
             {
                 case ItemID.CrystalBall:
-                    line = new TooltipLine(Mod, "Altar", "Functions as a Demon altar as well");
+                    line = new TooltipLine(Mod, "Altar", "Functions as a Demon Altar as well");
                     tooltips.Add(line);
                     break;
 
@@ -35,7 +45,7 @@ namespace Fargowiltas.Items
                     break;
 
                 case ItemID.DesertWaterFountain:
-                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Desert upon activation");
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Underground Desert upon activation");
                     tooltips.Add(line);
                     break;
 
@@ -64,10 +74,18 @@ namespace Fargowiltas.Items
                     tooltips.Add(line);
                     break;
 
-                    //oasis and cavern? fountains
+                case ItemID.CavernFountain:
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to be Underground upon activation");
+                    tooltips.Add(line);
+                    break;
+
+                case ItemID.OasisFountain:
+                    line = new TooltipLine(Mod, "Tooltip0", "Forces surrounding biome state to Surface Desert/Oasis upon activation");
+                    tooltips.Add(line);
+                    break;
             }
 
-            if (GetInstance<FargoConfig>().ExtraLures)
+            if (ModContent.GetInstance<FargoConfig>().ExtraLures)
             {
                 if (item.type == ItemID.FishingPotion)
                 {
@@ -97,9 +115,9 @@ namespace Fargowiltas.Items
 
         public override void SetDefaults(Item item)
         {
-            if (GetInstance<FargoConfig>().IncreaseMaxStack)
+            if (ModContent.GetInstance<FargoConfig>().IncreaseMaxStack)
             {
-                if (item.maxStack > 10 && (item.maxStack != 100 || Fargowiltas.FargosGetMod("TerrariaOverhaul") != null) && !(item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin))
+                if (item.maxStack > 10 && (item.maxStack != 100 || Fargowiltas.ModLoaded("TerrariaOverhaul")) && !(item.type >= ItemID.CopperCoin && item.type <= ItemID.PlatinumCoin))
                 {
                     item.maxStack = 9999;
                 }
@@ -120,27 +138,24 @@ namespace Fargowiltas.Items
                     {
                         player.QuickSpawnItem(ItemID.SlimeStaff);
                     }
-
                     break;
 
                 case ItemID.WoodenCrate:
-                    //case Pearlwood
+                case ItemID.WoodenCrateHard:
                     if (Main.rand.NextBool(40))
                     {
                         int[] drops = { ItemID.Spear, ItemID.Blowpipe, ItemID.WandofSparking, ItemID.WoodenBoomerang };
                         player.QuickSpawnItem(Main.rand.Next(drops));
                     }
-
                     break;
 
                 case ItemID.GoldenCrate:
-                    //case Titanium
+                case ItemID.GoldenCrateHard:
                     if (Main.rand.NextBool(10))
                     {
                         int[] drops = { ItemID.BandofRegeneration, ItemID.MagicMirror, ItemID.CloudinaBottle, ItemID.EnchantedBoomerang, ItemID.ShoeSpikes, ItemID.FlareGun, ItemID.HermesBoots, ItemID.LavaCharm, ItemID.SandstorminaBottle, ItemID.FlyingCarpet };
                         player.QuickSpawnItem(Main.rand.Next(drops));
                     }
-
                     break;
             }
 
@@ -155,7 +170,7 @@ namespace Fargowiltas.Items
 
         public override void PostUpdate(Item item)
         {
-            if (GetInstance<FargoConfig>().Halloween && GetInstance<FargoConfig>().Christmas && firstTick)
+            if (ModContent.GetInstance<FargoConfig>().Halloween && ModContent.GetInstance<FargoConfig>().Christmas && firstTick)
             {
                 if (Array.IndexOf(Hearts, item.type) >= 0)
                 {
@@ -173,7 +188,7 @@ namespace Fargowiltas.Items
 
         public override bool CanUseItem(Item item, Player player)
         {
-            if (GetInstance<FargoConfig>().ExtractSpeed && (item.type == ItemID.SiltBlock || item.type == ItemID.SlushBlock || item.type == ItemID.DesertFossil))
+            if (ModContent.GetInstance<FargoConfig>().ExtractSpeed && (item.type == ItemID.SiltBlock || item.type == ItemID.SlushBlock || item.type == ItemID.DesertFossil))
             {
                 item.useTime = 2;
                 item.useAnimation = 3;
@@ -184,7 +199,7 @@ namespace Fargowiltas.Items
 
         public override void UpdateInventory(Item item, Player player)
         {
-            if (item.buffType != 0 && item.stack >= 60 && GetInstance<FargoConfig>().UnlimitedPotionBuffsOn120)
+            if (item.buffType != 0 && item.stack >= 60 && ModContent.GetInstance<FargoConfig>().UnlimitedPotionBuffsOn120)
             {
                 player.AddBuff(item.buffType, 2);
             }
@@ -319,6 +334,7 @@ namespace Fargowiltas.Items
                     if (accessory.accessory && accessory.type == item.type)
                     {
                         player.armor[i].SetDefaults(itemId, false);
+
                         break;
                     }
                 }
@@ -327,15 +343,21 @@ namespace Fargowiltas.Items
 
         public override bool ConsumeAmmo(Item item, Player player)
         {
-            if (GetInstance<FargoConfig>().UnlimitedAmmo && Main.hardMode && item.ammo != 0 && item.stack >= 3996)
+            if (ModContent.GetInstance<FargoConfig>().UnlimitedAmmo && Main.hardMode && item.ammo != 0 && item.stack >= 3996)
+            {
                 return false;
+            }
+
             return true;
         }
 
         public override bool ConsumeItem(Item item, Player player)
         {
-            if (GetInstance<FargoConfig>().UnlimitedConsumableWeapons && Main.hardMode && item.damage > 0 && item.ammo == 0 && item.stack >= 3996)
+            if (ModContent.GetInstance<FargoConfig>().UnlimitedConsumableWeapons && Main.hardMode && item.damage > 0 && item.ammo == 0 && item.stack >= 3996)
+            {
                 return false;
+            }
+
             return true;
         }
 

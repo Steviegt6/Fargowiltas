@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class NaughtyList : BaseSummon
     {
-        public override int Type => NPCID.SantaNK1;
+        public override int NPCType => NPCID.SantaNK1;
 
         public override string NPCName => "Santa-NK1";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Abom
                                "\nOnly usable at night");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
     }
 }

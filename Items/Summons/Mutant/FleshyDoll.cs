@@ -26,10 +26,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return player.position.Y / 16 > Main.maxTilesY - 200 && !NPC.AnyNPCs(NPCID.WallofFlesh);
-        }
+        public override bool CanUseItem(Player player) => player.position.Y / 16 > Main.maxTilesY - 200 && !NPC.AnyNPCs(NPCID.WallofFlesh);
 
         public override bool UseItem(Player player)
         {
@@ -52,9 +49,7 @@ namespace Fargowiltas.Items.Summons.Mutant
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.GuideVoodooDoll);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

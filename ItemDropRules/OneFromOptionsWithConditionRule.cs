@@ -3,53 +3,55 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace Fargowiltas.ItemDropRules
 {
-    public class MultipleItemsDropRule : IItemDropRule
+    public class OneFromOptionsWithConditionRule : IItemDropRule
     {
-        private int[] _dropIDs;
+        private int[] _dropIds;
         private int _outOfY;
         private int _xOutOfY;
+        private IItemDropRuleCondition _condition;
 
         public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
 
-        public MultipleItemsDropRule(int outOfY, int xOutOfY, params int[] items)
+        public OneFromOptionsWithConditionRule(int[] itemIds, int dropsOutOfY, int amountDroppedMinimum, int amountDroppedMaximum, IItemDropRuleCondition condition, int dropsXOutOfY = 1)
         {
-            _dropIDs = items;
-            _outOfY = outOfY;
-            _xOutOfY = xOutOfY;
+            _dropIds = itemIds;
+            _outOfY = dropsOutOfY;
+            _xOutOfY = dropsXOutOfY;
+            _condition = condition;
             ChainedRules = new List<IItemDropRuleChainAttempt>();
         }
-
-        public bool CanDrop(DropAttemptInfo info) => true;
 
         public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
         {
             ItemDropAttemptResult result;
+
             if (info.player.RollLuck(_outOfY) < _xOutOfY)
             {
-                for (int item = 0; item < _dropIDs.Length; item++)
-                {
-                    CommonCode.DropItemFromNPC(info.npc, _dropIDs[item], 1);
-                }
+                CommonCode.DropItemFromNPC(info.npc, _dropIds[info.rng.Next(_dropIds.Length)], 1);
 
                 result = default;
                 result.State = ItemDropAttemptResultState.Success;
+
                 return result;
             }
 
             result = default;
             result.State = ItemDropAttemptResultState.FailedRandomRoll;
+
             return result;
         }
 
+        public bool CanDrop(DropAttemptInfo info) => _condition.CanDrop(info);
+
         public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
         {
-            float num = _xOutOfY / _outOfY;
+            float num = _xOutOfY / (float)_outOfY;
             float num2 = num * ratesInfo.parentDroprateChance;
-            float dropRate = 1f / _dropIDs.Length * num2;
+            float dropRate = 1f / _dropIds.Length * num2;
 
-            for (int i = 0; i < _dropIDs.Length; i++)
+            for (int i = 0; i < _dropIds.Length; i++)
             {
-                drops.Add(new DropRateInfo(_dropIDs[i], 1, 1, dropRate, ratesInfo.conditions));
+                drops.Add(new DropRateInfo(_dropIds[i], 1, 1, dropRate, ratesInfo.conditions));
             }
 
             Chains.ReportDroprates(ChainedRules, num, drops, ratesInfo);

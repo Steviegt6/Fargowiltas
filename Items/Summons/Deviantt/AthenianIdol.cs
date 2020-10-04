@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class AthenianIdol : BaseSummon
     {
-        public override int Type => NPCID.Medusa;
+        public override int NPCType => NPCID.Medusa;
 
         public override string NPCName => "Medusa";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Deviantt
                                "\nOnly usable at night or underground");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight;
     }
 }

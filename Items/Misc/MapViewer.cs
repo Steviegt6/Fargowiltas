@@ -55,6 +55,7 @@ namespace Fargowiltas.Items.Summons
             {
                 Point center = Main.LocalPlayer.Center.ToTileCoordinates();
                 int range = 300;
+
                 for (int i = center.X - range / 2; i < center.X + range / 2; i++)
                 {
                     for (int j = center.Y - range / 2; j < center.Y + range / 2; j++)
@@ -80,9 +81,7 @@ namespace Fargowiltas.Items.Summons
             recipe.AddIngredient(ItemID.Sunglasses);
             recipe.AddIngredient(ItemID.SuspiciousLookingEye);
             recipe.AddIngredient(ItemID.MechanicalEye);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

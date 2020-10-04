@@ -15,9 +15,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Tooltip.SetDefault("Summons several sets of Twins");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive && !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive && !Main.dayTime;
     }
 }

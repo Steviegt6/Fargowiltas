@@ -34,13 +34,11 @@ namespace Fargowiltas
         internal static int SwarmTotal;
         internal static int SwarmSpawned;
 
-        // Mod loaded bools
-        internal static Dictionary<string, bool> ModLoaded;
+        // Dictionary for actually getting the mod
+        internal static Dictionary<string, Mod> LoadedMods;
 
         internal static Dictionary<int, string> ModRareEnemies = new Dictionary<int, string>();
         private string[] mods;
-
-        internal static Fargowiltas Instance;
 
         public Fargowiltas()
         {
@@ -48,7 +46,7 @@ namespace Fargowiltas
             {
                 Autoload = true,
                 AutoloadGores = true,
-                AutoloadSounds = true,
+                AutoloadSounds = true
             };
         }
 
@@ -61,8 +59,6 @@ namespace Fargowiltas
 
         public override void Load()
         {
-            Instance = this;
-
             summonTracker = new MutantSummonTracker();
 
             HomeKey = RegisterHotKey("Quick Recall/Mirror", "Home");
@@ -99,10 +95,11 @@ namespace Fargowiltas
                 "CSkies", // Celestial Skies
             };
 
-            ModLoaded = new Dictionary<string, bool>();
+            LoadedMods = new Dictionary<string, Mod>();
+
             foreach (string mod in mods)
             {
-                ModLoaded.Add(mod, false);
+                LoadedMods.Add(mod, null);
             }
 
             AddToggle("Mutant", "Mutant Can Spawn", ModContent.ItemType<MutantMask>(), "ffffff");
@@ -110,30 +107,23 @@ namespace Fargowiltas
             AddToggle("Devi", "Deviantt Can Spawn", ModContent.ItemType<DevianttMask>(), "ffffff");
             AddToggle("Lumber", "Lumberjack Can Spawn", ModContent.ItemType<LumberjackMask>(), "ffffff");
 
+            // Handles items that aren't autoloaded due to relying on other mods
             LoadCrossModContent();
 
             // DD2 Banner Effect hack
             ItemID.Sets.BannerStrength = ItemID.Sets.Factory.CreateCustomSet(new ItemID.BannerEffect(1f));
         }
 
-        public override void Unload()
-        {
-            summonTracker = null;
-
-            HomeKey = null;
-            RodKey = null;
-            CustomKey = null;
-            mods = null;
-            ModLoaded = null;
-        }
-
         public override void PostSetupContent()
         {
             try
             {
+                LoadedMods = new Dictionary<string, Mod>();
+
                 foreach (string mod in mods)
                 {
-                    ModLoaded[mod] = Fargowiltas.FargosGetMod(mod) != null;
+                    ModLoader.TryGetMod(mod, out Mod loadedMod);
+                    LoadedMods.Add(mod, loadedMod);
                 }
             }
             catch (Exception e)
@@ -141,29 +131,44 @@ namespace Fargowiltas
                 Logger.Error("Fargowiltas PostSetupContent Error: " + e.StackTrace + e.Message);
             }
 
-            Mod censusMod = Fargowiltas.FargosGetMod("Census");
-            if (censusMod != null)
-            {
-                censusMod.Call("TownNPCCondition", ModContent.NPCType<Deviantt>(), "Defeat any rare enemy or... embrace eternity");
-                censusMod.Call("TownNPCCondition", ModContent.NPCType<Mutant>(), "Defeat any boss or miniboss");
-                censusMod.Call("TownNPCCondition", ModContent.NPCType<LumberJack>(), $"Have a Wooden Token ([i:{ModContent.ItemType<WoodenToken>()}]) in your inventory");
-                censusMod.Call("TownNPCCondition", ModContent.NPCType<Abominationn>(), "Clear any event");
+            Mod fargowiltasSouls = null;
 
-                // TODO: FargowiltasSouls Cross-Mod
-                /*Mod fargoSouls = Fargowiltas.FargosGetMod("FargowiltasSouls");
-                if (fargoSouls != null)
-                {
-                    censusMod.Call("TownNPCCondition", ModContent.NPCType<Squirrel>(), $"Have a Top Hat Squirrel ([i:{soulsMod.ItemType("TophatSquirrel")}]) in your inventory");
-                }*/
+            if (ModLoaded("FargowiltasSouls"))
+            {
+                fargowiltasSouls = LoadedMods["FargowiltasSouls"];
             }
 
-            // TODO: FargowiltasSouls Cross-Mod
-            /*Mod soulsMod = Fargowiltas.FargosGetMod("FargowiltasSouls");
-            if (soulsMod != null)
+            if (ModLoaded("Census"))
             {
-                if (!ModRareEnemies.ContainsKey(soulsMod.NPCType("BabyGuardian")))
-                    ModRareEnemies.Add(soulsMod.NPCType("BabyGuardian"), "babyGuardian");
-            }*/
+                Mod census = LoadedMods["Census"];
+                census.Call("TownNPCCondition", ModContent.NPCType<Deviantt>(), "Defeat any rare enemy or... embrace eternity");
+                census.Call("TownNPCCondition", ModContent.NPCType<Mutant>(), "Defeat any boss or miniboss");
+                census.Call("TownNPCCondition", ModContent.NPCType<LumberJack>(), $"Have a Wooden Token ([i:{ModContent.ItemType<WoodenToken>()}]) in your inventory");
+                census.Call("TownNPCCondition", ModContent.NPCType<Abominationn>(), "Clear any event");
+
+                if (ModLoaded("FargowiltasSouls"))
+                {
+                    census.Call("TownNPCCondition", ModContent.NPCType<Squirrel>(), $"Have a Top Hat Squirrel ([i:{fargowiltasSouls.ItemType("TophatSquirrel")}]) in your inventory");
+                }
+            }
+
+            if (ModLoaded("FargowiltasSouls"))
+            {
+                if (!ModRareEnemies.ContainsKey(fargowiltasSouls.NPCType("BabyGuardian")))
+                {
+                    ModRareEnemies.Add(fargowiltasSouls.NPCType("BabyGuardian"), "babyGuardian");
+                }
+            }
+        }
+
+        public override void Unload()
+        {
+            summonTracker = null;
+            HomeKey = null;
+            RodKey = null;
+            CustomKey = null;
+            mods = null;
+            LoadedMods = null;
         }
 
         public override object Call(params object[] args)
@@ -179,7 +184,9 @@ namespace Fargowiltas
 
                     case "AddSummon":
                         if (summonTracker.SummonsFinalized)
+                        {
                             throw new Exception($"Call Error: Summons must be added before AddRecipes");
+                        }
 
                         summonTracker.AddSummon(
                             Convert.ToSingle(args[1]),
@@ -192,7 +199,9 @@ namespace Fargowiltas
 
                     case "AddEventSummon":
                         if (summonTracker.SummonsFinalized)
+                        {
                             throw new Exception($"Call Error: Event summons must be added before AddRecipes");
+                        }
 
                         summonTracker.AddEventSummon(
                             Convert.ToSingle(args[1]),
@@ -205,7 +214,10 @@ namespace Fargowiltas
 
                     case "GetDownedEnemy":
                         if (FargoWorld.DownedBools.ContainsKey(args[1] as string) && FargoWorld.DownedBools[args[1] as string])
+                        {
                             return true;
+                        }
+
                         return false;
                 }
             }
@@ -224,10 +236,7 @@ namespace Fargowiltas
             FargoRecipes.AddRecipes();
         }
 
-        public override void AddRecipeGroups()
-        {
-            FargoRecipes.AddRecipeGroups();
-        }
+        public override void AddRecipeGroups() => FargoRecipes.AddRecipeGroups();
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
@@ -245,13 +254,13 @@ namespace Fargowiltas
                     if (Main.netMode == NetmodeID.Server)
                     {
                         bool eventOccurring = false;
+
                         if (ClearEvents(ref eventOccurring))
                         {
                             NetMessage.SendData(MessageID.WorldData);
                             ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The event has been cancelled!"), new Color(175, 75, 255));
                         }
                     }
-
                     break;
 
                 // Angler reset
@@ -271,9 +280,11 @@ namespace Fargowiltas
         internal static bool ClearEvents(ref bool eventOccurring)
         {
             bool canClearEvent = FargoWorld.AbomClearCD <= 0;
+
             if (Main.invasionType != 0)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.invasionType = 0;
@@ -283,6 +294,7 @@ namespace Fargowiltas
             if (Main.pumpkinMoon)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.pumpkinMoon = false;
@@ -292,6 +304,7 @@ namespace Fargowiltas
             if (Main.snowMoon)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.snowMoon = false;
@@ -301,6 +314,7 @@ namespace Fargowiltas
             if (Main.eclipse)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.eclipse = false;
@@ -310,6 +324,7 @@ namespace Fargowiltas
             if (Main.bloodMoon)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.bloodMoon = false;
@@ -319,6 +334,7 @@ namespace Fargowiltas
             if (Main.raining)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.raining = false;
@@ -328,6 +344,7 @@ namespace Fargowiltas
             if (Main.slimeRain)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Main.StopSlimeRain();
@@ -339,6 +356,7 @@ namespace Fargowiltas
             if (BirthdayParty.PartyIsUp)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     BirthdayParty.WorldClear();
@@ -348,6 +366,7 @@ namespace Fargowiltas
             if (DD2Event.Ongoing)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     DD2Event.StopInvasion();
@@ -357,6 +376,7 @@ namespace Fargowiltas
             if (Sandstorm.Happening)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     Sandstorm.Happening = false;
@@ -367,6 +387,7 @@ namespace Fargowiltas
             if (NPC.LunarApocalypseIsUp || NPC.ShieldStrengthTowerNebula > 0 || NPC.ShieldStrengthTowerSolar > 0 || NPC.ShieldStrengthTowerStardust > 0 || NPC.ShieldStrengthTowerVortex > 0)
             {
                 eventOccurring = true;
+
                 if (canClearEvent)
                 {
                     NPC.LunarApocalypseIsUp = false;
@@ -378,9 +399,7 @@ namespace Fargowiltas
                     // Purge all towers
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
-                        if (Main.npc[i].active
-                            && (Main.npc[i].type == NPCID.LunarTowerNebula || Main.npc[i].type == NPCID.LunarTowerSolar
-                            || Main.npc[i].type == NPCID.LunarTowerStardust || Main.npc[i].type == NPCID.LunarTowerVortex))
+                        if (Main.npc[i].active && (Main.npc[i].type == NPCID.LunarTowerNebula || Main.npc[i].type == NPCID.LunarTowerSolar || Main.npc[i].type == NPCID.LunarTowerStardust || Main.npc[i].type == NPCID.LunarTowerVortex))
                         {
                             Main.npc[i].dontTakeDamage = false;
                             Main.npc[i].GetGlobalNPC<FargoGlobalNPC>().NoLoot = true;
@@ -392,7 +411,7 @@ namespace Fargowiltas
 
             foreach (MutantSummonInfo summon in summonTracker.EventSummons)
             {
-                if ((bool)Fargowiltas.FargosGetMod(summon.modSource).Call("AbominationnClearEvents", canClearEvent))
+                if ((bool)LoadedMods[summon.modSource].Call("AbominationnClearEvents", canClearEvent))
                 {
                     eventOccurring = true;
                 }
@@ -440,7 +459,8 @@ namespace Fargowiltas
                 if (spawnMessage)
                 {
                     string npcName = !string.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : overrideDisplayName;
-                    if ((npcName == null || string.IsNullOrEmpty(npcName)) && Main.npc[npcID].modNPC != null)
+
+                    if (string.IsNullOrEmpty(npcName) && Main.npc[npcID].modNPC != null)
                     {
                         npcName = Main.npc[npcID].modNPC.DisplayName.GetDefault();
                     }
@@ -451,8 +471,7 @@ namespace Fargowiltas
                         {
                             Main.NewText(npcName + " have awoken!", 175, 75);
                         }
-                        else
-                        if (Main.netMode == NetmodeID.Server)
+                        else if (Main.netMode == NetmodeID.Server)
                         {
                             ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(npcName + " have awoken!"), new Color(175, 75, 255));
                         }
@@ -463,8 +482,7 @@ namespace Fargowiltas
                         {
                             Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75);
                         }
-                        else
-                        if (Main.netMode == NetmodeID.Server)
+                        else if (Main.netMode == NetmodeID.Server)
                         {
                             ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[] { NetworkText.FromLiteral(npcName) }), new Color(175, 75, 255));
                         }
@@ -482,13 +500,13 @@ namespace Fargowiltas
 
         public void LoadCrossModContent()
         {
-            if (Fargowiltas.FargosGetMod("FargowiltasSouls") != null)
+            if (ModLoaded("FargowiltasSouls"))
             {
                 AddContent<Squirrel>();
                 AddContent<InnocuousSkull>();
             }
 
-            if (Fargowiltas.FargosGetMod("Thorium") != null)
+            if (ModLoaded("ThoriumMod"))
             {
                 AddContent<OmnistationPlus>();
                 AddContent<OverloadStrider>();
@@ -505,16 +523,13 @@ namespace Fargowiltas
                 //AddContent<OverloadRag>();
             }
 
-            if (Fargowiltas.FargosGetMod("CalamityMod") != null)
+            if (ModLoaded("CalamityMod") && !ModLoaded("ThoriumMod"))
             {
-                if (Fargowiltas.FargosGetMod("Thorium") == null)
-                {
-                    AddContent<Buffs.OmnistationPlus>();
-                    AddContent<OmnistationPlus>();
-                }
+                AddContent<Buffs.OmnistationPlus>();
+                AddContent<OmnistationPlus>();
             }
 
-            if (Fargowiltas.FargosGetMod("AAMod") != null)
+            if (ModLoaded("AAMod"))
             {
                 AddContent<Clawbomination>();
                 AddContent<GlowingMasshroom>();
@@ -522,12 +537,11 @@ namespace Fargowiltas
             }
         }
 
-        public static Mod FargosGetMod(string modName)
+        public static bool ModLoaded(string modName)
         {
-            // Does nothing
-            // Too lazy to go through and comment out GetMod shit
+            ModLoader.TryGetMod(modName, out Mod mod);
 
-            return null;
+            return mod != null;
         }
     }
 }

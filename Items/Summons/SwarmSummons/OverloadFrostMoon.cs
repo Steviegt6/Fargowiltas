@@ -99,8 +99,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             recipe.AddIngredient(ItemID.NaughtyPresent);
             recipe.AddIngredient(null, "Overloader", 10);
             recipe.AddTile(TileID.CrystalBall);
-
-            recipe.Register();
+            recipe.Register();
         }
     }
 }

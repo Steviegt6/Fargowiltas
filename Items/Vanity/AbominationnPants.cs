@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Legs)]
     public class AbominationnPants : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Abominationn Pants");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Abominationn Pants");
 
         public override void SetDefaults()
         {
@@ -25,9 +22,7 @@ namespace Fargowiltas.Items.Vanity
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.TreeTrunks);
             recipe.AddIngredient(ItemID.FallenTuxedoPants);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

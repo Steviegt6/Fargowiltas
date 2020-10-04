@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.NPCs;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -11,8 +12,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
     [Autoload(false)]
     public class OverloadAbyssion : ModItem
     {
-        private readonly Mod thorium = Fargowiltas.FargosGetMod("ThoriumMod");
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abyss Light");
@@ -32,10 +31,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive;
 
         public override bool UseItem(Player player)
         {
@@ -61,9 +57,8 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
 
             for (int i = 0; i < Fargowiltas.SwarmSpawned; i++)
             {
-                // TODO: Thorium Crossmod
-                //int boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), thorium.NPCType("Abyssion"));
-                //Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
+                int boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), Fargowiltas.LoadedMods["Thorium"].NPCType("Abyssion"));
+                Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
             }
 
             if (Main.netMode == NetmodeID.Server)
@@ -76,6 +71,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
             }
 
             SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+
             return true;
         }
 
@@ -84,9 +80,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "AbyssionSummon");
             recipe.AddIngredient(null, "Overloader");
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

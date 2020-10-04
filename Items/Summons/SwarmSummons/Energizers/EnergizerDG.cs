@@ -5,13 +5,13 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Energizers
 {
     public class EnergizerDG : ModItem
     {
+        public override string Texture => "Fargowiltas/Items/Summons/SwarmSummons/Energizers/EnergizerSkele";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Extra Boney Energizer");
             Tooltip.SetDefault("'Reminds you of a mean cow'");
         }
-
-        public override string Texture => "Fargowiltas/Items/Summons/SwarmSummons/Energizers/EnergizerSkele";
 
         public override void SetDefaults()
         {

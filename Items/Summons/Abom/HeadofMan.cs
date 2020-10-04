@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class HeadofMan : BaseSummon
     {
-        public override int Type => NPCID.HeadlessHorseman;
+        public override int NPCType => NPCID.HeadlessHorseman;
 
         public override string NPCName => "Headless Horseman";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Abom
                                "\nOnly usable at night");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
     }
 }

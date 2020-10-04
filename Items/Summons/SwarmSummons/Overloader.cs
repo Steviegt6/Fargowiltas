@@ -10,9 +10,9 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Overloader");
-            Tooltip.SetDefault("Used to craft swarm summons\n" +
-                               "When used, all summons in the stack will be consumed\n" +
-                               "The more consumed, the more bosses will spawn");
+            Tooltip.SetDefault("Used to craft swarm summons" +
+                               "\nWhen used, all summons in the stack will be consumed" +
+                               "\nThe more consumed, the more bosses will spawn");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 4));
         }
 

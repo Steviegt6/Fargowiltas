@@ -9,10 +9,7 @@ namespace Fargowiltas.Projectiles.Explosives
 {
     public class ObsInstabridgeProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Obsidian Instabridge");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Obsidian Instabridge");
 
         public override void SetDefaults()
         {
@@ -29,48 +26,46 @@ namespace Fargowiltas.Projectiles.Explosives
             Vector2 position = projectile.Center;
             SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                return;
-            }
-
-            // All the way across
-            for (int x = 1; x <= Main.maxTilesX; x++)
-            {
-                // Six down, last is platforms
-                for (int y = -5; y <= 0; y++)
+                // All the way across
+                for (int x = 1; x <= Main.maxTilesX; x++)
                 {
-                    int xPosition = x;
-                    int yPosition = (int)(y + position.Y / 16.0f);
-
-                    Tile tile = Main.tile[xPosition, yPosition];
-
-                    if (tile == null)
+                    // Six down, last is platforms
+                    for (int y = -5; y <= 0; y++)
                     {
-                        continue;
+                        int xPosition = x;
+                        int yPosition = (int)(y + position.Y / 16.0f);
+
+                        Tile tile = Main.tile[xPosition, yPosition];
+
+                        if (tile == null)
+                        {
+                            continue;
+                        }
+
+                        // Testing for blocks that should not be destroyed
+                        bool noFossil = tile.type == TileID.DesertFossil && !NPC.downedBoss2;
+                        bool noDungeon = (tile.type == TileID.BlueDungeonBrick || tile.type == TileID.GreenDungeonBrick || tile.type == TileID.PinkDungeonBrick) && !NPC.downedBoss3;
+                        bool noHMOre = (tile.type == TileID.Cobalt || tile.type == TileID.Palladium || tile.type == TileID.Mythril || tile.type == TileID.Orichalcum || tile.type == TileID.Adamantite || tile.type == TileID.Titanium) && !NPC.downedMechBossAny;
+                        bool noChloro = tile.type == TileID.Chlorophyte && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3);
+                        bool noLihzahrd = tile.type == TileID.LihzahrdBrick && !NPC.downedGolemBoss;
+
+                        if (noFossil || noDungeon || noHMOre || noChloro || noLihzahrd)
+                        {
+                            continue;
+                        }
+
+                        FargoGlobalTile.ClearEverything(xPosition, yPosition);
+
+                        if (y == 0)
+                        {
+                            // Spawn platforms
+                            WorldGen.PlaceTile(xPosition, yPosition, TileID.Platforms, false, false, -1, 13);
+                        }
+
+                        NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
                     }
-
-                    // Testing for blocks that should not be destroyed
-                    bool noFossil = tile.type == TileID.DesertFossil && !NPC.downedBoss2;
-                    bool noDungeon = (tile.type == TileID.BlueDungeonBrick || tile.type == TileID.GreenDungeonBrick || tile.type == TileID.PinkDungeonBrick) && !NPC.downedBoss3;
-                    bool noHMOre = (tile.type == TileID.Cobalt || tile.type == TileID.Palladium || tile.type == TileID.Mythril || tile.type == TileID.Orichalcum || tile.type == TileID.Adamantite || tile.type == TileID.Titanium) && !NPC.downedMechBossAny;
-                    bool noChloro = tile.type == TileID.Chlorophyte && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3);
-                    bool noLihzahrd = tile.type == TileID.LihzahrdBrick && !NPC.downedGolemBoss;
-
-                    if (noFossil || noDungeon || noHMOre || noChloro || noLihzahrd)
-                    {
-                        continue;
-                    }
-
-                    FargoGlobalTile.ClearEverything(xPosition, yPosition);
-
-                    if (y == 0)
-                    {
-                        // Spawn platforms
-                        WorldGen.PlaceTile(xPosition, yPosition, TileID.Platforms, false, false, -1, 13);
-                    }
-
-                    NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
                 }
             }
         }

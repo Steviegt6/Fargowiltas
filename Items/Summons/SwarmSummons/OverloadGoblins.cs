@@ -51,7 +51,9 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Main.invasionDelay = 0;
+
                     Main.StartInvasion(1);
+
                     Main.invasionSize = 15000;
                     Main.invasionSizeStart = 15000;
                 }
@@ -61,6 +63,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 }
 
                 FargoWorld.OverloadGoblins = true;
+
                 SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             }
 
@@ -72,9 +75,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.GoblinBattleStandard);
             recipe.AddIngredient(null, "Overloader", 10);
-            recipe.AddTile(TileID.CrystalBall);
-
-            recipe.Register();
+            recipe.AddTile(TileID.CrystalBall);            recipe.Register();
         }
     }
 }

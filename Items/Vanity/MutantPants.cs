@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Legs)]
     public class MutantPants : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Mutant Pants");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Mutant Pants");
 
         public override void SetDefaults()
         {
@@ -25,9 +22,7 @@ namespace Fargowiltas.Items.Vanity
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BeeMask);
             recipe.AddIngredient(ItemID.PlanteraMask);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

@@ -28,28 +28,25 @@ namespace Fargowiltas.Items.Misc
             item.UseSound = SoundID.Item4;
         }
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
+        public override bool AltFunctionUse(Player player) => true;
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.fastForwardTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.fastForwardTime;
 
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed)
             {
                 Main.sundialCooldown = 0;
+
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     NetMessage.SendData(MessageID.Assorted1, number: Main.myPlayer, number2: 3f);
+
                     return true;
                 }
 
                 Main.fastForwardTime = true;
+
                 NetMessage.SendData(MessageID.WorldData);
                 SoundEngine.PlaySound(SoundID.Item4, player.position);
             }
@@ -57,6 +54,7 @@ namespace Fargowiltas.Items.Misc
             {
                 Main.dayTime = !Main.dayTime;
                 Main.time = 0;
+
                 Chest.SetupTravelShop();
 
                 //change moon phases when switching to night
@@ -76,9 +74,7 @@ namespace Fargowiltas.Items.Misc
             recipe.AddIngredient(ItemID.SoulofLight, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 10);
             recipe.AddIngredient(ItemID.SoulofFlight, 10);
-            recipe.AddTile(TileID.Anvils);
-
-            recipe.Register();
+            recipe.AddTile(TileID.Anvils);            recipe.Register();
         }
     }
 }

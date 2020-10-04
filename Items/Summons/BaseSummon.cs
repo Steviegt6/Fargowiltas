@@ -11,7 +11,7 @@ namespace Fargowiltas.Items.Summons
 {
     public abstract class BaseSummon : ModItem
     {
-        public abstract int Type { get; }
+        public abstract int NPCType { get; }
 
         public abstract string NPCName { get; }
 
@@ -35,14 +35,14 @@ namespace Fargowiltas.Items.Summons
 
             //if (Main.netMode != 1)
             //{
-            Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, Type);
+            Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, NPCType);
             //}
 
             if (Main.netMode == NetmodeID.Server)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPCName} has awoken!"), new Color(175, 75, 255));
             }
-            else if (Type != NPCID.KingSlime)
+            else if (NPCType != NPCID.KingSlime)
             {
                 Main.NewText($"{NPCName} has awoken!", new Color(175, 75, 255));
             }

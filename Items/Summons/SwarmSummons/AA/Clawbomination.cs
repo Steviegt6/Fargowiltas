@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.NPCs;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -11,8 +12,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.AA
     [Autoload(false)]
     public class Clawbomination : ModItem
     {
-        private readonly Mod AAMod = Fargowiltas.FargosGetMod("AAMod");
-
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Summons several Grips of Chaos");
@@ -31,10 +30,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.AA
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive && !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive && !Main.dayTime;
 
         public override bool UseItem(Player player)
         {
@@ -66,11 +62,10 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.AA
 
             for (int i = 0; i < Fargowiltas.SwarmSpawned; i++)
             {
-                // TODO: AA Crossmod
-                //int boss = NPC.NewNPC((int)player.position.X + 1000, (int)player.position.Y + Main.rand.Next(-1000, -400), AAMod.NPCType("GripOfChaosBlue"));
-                //Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
-                //int grip = NPC.NewNPC((int)player.position.X - 1000, (int)player.position.Y + Main.rand.Next(-1000, -400), AAMod.NPCType("GripOfChaosRed"));
-                //Main.npc[grip].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
+                int boss = NPC.NewNPC((int)player.position.X + 1000, (int)player.position.Y + Main.rand.Next(-1000, -400), Fargowiltas.LoadedMods["AAMod"].NPCType("GripOfChaosBlue"));
+                Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
+                int grip = NPC.NewNPC((int)player.position.X - 1000, (int)player.position.Y + Main.rand.Next(-1000, -400), Fargowiltas.LoadedMods["AAMod"].NPCType("GripOfChaosRed"));
+                Main.npc[grip].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
             }
 
             if (Main.netMode == NetmodeID.Server)
@@ -83,22 +78,23 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.AA
             }
 
             SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+
             return true;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(AAMod, "InterestingClaw")
-            .AddIngredient(null, "Overloader")
-            .AddTile(TileID.DemonAltar)
-            .Register();
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(Fargowiltas.LoadedMods["AAMod"], "InterestingClaw");
+            recipe.AddIngredient(null, "Overloader");
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.Register();
 
-            CreateRecipe()
-            .AddIngredient(AAMod, "CuriousClaw")
-            .AddIngredient(null, "Overloader")
-            .AddTile(TileID.DemonAltar)
-            .Register();
+            recipe = CreateRecipe();
+            recipe.AddIngredient(Fargowiltas.LoadedMods["AAMod"], "CuriousClaw");
+            recipe.AddIngredient(null, "Overloader");
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.Register();
         }
     }
 }

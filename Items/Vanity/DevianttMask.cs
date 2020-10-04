@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Head)]
     public class DevianttMask : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Deviantt Mask");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Deviantt Mask");
 
         public override void SetDefaults()
         {
@@ -23,12 +20,9 @@ namespace Fargowiltas.Items.Vanity
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-
             recipe.AddIngredient(ItemID.RuneHat);
             recipe.AddIngredient(ItemID.MetalDetector);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

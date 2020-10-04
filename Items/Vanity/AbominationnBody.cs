@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Body)]
     public class AbominationnBody : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Abominationn Body");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Abominationn Body");
 
         public override void SetDefaults()
         {
@@ -25,9 +22,7 @@ namespace Fargowiltas.Items.Vanity
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.PirateShirt);
             recipe.AddIngredient(ItemID.ChargedBlasterCannon);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

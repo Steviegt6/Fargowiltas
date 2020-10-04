@@ -34,9 +34,7 @@ namespace Fargowiltas.Items.Explosives
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Vector2 mouse = Main.MouseWorld;
-
-            Projectile.NewProjectile(mouse, Vector2.Zero, type, 0, 0, player.whoAmI);
+            Projectile.NewProjectile(Main.MouseWorld, Vector2.Zero, type, 0, 0, player.whoAmI);
 
             return false;
         }
@@ -46,9 +44,7 @@ namespace Fargowiltas.Items.Explosives
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.FossilOre, 5);
             recipe.AddIngredient(ItemID.WoodPlatform, 100);
-            recipe.AddTile(TileID.Anvils);
-
-            recipe.Register();
+            recipe.AddTile(TileID.Anvils);            recipe.Register();
         }
     }
 }

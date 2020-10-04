@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Legs)]
     public class DevianttPants : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Deviantt Pants");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Deviantt Pants");
 
         public override void SetDefaults()
         {
@@ -25,9 +22,7 @@ namespace Fargowiltas.Items.Vanity
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.SoulofNight, 5);
             recipe.AddIngredient(ItemID.SoulofFlight, 5);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

@@ -24,10 +24,7 @@ namespace Fargowiltas.Projectiles
 
         public override string Texture => "Fargowiltas/Items/Renewals/" + name;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault(name);
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault(name);
 
         public override void SetDefaults()
         {
@@ -42,6 +39,7 @@ namespace Fargowiltas.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.Kill();
+
             return true;
         }
 

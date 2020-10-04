@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_70";
 
-        public override int Type => NPCID.EaterofWorldsHead;
+        public override int NPCType => NPCID.EaterofWorldsHead;
 
         public override string NPCName => "Eater of Worlds";
 
@@ -21,9 +21,7 @@ namespace Fargowiltas.Items.Summons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.WormFood);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

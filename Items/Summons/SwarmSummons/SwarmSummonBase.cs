@@ -78,6 +78,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             if (npcType == NPCID.WallofFlesh)
             {
                 FargoGlobalNPC.SpawnWalls(player);
+
                 counter++;
 
                 if (counter < 10)
@@ -115,6 +116,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             }
 
             SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+
             return true;
         }
 
@@ -123,9 +125,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, material);
             recipe.AddIngredient(null, "Overloader");
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

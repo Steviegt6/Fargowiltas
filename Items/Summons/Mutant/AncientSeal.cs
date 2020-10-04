@@ -32,10 +32,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.shoot = ModContent.ProjectileType<SpawnProj>();
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.dayTime != true;
-        }
+        public override bool CanUseItem(Player player) => Main.dayTime != true;
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -48,6 +45,7 @@ namespace Fargowiltas.Items.Summons.Mutant
             for (int i = Main.maxNPCTypes; i < NPCLoader.NPCCount; i++)
             {
                 NPC npc = new NPC();
+
                 npc.SetDefaults(i);
 
                 if (npc.boss)
@@ -73,6 +71,7 @@ namespace Fargowiltas.Items.Summons.Mutant
         public static int SpawnBoss(Player player, int npcID, string name)
         {
             Main.NewText($"{name} has awoken!", new Color(175, 75, 255));
+
             return NPC.NewNPC((int)player.position.X + Main.rand.Next(-800, 800), (int)player.position.Y + Main.rand.Next(-1000, -250), npcID);
         }
     }

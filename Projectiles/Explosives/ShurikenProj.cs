@@ -8,10 +8,7 @@ namespace Fargowiltas.Projectiles.Explosives
 {
     public class ShurikenProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Shuriken");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Shuriken");
 
         public override void SetDefaults()
         {
@@ -25,14 +22,12 @@ namespace Fargowiltas.Projectiles.Explosives
             aiType = 48;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            projectile.Kill();
-        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => projectile.Kill();
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.Kill();
+
             return false;
         }
 
@@ -41,8 +36,10 @@ namespace Fargowiltas.Projectiles.Explosives
             Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, ModContent.ProjectileType<Explosion>(), 0, projectile.knockBack, projectile.owner);
 
             Vector2 position = projectile.Center;
+
             SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 16;     // bigger = boomer
+
+            int radius = 16; // bigger = boomer
 
             for (int x = -radius; x <= radius; x++)
             {
@@ -50,23 +47,9 @@ namespace Fargowiltas.Projectiles.Explosives
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
-
                     Tile tile = Main.tile[xPosition, yPosition];
                     Player player = Main.player[projectile.owner];
                     Item bestPickaxe = GetBestPickaxe(player);
-
-                    // testing for blocks that should not be destroyed
-                    /*bool noFossil = tile.type == TileID.DesertFossil && !NPC.downedBoss2;
-                    bool noDungeon = (tile.type == TileID.BlueDungeonBrick || tile.type == TileID.GreenDungeonBrick || tile.type == TileID.PinkDungeonBrick) && !NPC.downedBoss3;
-                    bool noHellstone = tile.type == TileID.Hellstone && !NPC.downedBoss3;
-                    bool noHMOre = (tile.type == TileID.Cobalt || tile.type == TileID.Palladium || tile.type == TileID.Mythril || tile.type == TileID.Orichalcum || tile.type == TileID.Adamantite || tile.type == TileID.Titanium) && !NPC.downedMechBossAny;
-                    bool noChloro = tile.type == TileID.Chlorophyte && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3);
-                    bool noLihzahrd = tile.type == TileID.LihzahrdBrick && !NPC.downedGolemBoss;
-
-                    if (noFossil || noDungeon || noHMOre || noChloro || noLihzahrd)
-                    {
-                        continue;
-                    }*/
 
                     // Circle
                     if ((x * x + y * y) <= radius)

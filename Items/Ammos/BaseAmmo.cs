@@ -9,10 +9,7 @@ namespace Fargowiltas.Items.Ammos
     {
         public abstract int AmmunitionItem { get; }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault($"Endless {Regex.Replace(Name, "([A-Z])", " $1").Trim()}");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault($"Endless {Regex.Replace(Name, "([A-Z])", " $1").Trim()}");
 
         public override void SetDefaults()
         {
@@ -29,9 +26,7 @@ namespace Fargowiltas.Items.Ammos
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(AmmunitionItem, 3996);
-            recipe.AddTile(TileID.CrystalBall);
-
-            recipe.Register();
+            recipe.AddTile(TileID.CrystalBall);            recipe.Register();
         }
     }
 }

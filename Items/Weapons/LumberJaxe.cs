@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Weapons
 {
@@ -31,9 +30,6 @@ namespace Fargowiltas.Items.Weapons
             item.autoReuse = true;
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffType<Buffs.WoodDrop>(), 600);
-        }
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit) => target.AddBuff(ModContent.BuffType<Buffs.WoodDrop>(), 600);
     }
 }

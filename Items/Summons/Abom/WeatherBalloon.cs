@@ -27,18 +27,13 @@ namespace Fargowiltas.Items.Summons.Abom
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.raining;
-        }
+        public override bool CanUseItem(Player player) => !Main.raining;
 
         public override bool UseItem(Player player)
         {
-            //starts rain for 12 hours
-            int day = 86400;
-            int hour = day / 24;
-            Main.rainTime = hour * 12;
-            Main.raining = true;
+            Main.StartRain();
+            Main.cloudAlpha = 1f;
+            Main.maxRaining = 1f;
 
             NetMessage.SendData(MessageID.WorldData);
             Main.NewText("Rain clouds cover the sky.", new Color(175, 75, 255));

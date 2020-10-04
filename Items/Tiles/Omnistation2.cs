@@ -9,6 +9,7 @@ namespace Fargowiltas.Items.Tiles
         public override void SetDefaults()
         {
             base.SetDefaults();
+
             item.createTile = ModContent.TileType<OmnistationSheet2>();
         }
 
@@ -25,9 +26,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.CrystalBall, 5);
             recipe.AddIngredient(ItemID.BewitchingTable, 5);
             recipe.AddIngredient(ItemID.TitaniumBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-
-            recipe.Register();
+            recipe.AddTile(TileID.MythrilAnvil);            recipe.Register();
         }
     }
 }
