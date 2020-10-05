@@ -46,7 +46,8 @@ namespace Fargowiltas.Items.Misc
 
             if (modPlayer.BattleCry && !Main.dedServ)
             {
-                SoundEngine.PlaySound(Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Horn").WithVolume(1f).WithPitchVariance(.5f), player.position);
+                // TODO: Uncomment when tML adds sound back in.
+                //SoundEngine.PlaySound(Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Horn").WithVolume(1f).WithPitchVariance(.5f), player.position);
             }
 
             return true;
