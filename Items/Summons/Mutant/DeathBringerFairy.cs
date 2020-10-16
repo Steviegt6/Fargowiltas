@@ -32,14 +32,12 @@ namespace Fargowiltas.Items.Summons.Mutant
             item.shoot = ModContent.ProjectileType<SpawnProj>();
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 pos = new Vector2((int)player.position.X + Main.rand.Next(-800, 800), (int)player.position.Y + Main.rand.Next(-1000, -250));
+
             Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, 1, 2);
 
             if (Main.netMode == NetmodeID.Server)

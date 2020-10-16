@@ -28,10 +28,7 @@ namespace Fargowiltas.Items.Summons.Abom
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !BirthdayParty.PartyIsUp;
-        }
+        public override bool CanUseItem(Player player) => !BirthdayParty.PartyIsUp;
 
         public override bool UseItem(Player player)
         {

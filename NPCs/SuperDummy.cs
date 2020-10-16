@@ -6,10 +6,7 @@ namespace Fargowiltas.NPCs
 {
     public class SuperDummy : ModNPC
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Super Dummy");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Super Dummy");
 
         public override void SetDefaults()
         {
@@ -20,14 +17,12 @@ namespace Fargowiltas.NPCs
             npc.immortal = false;
         }
 
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-        {
-            return false;
-        }
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position) => false;
 
         public override bool CheckDead()
         {
             npc.life = npc.lifeMax;
+
             return false;
         }
     }

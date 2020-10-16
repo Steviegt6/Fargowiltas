@@ -1,43 +1,57 @@
-﻿using Terraria.GameContent.ItemDropRules;
+﻿using Fargowiltas.Buffs;
+using Terraria;
+using Terraria.GameContent.Events;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Fargowiltas.ItemDropRules
 {
     public static class ExtraItemDropRules
     {
-        /// <summary>
-        /// Makes NPCs drop an item based on a bool.
-        /// </summary>
-        /// <param name="shouldDrop"></param>
-        /// <param name="itemID"></param>
-        /// <param name="dropsOutOfX"></param>
-        /// <param name="minimumDropped"></param>
-        /// <param name="maximumDropped"></param>
-        /// <returns><c>new Terraria.GameContent.ItemDropRules.DropNothing()</c> if the bool is false.</returns>
-        public static IItemDropRule ByBoolean(bool shouldDrop, int itemId, int dropsOutOfX = 1, int minimumDropped = 1, int maximumDropped = 1, int dropsXoutofY = 1)
+        public class HasWoodDrop : IItemDropRuleCondition, IProvideItemConditionDescription
         {
-            if (shouldDrop)
-            {
-                return new CommonDrop(itemId, dropsOutOfX, minimumDropped, maximumDropped, dropsXoutofY);
-            }
+            public bool CanDrop(DropAttemptInfo info) => info.npc.HasBuff(ModContent.BuffType<WoodDrop>());
 
-            return new DropNothing();
+            public bool CanShowItemDropInUI() => true;
+
+            public string GetConditionDescription() => "If the NPC has the Wood Drop buff, which is inflicted by the Lumber Jaxe.";
         }
 
-        /// <summary>
-        /// Makes an NPC drop a random item from the <c>options</c> array.
-        /// </summary>
-        /// <param name="shouldDrop"></param>
-        /// <param name="dropsOutOfX"></param>
-        /// <param name="options"></param>
-        /// <returns><c>new Terraria.GameContent.ItemDropRules.DropNothing()</c> if the bool is false.</returns>
-        public static IItemDropRule OneFromOptionsByBoolean(bool shouldDrop, int dropsOutOfX, params int[] options)
+        public class MoonLordIsAlive : IItemDropRuleCondition, IProvideItemConditionDescription
         {
-            if (shouldDrop)
-            {
-                return new OneFromOptionsDropRule(dropsOutOfX, 1, options);
-            }
+            public bool CanDrop(DropAttemptInfo info) => NPC.AnyNPCs(NPCID.MoonLordCore);
 
-            return new DropNothing();
+            public bool CanShowItemDropInUI() => true;
+
+            public string GetConditionDescription() => "If the Moon Lord is currently alive.";
+        }
+
+        public class EridanusIsAlive : IItemDropRuleCondition, IProvideItemConditionDescription
+        {
+            public bool CanDrop(DropAttemptInfo info) => NPC.AnyNPCs(Fargowiltas.LoadedMods["FargowiltasSouls"].NPCType("ComsmosChampion"));
+
+            public bool CanShowItemDropInUI() => true;
+
+            public string GetConditionDescription() => "If Eridanus, Champion of Cosmos is currently alive.";
+        }
+
+        public class DD2EventIsNotOngoing : IItemDropRuleCondition, IProvideItemConditionDescription
+        {
+            public bool CanDrop(DropAttemptInfo info) => !DD2Event.Ongoing;
+
+            public bool CanShowItemDropInUI() => true;
+
+            public string GetConditionDescription() => "If the Dungeon Defenders 2 Event is not ongoing.";
+        }
+
+        public class DD2EventIsNotOngoingShouldDropCrystals : IItemDropRuleCondition, IProvideItemConditionDescription
+        {
+            public bool CanDrop(DropAttemptInfo info) => !DD2Event.Ongoing && DD2Event.ShouldDropCrystals();
+
+            public bool CanShowItemDropInUI() => false;
+
+            public string GetConditionDescription() => "";
         }
 
         /// <summary>

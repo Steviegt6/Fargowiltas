@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_557";
 
-        public override int Type => NPCID.SkeletronPrime;
+        public override int NPCType => NPCID.SkeletronPrime;
 
         public override string NPCName => "Skeletron Prime";
 
@@ -17,18 +17,13 @@ namespace Fargowiltas.Items.Summons
             Tooltip.SetDefault("Summons Skeletron Prime");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.dayTime != true;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.MechanicalSkull);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

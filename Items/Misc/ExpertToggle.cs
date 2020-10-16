@@ -15,7 +15,7 @@ namespace Fargowiltas.Items.Misc
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Expert's Token");
-            Tooltip.SetDefault(@"Toggles Expert mode");
+            Tooltip.SetDefault("Toggles Expert mode");
         }
 
         public override void SetDefaults()
@@ -39,6 +39,7 @@ namespace Fargowiltas.Items.Misc
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -51,6 +52,7 @@ namespace Fargowiltas.Items.Misc
             // I have no fucking clue if this even works. - Stevie
 
             string text = Main.expertMode ? "Expert mode is now enabled!" : "Expert mode is now disabled!";
+
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(text, new Color(175, 75, 255));

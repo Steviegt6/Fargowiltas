@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_2673";
 
-        public override int Type => NPCID.DukeFishron;
+        public override int NPCType => NPCID.DukeFishron;
 
         public override string NPCName => "Duke Fishron";
 
@@ -21,9 +21,7 @@ namespace Fargowiltas.Items.Summons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.TruffleWorm);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

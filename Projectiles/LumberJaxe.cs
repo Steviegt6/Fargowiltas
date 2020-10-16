@@ -23,19 +23,10 @@ namespace Fargowiltas.Projectiles
             aiType = ProjectileID.CrystalBullet;
         }
 
-        public override void AI()
-        {
-            projectile.rotation += 0.3f;
-        }
+        public override void AI() => projectile.rotation += 0.3f;
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            projectile.Kill();
-        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => projectile.Kill();
 
-        public override void Kill(int timeLeft)
-        {
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X * 0, projectile.velocity.Y * 0, ModContent.ProjectileType<Explosion>(), (int)(projectile.damage * 1f), projectile.knockBack, projectile.owner);
-        }
+        public override void Kill(int timeLeft) => Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X * 0, projectile.velocity.Y * 0, ModContent.ProjectileType<Explosion>(), (int)(projectile.damage * 1f), projectile.knockBack, projectile.owner);
     }
 }

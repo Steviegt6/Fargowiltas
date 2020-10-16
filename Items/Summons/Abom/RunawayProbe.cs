@@ -28,7 +28,10 @@ namespace Fargowiltas.Items.Summons.Abom
 
         public override bool UseItem(Player player)
         {
+            Main.invasionDelay = 0;
             Main.StartInvasion(InvasionID.MartianMadness);
+            NetMessage.TrySendData(MessageID.WorldData);
+            NetMessage.TrySendData(MessageID.InvasionProgressReport, number2: 1f, number3: Main.invasionType + 3);
             SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;

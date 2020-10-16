@@ -8,14 +8,11 @@ namespace Fargowiltas.Items.CaughtNPCs
 {
     public abstract class BaseCaughtNPC : ModItem
     {
-        public virtual int Type => NPCID.None;
+        public virtual int NPCType => NPCID.None;
 
-        public override string Texture => $"Terraria/NPC_{Type}";
+        public override string Texture => $"Terraria/NPC_{NPCType}";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault($"The {Regex.Replace(Name, "([A-Z])", " $1").Trim()}");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault($"The {Regex.Replace(Name, "([A-Z])", " $1").Trim()}");
 
         public override void SetDefaults()
         {
@@ -30,10 +27,11 @@ namespace Fargowiltas.Items.CaughtNPCs
             item.noMelee = true;
             item.noUseGraphic = true;
             item.UseSound = SoundID.Item44;
-            if (Type != NPCID.None)
+
+            if (NPCType != NPCID.None)
             {
-                item.makeNPC = (short)Type;
-                Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, Main.npcFrameCount[Type]));
+                item.makeNPC = (short)NPCType;
+                Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, Main.npcFrameCount[NPCType]));
             }
         }
     }

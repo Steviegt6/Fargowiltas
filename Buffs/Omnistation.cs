@@ -11,6 +11,7 @@ namespace Fargowiltas.Buffs
         {
             DisplayName.SetDefault("Omnistation");
             Description.SetDefault("Effects of all vanilla stations");
+
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
@@ -25,7 +26,6 @@ namespace Fargowiltas.Buffs
 
             if (player.whoAmI == Main.myPlayer)
             {
-                // sunflow, campfire, etc. bools moved to SceneMetrics and made readonly because Re-Logic hates modders
                 player.AddBuff(146, 2, quiet: false);
                 player.AddBuff(BuffID.Campfire, 2, quiet: false);
                 player.AddBuff(BuffID.HeartLamp, 2, quiet: false);
@@ -33,6 +33,7 @@ namespace Fargowiltas.Buffs
             }
 
             int type = Framing.GetTileSafely(player.Center).type;
+
             if (type == ModContent.TileType<OmnistationSheet>() || type == ModContent.TileType<OmnistationSheet2>())
             {
                 player.AddBuff(BuffID.Honey, 30 * 60 + 1);

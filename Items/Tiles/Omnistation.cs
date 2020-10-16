@@ -9,9 +9,9 @@ namespace Fargowiltas.Items.Tiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Omnistation");
-            Tooltip.SetDefault(@"Effects of all vanilla buff stations
-Grants Honey when touched
-Right click while holding a weapon for its respective buff");
+            Tooltip.SetDefault("Effects of all vanilla buff stations" +
+                "\nGrants Honey when touched" +
+                "\nRight click while holding a weapon for its respective buff");
         }
 
         public override void SetDefaults()
@@ -40,9 +40,7 @@ Right click while holding a weapon for its respective buff");
             recipe.AddIngredient(ItemID.CrystalBall, 5);
             recipe.AddIngredient(ItemID.BewitchingTable, 5);
             recipe.AddIngredient(ItemID.AdamantiteBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-
-            recipe.Register();
+            recipe.AddTile(TileID.MythrilAnvil);            recipe.Register();
         }
     }
 }

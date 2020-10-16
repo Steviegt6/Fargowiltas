@@ -46,7 +46,6 @@ namespace Fargowiltas.Items.Tiles
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-
             recipe.AddIngredient(ModContent.ItemType<MultitaskCenter>());
             recipe.AddIngredient(ModContent.ItemType<ElementalAssembler>());
             recipe.AddRecipeGroup("Fargowiltas:AnyForge");
@@ -61,9 +60,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.LihzahrdFurnace);
             recipe.AddIngredient(ItemID.LunarCraftingStation);
             recipe.AddIngredient(ItemID.LunarBar, 25);
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

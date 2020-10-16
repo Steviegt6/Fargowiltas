@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class IceKingsRemains : BaseSummon
     {
-        public override int Type => NPCID.IceQueen;
+        public override int NPCType => NPCID.IceQueen;
 
         public override string NPCName => "Ice Queen";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Abom
                                "\nOnly usable at night");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
     }
 }

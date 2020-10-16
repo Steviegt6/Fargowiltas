@@ -4,7 +4,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class ForbiddenForbiddenFragment : BaseSummon
     {
-        public override int Type => NPCID.SandElemental;
+        public override int NPCType => NPCID.SandElemental;
 
         public override string NPCName => "Sand Elemental";
 

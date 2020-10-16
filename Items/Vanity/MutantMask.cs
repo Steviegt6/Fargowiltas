@@ -7,10 +7,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Head)]
     public class MutantMask : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Mutant Mask");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Mutant Mask");
 
         public override void SetDefaults()
         {
@@ -23,13 +20,10 @@ namespace Fargowiltas.Items.Vanity
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-
             recipe.AddIngredient(ItemID.EyeMask);
             recipe.AddIngredient(ItemID.BrainMask);
             recipe.AddIngredient(ItemID.EaterMask);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.TinkerersWorkbench);            recipe.Register();
         }
     }
 }

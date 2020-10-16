@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_556";
 
-        public override int Type => NPCID.TheDestroyer;
+        public override int NPCType => NPCID.TheDestroyer;
 
         public override string NPCName => "The Destroyer";
 
@@ -17,18 +17,13 @@ namespace Fargowiltas.Items.Summons
             Tooltip.SetDefault("Summons the Destroyer");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.dayTime != true;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.MechanicalWorm);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

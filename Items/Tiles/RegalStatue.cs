@@ -33,9 +33,7 @@ namespace Fargowiltas.Items.Tiles
             recipe.AddIngredient(ItemID.KingStatue);
             recipe.AddIngredient(ItemID.QueenStatue);
             recipe.AddIngredient(ItemID.Bone, 15);
-            recipe.AddTile(TileID.HeavyWorkBench);
-
-            recipe.Register();
+            recipe.AddTile(TileID.HeavyWorkBench);            recipe.Register();
         }
     }
 }

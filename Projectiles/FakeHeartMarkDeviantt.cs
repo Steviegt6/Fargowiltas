@@ -9,10 +9,7 @@ namespace Fargowiltas.Projectiles
     {
         public override string Texture => "Fargowiltas/Projectiles/FakeHeartDeviantt";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Fake Heart");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Fake Heart");
 
         public override void SetDefaults()
         {
@@ -21,7 +18,6 @@ namespace Fargowiltas.Projectiles
             projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             projectile.hide = true;
-
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
         }
@@ -39,9 +35,6 @@ namespace Fargowiltas.Projectiles
             projectile.Kill();
         }
 
-        public override bool CanDamage()
-        {
-            return false;
-        }
+        public override bool CanDamage() => false;
     }
 }

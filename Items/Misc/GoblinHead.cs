@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Misc
 {
@@ -14,18 +13,49 @@ namespace Fargowiltas.Items.Misc
         private static int counter = 0;
         private static int index = 0;
 
-        private readonly byte[] weaponPrefixes = new byte[] { PrefixID.Ruthless, PrefixID.Godly, PrefixID.Demonic, PrefixID.Legendary, PrefixID.Unreal, PrefixID.Mythical };
-        private readonly string[] weaponPrefixNames = new string[] { "Ruthless", "Godly", "Demonic", "Legendary", "Unreal", "Mythical" };
+        private readonly byte[] weaponPrefixes = new byte[]
+        {
+            PrefixID.Ruthless,
+            PrefixID.Godly,
+            PrefixID.Demonic,
+            PrefixID.Legendary,
+            PrefixID.Unreal,
+            PrefixID.Mythical
+        };
 
-        private readonly byte[] accessoryPrefixes = new byte[] { PrefixID.Warding, PrefixID.Arcane, PrefixID.Lucky, PrefixID.Menacing, PrefixID.Quick2, PrefixID.Violent };
-        private readonly string[] accessoryPrefixNames = new string[] { "Warding", "Arcane", "Lucky", "Menacing", "Quick", "Violent" };
+        private readonly string[] weaponPrefixNames = new string[]
+        {
+            "Ruthless",
+            "Godly",
+            "Demonic",
+            "Legendary",
+            "Unreal",
+            "Mythical"
+        };
+
+        private readonly byte[] accessoryPrefixes = new byte[]
+        {
+            PrefixID.Warding,
+            PrefixID.Arcane,
+            PrefixID.Lucky,
+            PrefixID.Menacing,
+            PrefixID.Quick2,
+            PrefixID.Violent
+        };
+
+        private readonly string[] accessoryPrefixNames = new string[]
+        {
+            "Warding",
+            "Arcane",
+            "Lucky",
+            "Menacing",
+            "Quick",
+            "Violent"
+        };
 
         public override string Texture => "Terraria/NPC_Head_9";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Cheapskate's End");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Cheapskate's End");
 
         public override void SetDefaults()
         {
@@ -37,10 +67,7 @@ namespace Fargowiltas.Items.Misc
             item.useStyle = ItemUseStyleID.HoldUp;
         }
 
-        public override bool CanRightClick()
-        {
-            return true;
-        }
+        public override bool CanRightClick() => true;
 
         public override void RightClick(Player player)
         {
@@ -67,7 +94,7 @@ namespace Fargowiltas.Items.Misc
 
             for (int i = 0; i < player.inventory.Length; i++)
             {
-                if (player.inventory[i] != null && player.inventory[i].type == ItemType<GoblinHead>())
+                if (player.inventory[i] != null && player.inventory[i].type == ModContent.ItemType<GoblinHead>())
                 {
                     target = player.inventory[++i];
                     break;
@@ -77,6 +104,7 @@ namespace Fargowiltas.Items.Misc
             if (target == null)
             {
                 tooltips.Add(new TooltipLine(Mod, "1", "This goblin head seems drawn to weapons and accessories"));
+
                 return;
             }
 
@@ -93,6 +121,7 @@ namespace Fargowiltas.Items.Misc
             else
             {
                 tooltips.Add(new TooltipLine(Mod, "1", "This goblin head seems drawn to weapons and accessories"));
+
                 return;
             }
 

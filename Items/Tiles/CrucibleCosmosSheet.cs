@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -21,38 +22,32 @@ namespace Fargowiltas.Items.Tiles
             name.SetDefault("Crucible of the Cosmos");
             AddMapEntry(new Color(200, 200, 200), name);
             // TODO: Uncomment when tML adds this back
-            //// TODO: Uncomment when tML adds this back
             //disableSmartCursor = true;
+
             //counts as
             adjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.Furnaces, TileID.Anvils, TileID.Bottles, TileID.Sawmill, TileID.Loom, TileID.Tables, TileID.Chairs, TileID.CookingPots, TileID.Sinks, TileID.Kegs, TileID.Hellforge, TileID.AlchemyTable, TileID.TinkerersWorkbench, TileID.ImbuingStation, TileID.DyeVat, TileID.LivingLoom, TileID.GlassKiln, TileID.IceMachine, TileID.HoneyDispenser, TileID.SkyMill, TileID.Solidifier, TileID.BoneWelder, TileID.MythrilAnvil, TileID.AdamantiteForge, TileID.DemonAltar, TileID.Bookcases, TileID.CrystalBall, TileID.Autohammer, TileID.LunarCraftingStation, TileID.FleshCloningVat, TileID.LihzahrdFurnace, TileID.SteampunkBoiler, TileID.Blendomatic, TileID.MeatGrinder };
 
-            // TODO: Thorium crossmod
-            /*if (Fargowiltas.FargosGetMod("ThoriumMod") != null)
+            if (Fargowiltas.ModLoaded("ThoriumMod"))
             {
                 Array.Resize(ref adjTiles, adjTiles.Length + 3);
-                adjTiles[adjTiles.Length - 1] = Fargowiltas.FargosGetMod("ThoriumMod").TileType("ThoriumAnvil");
-                adjTiles[adjTiles.Length - 2] = Fargowiltas.FargosGetMod("ThoriumMod").TileType("ArcaneArmorFabricator");
-                adjTiles[adjTiles.Length - 3] = Fargowiltas.FargosGetMod("ThoriumMod").TileType("SoulForge");
-            }*/
+                adjTiles[adjTiles.Length - 1] = Fargowiltas.LoadedMods["ThoriumMod"].TileType("ThoriumAnvil");
+                adjTiles[adjTiles.Length - 2] = Fargowiltas.LoadedMods["ThoriumMod"].TileType("ArcaneArmorFabricator");
+                adjTiles[adjTiles.Length - 3] = Fargowiltas.LoadedMods["ThoriumMod"].TileType("SoulForge");
+            }
 
             animationFrameHeight = 54;
 
             name.AddTranslation((int)GameCulture.CultureName.Chinese, "宇宙坩埚");
         }
 
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
-            num = fail ? 1 : 3;
-        }
+        public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<CrucibleCosmos>());
-        }
+        public override void KillMultiTile(int i, int j, int frameX, int frameY) => Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<CrucibleCosmos>());
 
         public override void AnimateTile(ref int frame, ref int frameCounter)
         {
             frameCounter++;
+
             if (frameCounter >= -1) //replace with duration of frame in ticks
             {
                 frameCounter = 0;
@@ -61,10 +56,6 @@ namespace Fargowiltas.Items.Tiles
             }
         }
 
-        public override void NearbyEffects(int i, int j, bool closer)
-        {
-            Player player = Main.player[Main.myPlayer];
-            player.alchemyTable = true;
-        }
+        public override void NearbyEffects(int i, int j, bool closer) => Main.player[Main.myPlayer].alchemyTable = true;
     }
 }

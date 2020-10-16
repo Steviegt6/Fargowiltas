@@ -29,94 +29,92 @@ namespace Fargowiltas.Projectiles
             bool noChloro = tile.type == TileID.Chlorophyte && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || NPC.downedMechBoss3);
             bool noLihzahrd = tile.type == TileID.LihzahrdBrick && !NPC.downedGolemBoss;
 
-            if (noFossil || noDungeon || noHMOre || noChloro || noLihzahrd)
+            if (noFossil && noDungeon && noHMOre && noChloro && noLihzahrd)
             {
-                return;
-            }
+                FargoGlobalTile.ClearEverything(xPosition, yPosition);
 
-            FargoGlobalTile.ClearEverything(xPosition, yPosition);
+                /*// Tile destroy
+                WorldGen.KillTile(xPosition, yPosition, false, false, false);
+                WorldGen.KillWall(xPosition, yPosition);
+                Dust.NewDust(position, 22, 22, DustID.Smoke, Alpha: 120);
 
-            /*// Tile destroy
-            WorldGen.KillTile(xPosition, yPosition, false, false, false);
-            WorldGen.KillWall(xPosition, yPosition);
-            Dust.NewDust(position, 22, 22, DustID.Smoke, Alpha: 120);
-
-            // Kill liquids
-            if (tile != null)
-            {
-                tile.liquid = 0;
-                tile.lava(false);
-                tile.honey(false);
-                if (Main.netMode == NetmodeID.Server)
+                // Kill liquids
+                if (tile != null)
                 {
-                    NetMessage.sendWater(xPosition, yPosition);
+                    tile.liquid = 0;
+                    tile.lava(false);
+                    tile.honey(false);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.sendWater(xPosition, yPosition);
+                    }
+                }*/
+
+                int wallType = WallID.Wood;
+                int tileType = TileID.WoodBlock;
+
+                if (player.ZoneDesert && !player.ZoneBeach)
+                {
+                    wallType = WallID.Cactus;
+                    tileType = TileID.CactusBlock;
                 }
-            }*/
+                else if (player.ZoneSnow)
+                {
+                    wallType = WallID.BorealWood;
+                    tileType = TileID.BorealWood;
+                }
+                else if (player.ZoneJungle)
+                {
+                    wallType = WallID.RichMaogany;
+                    tileType = TileID.RichMahogany;
+                }
+                else if (player.ZoneCorrupt)
+                {
+                    wallType = WallID.Ebonwood;
+                    tileType = TileID.Ebonwood;
+                }
+                else if (player.ZoneCrimson)
+                {
+                    wallType = WallID.Shadewood;
+                    tileType = TileID.Shadewood;
+                }
+                else if (player.ZoneBeach)
+                {
+                    wallType = WallID.PalmWood;
+                    tileType = TileID.PalmWood;
+                }
+                else if (player.ZoneHallow)
+                {
+                    wallType = WallID.Pearlwood;
+                    tileType = TileID.Pearlwood;
+                }
+                else if (player.ZoneGlowshroom)
+                {
+                    wallType = WallID.Mushroom;
+                    tileType = TileID.MushroomBlock;
+                }
+                else if (player.ZoneSkyHeight)
+                {
+                    wallType = WallID.DiscWall;
+                    tileType = TileID.Sunplate;
+                }
+                else if (player.ZoneUnderworldHeight)
+                {
+                    wallType = WallID.ObsidianBrick;
+                    tileType = TileID.ObsidianBrick;
+                }
 
-            int wallType = WallID.Wood;
-            int tileType = TileID.WoodBlock;
+                // Spawn walls
+                if (y != -6 && y != -1 && x != (10 * side) && x != (1 * side))
+                {
+                    WorldGen.PlaceWall(xPosition, yPosition, wallType);
+                }
 
-            if (player.ZoneDesert && !player.ZoneBeach)
-            {
-                wallType = WallID.Cactus;
-                tileType = TileID.CactusBlock;
-            }
-            else if (player.ZoneSnow)
-            {
-                wallType = WallID.BorealWood;
-                tileType = TileID.BorealWood;
-            }
-            else if (player.ZoneJungle)
-            {
-                wallType = WallID.RichMaogany;
-                tileType = TileID.RichMahogany;
-            }
-            else if (player.ZoneCorrupt)
-            {
-                wallType = WallID.Ebonwood;
-                tileType = TileID.Ebonwood;
-            }
-            else if (player.ZoneCrimson)
-            {
-                wallType = WallID.Shadewood;
-                tileType = TileID.Shadewood;
-            }
-            else if (player.ZoneBeach)
-            {
-                wallType = WallID.PalmWood;
-                tileType = TileID.PalmWood;
-            }
-            else if (player.ZoneHallow)
-            {
-                wallType = WallID.Pearlwood;
-                tileType = TileID.Pearlwood;
-            }
-            else if (player.ZoneGlowshroom)
-            {
-                wallType = WallID.Mushroom;
-                tileType = TileID.MushroomBlock;
-            }
-            else if (player.ZoneSkyHeight)
-            {
-                wallType = WallID.DiscWall;
-                tileType = TileID.Sunplate;
-            }
-            else if (player.ZoneUnderworldHeight)
-            {
-                wallType = WallID.ObsidianBrick;
-                tileType = TileID.ObsidianBrick;
-            }
-
-            // Spawn walls
-            if (y != -6 && y != -1 && x != (10 * side) && x != (1 * side))
-            {
-                WorldGen.PlaceWall(xPosition, yPosition, wallType);
-            }
-
-            // Spawn border
-            if ((y == -6) || (y == -1) || (x == (10 * side)) || (x == (1 * side) && y == -5))
-            {
-                WorldGen.PlaceTile(xPosition, yPosition, tileType);
+                // Spawn border
+                if ((y == -6) || (y == -1) || (x == (10 * side)) || (x == (1 * side) && y == -5))
+                {
+                    WorldGen.PlaceTile(xPosition, yPosition, tileType);
+                }
             }
         }
 

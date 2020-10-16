@@ -11,11 +11,7 @@ namespace Fargowiltas.Items.Ammos.Arrows
     {
         public override int AmmunitionItem => ItemID.ChlorophyteArrow;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Bounces back after hitting a wall");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Bounces back after hitting a wall");
     }
 
     public class CursedQuiver : BaseAmmo
@@ -42,43 +38,28 @@ namespace Fargowiltas.Items.Ammos.Arrows
     {
         public override int AmmunitionItem => ItemID.HolyArrow;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Summons falling stars on impact");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Summons falling stars on impact");
     }
 
     public class IchorQuiver : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.IchorArrow;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Decreases target's defense");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("Decreases target's defense");
     }
 
     public class JesterQuiver : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.JestersArrow;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Endless Jester's Quiver");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Endless Jester's Quiver");
     }
 
     public class LuminiteQuiver : BaseAmmo
     {
         public override int AmmunitionItem => ItemID.MoonlordArrow;
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("'Shooting them down at the speed of sound!'");
-        }
+        public override void SetStaticDefaults() => Tooltip.SetDefault("'Shooting them down at the speed of sound!'");
     }
 
     public class UnholyQuiver : BaseAmmo

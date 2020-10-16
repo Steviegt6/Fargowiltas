@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_1331";
 
-        public override int Type => NPCID.BrainofCthulhu;
+        public override int NPCType => NPCID.BrainofCthulhu;
 
         public override string NPCName => "Brain of Cthulhu";
 
@@ -21,9 +21,7 @@ namespace Fargowiltas.Items.Summons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BloodySpine);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

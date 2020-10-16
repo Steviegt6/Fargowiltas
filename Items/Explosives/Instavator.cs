@@ -39,9 +39,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddIngredient(ItemID.Dynamite, 50);
             recipe.AddIngredient(ItemID.RopeCoil, 10);
             recipe.AddIngredient(ItemID.Torch, 99);
-            recipe.AddTile(TileID.Anvils);
-
-            recipe.Register();
+            recipe.AddTile(TileID.Anvils);            recipe.Register();
         }
     }
 }

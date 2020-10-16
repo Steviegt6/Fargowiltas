@@ -14,9 +14,6 @@ namespace Fargowiltas.Items.Explosives
             Main.tileLighted[Type] = true;
         }
 
-        public override void PlaceInWorld(int i, int j, Item item)
-        {
-            Projectile.NewProjectile(i * 16 + 8, (j + 2) * 16, 0f, 0f, ModContent.ProjectileType<AutoHouseProj>(), 0, 0, Main.myPlayer);
-        }
+        public override void PlaceInWorld(int i, int j, Item item) => Projectile.NewProjectile(i * 16 + 8, (j + 2) * 16, 0f, 0f, ModContent.ProjectileType<AutoHouseProj>(), 0, 0, Main.myPlayer);
     }
 }

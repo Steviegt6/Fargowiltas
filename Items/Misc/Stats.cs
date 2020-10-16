@@ -9,19 +9,12 @@ namespace Fargowiltas.Items.Misc
 {
     public class Stats : ModItem
     {
-        private Mod thorium;
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Stat Sheet");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Stat Sheet");
 
         public override void SetDefaults()
         {
             item.width = 28;
             item.height = 38;
-
-            thorium = Fargowiltas.FargosGetMod("ThoriumMod");
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -39,7 +32,12 @@ namespace Fargowiltas.Items.Misc
             tooltips.Add(new TooltipLine(Mod, "info", $"Summon Damage: {player.minionDamage * 100}%"));
             tooltips.Add(new TooltipLine(Mod, "info", $"Max Minions: {player.maxMinions}"));
             tooltips.Add(new TooltipLine(Mod, "info", $"Max Sentries: {player.maxTurrets}"));
-            if (Fargowiltas.ModLoaded["ThoriumMod"]) ThoriumStats(tooltips, player);
+
+            if (Fargowiltas.ModLoaded("ThoriumMod"))
+            {
+                ThoriumStats(tooltips, player);
+            }
+
             tooltips.Add(new TooltipLine(Mod, "info", $"Damage Reduction: {player.endurance * 100}%"));
             tooltips.Add(new TooltipLine(Mod, "info", $"Life Regen: {player.lifeRegen} HP/second"));
             tooltips.Add(new TooltipLine(Mod, "info", $"Armor Pen: {player.armorPenetration}"));
@@ -49,7 +47,7 @@ namespace Fargowiltas.Items.Misc
 
         private void ThoriumStats(List<TooltipLine> tooltips, Player player)
         {
-            // TODO: Thorium Crossmod
+            // TODO: ThoriumPlayer
             /*ThoriumPlayer thoriumPlayer = player.GetModPlayer<ThoriumPlayer>();
             tooltips.Add(new TooltipLine(Mod, "info", $"Symphonic Damage: {thoriumPlayer.symphonicDamage * 100}%"));
             tooltips.Add(new TooltipLine(Mod, "info", $"Symphonic Speed: {(thoriumPlayer.symphonicSpeed * 100)}%"));
@@ -65,11 +63,11 @@ namespace Fargowiltas.Items.Misc
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.Sign)
-                .AddIngredient(ItemID.CopperAxe)
-                .AddTile(TileID.WorkBenches)
-                .Register();
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.Sign);
+            recipe.AddIngredient(ItemID.CopperAxe);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.Register();
         }
     }
 }

@@ -9,7 +9,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.NPCs
 {
@@ -19,6 +18,7 @@ namespace Fargowiltas.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Abominationn");
+
             Main.npcFrameCount[npc.type] = 25;
             NPCID.Sets.ExtraFramesCount[npc.type] = 9;
             NPCID.Sets.AttackFrameCount[npc.type] = 4;
@@ -57,25 +57,19 @@ namespace Fargowiltas.NPCs
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
         {
-            if (Fargowiltas.ModLoaded["FargowiltasSouls"] && ((bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("MutantAlive") || (bool)Fargowiltas.FargosGetMod("FargowiltasSouls").Call("AbomAlive")))
+            if (Fargowiltas.ModLoaded("FargowiltasSouls") && ((bool)Fargowiltas.LoadedMods["FargowiltasSouls"].Call("MutantAlive") || (bool)Fargowiltas.LoadedMods["FargowiltasSouls"].Call("AbomAlive")))
             {
                 return false;
             }
-            return GetInstance<FargoConfig>().Abom && NPC.downedGoblins && !FargoGlobalNPC.AnyBossAlive();
+
+            return ModContent.GetInstance<FargoConfig>().Abom && NPC.downedGoblins && !FargoGlobalNPC.AnyBossAlive();
         }
 
         public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 
-        public override void AI()
-        {
-            npc.breath = 200;
-        }
+        public override void AI() => npc.breath = 200;
 
-        public override string TownNPCName()
-        {
-            string[] names = { "Wilta", "Jack", "Harley", "Reaper", "Stevenn", "Doof", "Baroo", "Fergus", "Entev", "Catastrophe", "Bardo", "Betson" };
-            return Main.rand.Next(names);
-        }
+        public override string TownNPCName() => Main.rand.Next(new string[] { "Wilta", "Jack", "Harley", "Reaper", "Stevenn", "Doof", "Baroo", "Fergus", "Entev", "Catastrophe", "Bardo", "Betson" });
 
         public override string GetChat()
         {
@@ -106,19 +100,22 @@ namespace Fargowiltas.NPCs
                 "I have slain one thousand humans! Huh? You're a human? There's so much blood on your hands..",
             };
 
-            int mutant = NPC.FindFirstNPC(NPCType<Mutant>());
+            int mutant = NPC.FindFirstNPC(ModContent.NPCType<Mutant>());
+
             if (mutant != -1)
             {
                 dialogue.Add($"That one guy, {Main.npc[mutant].GivenName}, he is my brother... I've fought more bosses than him.");
             }
 
-            int deviantt = NPC.FindFirstNPC(NPCType<Deviantt>());
+            int deviantt = NPC.FindFirstNPC(ModContent.NPCType<Deviantt>());
+
             if (deviantt != -1)
             {
                 dialogue.Add($"That one girl, {Main.npc[deviantt].GivenName}, she is my sister... I've defeated more events than her.");
             }
 
             int mechanic = NPC.FindFirstNPC(NPCID.Mechanic);
+
             if (mechanic != -1)
             {
                 dialogue.Add($"Can you please ask {Main.npc[mechanic].GivenName} to stop touching my laser arm please.");
@@ -142,11 +139,13 @@ namespace Fargowiltas.NPCs
             else
             {
                 bool eventOccurring = false;
+
                 if (Fargowiltas.ClearEvents(ref eventOccurring))
                 {
                     if (Main.netMode != NetmodeID.SinglePlayer)
                     {
                         var netMessage = Mod.GetPacket();
+
                         netMessage.Write((byte)2);
                         netMessage.Send();
                     }
@@ -156,6 +155,7 @@ namespace Fargowiltas.NPCs
                     }
 
                     SoundEngine.PlaySound(SoundID.Roar, npc.position, 0);
+
                     Main.npcChatText = "Hocus pocus, the event is over.";
                 }
                 else
@@ -174,13 +174,12 @@ namespace Fargowiltas.NPCs
 
         public static void AddModItem(bool condition, string modName, string itemName, int price, ref Chest shop, ref int nextSlot)
         {
-            // TODO: What the fuck, tML? I seriously don't fucking get why you removed Mod.XType(string)?? It's not fucking obsolete! It still has its fucking uses! Like what the fuck?
-            /*if (condition)
+            if (condition)
             {
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod(modName).ItemType(itemName));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods[modName].ItemType(itemName));
                 shop.item[nextSlot].shopCustomPrice = price;
                 nextSlot++;
-            }*/
+            }
         }
 
         public static void AddItem(bool check, int item, int price, ref Chest shop, ref int nextSlot)
@@ -200,9 +199,8 @@ namespace Fargowiltas.NPCs
                 return;
             }
 
-            // TODO: Fuck you, tMod.
-            //shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod(mod).ItemType(item));
-            //shop.item[nextSlot].value = price;
+            shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods[mod].ItemType(item));
+            shop.item[nextSlot].value = price;
 
             nextSlot++;
         }
@@ -210,41 +208,41 @@ namespace Fargowiltas.NPCs
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
             // Events
-            AddItem(true, ItemType<PartyCone>(), 10000, ref shop, ref nextSlot);
-            AddItem(true, ItemType<WeatherBalloon>(), 20000, ref shop, ref nextSlot);
-            AddItem(true, ItemType<ForbiddenScarab>(), 30000, ref shop, ref nextSlot);
-            AddItem(true, ItemType<SlimyBarometer>(), Item.buyPrice(0, 4), ref shop, ref nextSlot);
-            AddItem(NPC.downedBoss1, ItemType<CursedSextant>(), Item.buyPrice(0, 5), ref shop, ref nextSlot); //Remove Cursed Sextant & replace with Bloody Tear in 1.4
+            AddItem(true, ModContent.ItemType<PartyCone>(), 10000, ref shop, ref nextSlot);
+            AddItem(true, ModContent.ItemType<WeatherBalloon>(), 20000, ref shop, ref nextSlot);
+            AddItem(true, ModContent.ItemType<ForbiddenScarab>(), 30000, ref shop, ref nextSlot);
+            AddItem(true, ModContent.ItemType<SlimyBarometer>(), Item.buyPrice(0, 4), ref shop, ref nextSlot);
+            AddItem(NPC.downedBoss1, ModContent.ItemType<CursedSextant>(), Item.buyPrice(0, 5), ref shop, ref nextSlot); //Remove Cursed Sextant & replace with Bloody Tear in 1.4
             AddItem(true, ItemID.GoblinBattleStandard, Item.buyPrice(0, 6), ref shop, ref nextSlot);
             AddItem(Main.hardMode, ItemID.SnowGlobe, Item.buyPrice(0, 15), ref shop, ref nextSlot);
             AddItem(NPC.downedPirates, ItemID.PirateMap, Item.buyPrice(0, 20), ref shop, ref nextSlot);
-            AddItem(NPC.downedPirates && FargoWorld.DownedBools["flyingDutchman"], ItemType<PlunderedBooty>(), Item.buyPrice(0, 15), ref shop, ref nextSlot);
+            AddItem(NPC.downedPirates && FargoWorld.DownedBools["flyingDutchman"], ModContent.ItemType<PlunderedBooty>(), Item.buyPrice(0, 15), ref shop, ref nextSlot);
             AddItem(NPC.downedMechBossAny, ItemID.SolarTablet, Item.buyPrice(0, 20), ref shop, ref nextSlot);
-            AddItem(FargoWorld.DownedBools["darkMage"], ItemType<ForbiddenTome>(), Item.buyPrice(0, 5), ref shop, ref nextSlot);
-            AddItem(FargoWorld.DownedBools["ogre"], ItemType<BatteredClub>(), Item.buyPrice(0, 15), ref shop, ref nextSlot);
-            AddItem(FargoWorld.DownedBools["betsy"], ItemType<BetsyEgg>(), Item.buyPrice(0, 40), ref shop, ref nextSlot);
+            AddItem(FargoWorld.DownedBools["darkMage"], ModContent.ItemType<ForbiddenTome>(), Item.buyPrice(0, 5), ref shop, ref nextSlot);
+            AddItem(FargoWorld.DownedBools["ogre"], ModContent.ItemType<BatteredClub>(), Item.buyPrice(0, 15), ref shop, ref nextSlot);
+            AddItem(FargoWorld.DownedBools["betsy"], ModContent.ItemType<BetsyEgg>(), Item.buyPrice(0, 40), ref shop, ref nextSlot);
 
-            AddItem(FargoWorld.DownedBools["headlessHorseman"], ItemType<HeadofMan>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
-            AddItem(NPC.downedHalloweenTree, ItemType<SpookyBranch>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
-            AddItem(NPC.downedHalloweenKing, ItemType<SuspiciousLookingScythe>(), Item.buyPrice(0, 30), ref shop, ref nextSlot);
+            AddItem(FargoWorld.DownedBools["headlessHorseman"], ModContent.ItemType<HeadofMan>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
+            AddItem(NPC.downedHalloweenTree, ModContent.ItemType<SpookyBranch>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
+            AddItem(NPC.downedHalloweenKing, ModContent.ItemType<SuspiciousLookingScythe>(), Item.buyPrice(0, 30), ref shop, ref nextSlot);
             AddItem(NPC.downedHalloweenKing, ItemID.PumpkinMoonMedallion, Item.buyPrice(0, 50), ref shop, ref nextSlot);
 
-            AddItem(NPC.downedChristmasTree, ItemType<FestiveOrnament>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
-            AddItem(NPC.downedChristmasSantank, ItemType<NaughtyList>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
-            AddItem(NPC.downedChristmasIceQueen, ItemType<IceKingsRemains>(), Item.buyPrice(0, 30), ref shop, ref nextSlot);
+            AddItem(NPC.downedChristmasTree, ModContent.ItemType<FestiveOrnament>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
+            AddItem(NPC.downedChristmasSantank, ModContent.ItemType<NaughtyList>(), Item.buyPrice(0, 20), ref shop, ref nextSlot);
+            AddItem(NPC.downedChristmasIceQueen, ModContent.ItemType<IceKingsRemains>(), Item.buyPrice(0, 30), ref shop, ref nextSlot);
             AddItem(NPC.downedChristmasIceQueen, ItemID.NaughtyPresent, Item.buyPrice(0, 50), ref shop, ref nextSlot);
 
-            AddItem(NPC.downedMartians, ItemType<MartianMemoryStick>(), Item.buyPrice(0, 30), ref shop, ref nextSlot);
-            AddItem(NPC.downedMartians, ItemType<RunawayProbe>(), Item.buyPrice(0, 50), ref shop, ref nextSlot);
+            AddItem(NPC.downedMartians, ModContent.ItemType<MartianMemoryStick>(), Item.buyPrice(0, 30), ref shop, ref nextSlot);
+            AddItem(NPC.downedMartians, ModContent.ItemType<RunawayProbe>(), Item.buyPrice(0, 50), ref shop, ref nextSlot);
 
-            AddItem(NPC.downedTowers, ItemType<PillarSummon>(), Item.buyPrice(0, 75), ref shop, ref nextSlot);
+            AddItem(NPC.downedTowers, ModContent.ItemType<PillarSummon>(), Item.buyPrice(0, 75), ref shop, ref nextSlot);
 
             foreach (MutantSummonInfo summon in Fargowiltas.summonTracker.EventSummons)
             {
                 AddItem(summon.downed(), summon.modSource, summon.itemName, summon.price, ref shop, ref nextSlot);
             }
 
-            AddItem(NPC.downedTowers, ItemType<AbominationnScythe>(), Item.buyPrice(0, 5), ref shop, ref nextSlot);
+            AddItem(NPC.downedTowers, ModContent.ItemType<AbominationnScythe>(), Item.buyPrice(0, 5), ref shop, ref nextSlot);
         }
 
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)
@@ -256,6 +254,7 @@ namespace Fargowiltas.NPCs
         public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
         {
             cooldown = NPC.downedMoonlord ? 1 : 30;
+
             if (!NPC.downedMoonlord)
             {
                 randExtraCooldown = 30;
@@ -264,7 +263,7 @@ namespace Fargowiltas.NPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = NPC.downedMoonlord ? ProjectileType<Projectiles.DeathScythe>() : ProjectileID.DeathSickle;
+            projType = NPC.downedMoonlord ? ModContent.ProjectileType<Projectiles.DeathScythe>() : ProjectileID.DeathSickle;
             attackDelay = 1;
         }
 

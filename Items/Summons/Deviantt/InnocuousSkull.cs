@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
     {
         public override string Texture => "Fargowiltas/Items/Placeholder";
 
-        public override int Type => 0; //Fargowiltas.FargosGetMod("FargowiltasSouls").NPCType("BabyGuardian");
+        public override int NPCType => Fargowiltas.LoadedMods["FargowiltasSouls"].NPCType("BabyGuardian");
 
         public override string NPCName => "Baby Guardian";
 

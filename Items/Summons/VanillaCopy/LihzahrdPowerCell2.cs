@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.VanillaCopy
 {
     public class LihzahrdPowerCell2 : BaseSummon
     {
-        public override int Type => NPCID.Golem;
+        public override int NPCType => NPCID.Golem;
 
         public override string NPCName => "Golem";
 
@@ -15,18 +15,13 @@ namespace Fargowiltas.Items.Summons.VanillaCopy
             Tooltip.SetDefault("Summons the Golem without an altar");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return NPC.downedPlantBoss;
-        }
+        public override bool CanUseItem(Player player) => NPC.downedPlantBoss;
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.LihzahrdPowerCell);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

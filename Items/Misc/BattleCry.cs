@@ -34,6 +34,7 @@ namespace Fargowiltas.Items.Misc
             modPlayer.BattleCry = !modPlayer.BattleCry;
 
             string text = "Spawn rates " + (modPlayer.BattleCry ? "increased!" : "decreased!");
+
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(text, new Color(175, 75, 255));
@@ -45,7 +46,8 @@ namespace Fargowiltas.Items.Misc
 
             if (modPlayer.BattleCry && !Main.dedServ)
             {
-                SoundEngine.PlaySound(Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Horn").WithVolume(1f).WithPitchVariance(.5f), player.position);
+                // TODO: Uncomment when tML adds sound back in.
+                //SoundEngine.PlaySound(Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Horn").WithVolume(1f).WithPitchVariance(.5f), player.position);
             }
 
             return true;
@@ -58,9 +60,7 @@ namespace Fargowiltas.Items.Misc
             recipe.AddIngredient(ItemID.WaterCandle, 12);
             recipe.AddIngredient(ItemID.SoulofNight, 10);
             recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

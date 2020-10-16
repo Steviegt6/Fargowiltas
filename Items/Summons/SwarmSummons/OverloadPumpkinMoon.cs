@@ -31,10 +31,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             item.consumable = false;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
 
         public override bool UseItem(Player player)
         {
@@ -67,6 +64,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 Main.pumpkinMoon = true;
                 Main.snowMoon = false;
                 Main.bloodMoon = false;
+
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NPC.waveKills = 0f;
@@ -98,9 +96,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.PumpkinMoonMedallion);
             recipe.AddIngredient(null, "Overloader", 10);
-            recipe.AddTile(TileID.CrystalBall);
-
-            recipe.Register();
+            recipe.AddTile(TileID.CrystalBall);            recipe.Register();
         }
     }
 }

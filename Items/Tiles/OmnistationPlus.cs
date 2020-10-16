@@ -10,10 +10,10 @@ namespace Fargowiltas.Items.Tiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Omnistation+");
-            Tooltip.SetDefault(@"Effects of all buff stations, modded and vanilla
-Grants Honey when touched
-Right click while holding a weapon for its respective buff
-Currently only supports Thorium and Calamity");
+            Tooltip.SetDefault("Effects of all buff stations, modded and vanilla" +
+                "\nGrants Honey when touched" +
+                "\nRight click while holding a weapon for its respective buff" +
+                "\nCurrently only supports Thorium and Calamity");
         }
 
         public override void SetDefaults()
@@ -34,26 +34,24 @@ Currently only supports Thorium and Calamity");
             Recipe recipe = CreateRecipe();
             recipe.AddRecipeGroup("Fargowiltas:AnyOmnistation", 1);
 
-            // TODO: Thorium + Calamity Crossmod
-            /*if (Fargowiltas.ModLoaded["ThoriumMod"])
+            if (Fargowiltas.ModLoaded("ThoriumMod"))
             {
-                Mod thorium = Fargowiltas.FargosGetMod("ThoriumMod");
+                Mod thorium = Fargowiltas.LoadedMods["ThoriumMod"];
                 recipe.AddIngredient(thorium.ItemType("Mistletoe"), 30);
                 recipe.AddIngredient(thorium.ItemType("ConductorsStand"), 5);
                 recipe.AddIngredient(thorium.ItemType("Altar"), 5);
                 recipe.AddIngredient(thorium.ItemType("NinjaRack"), 5);
             }
-            if (Fargowiltas.ModLoaded["CalamityMod"])
+            if (Fargowiltas.ModLoaded("CalamityMod"))
             {
-                Mod calamity = Fargowiltas.FargosGetMod("CalamityMod");
+                Mod calamity = Fargowiltas.LoadedMods["CalamityMod"];
                 recipe.AddIngredient(calamity.ItemType("PurpleCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("YellowCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("PinkCandle"), 5);
                 recipe.AddIngredient(calamity.ItemType("BlueCandle"), 5);
-            }*/
+            }
 
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            recipe.AddTile(TileID.MythrilAnvil);            recipe.Register();
         }
     }
 }

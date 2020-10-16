@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Tooltip.SetDefault("Summons several Destroyers");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive && !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive && !Main.dayTime;
     }
 }

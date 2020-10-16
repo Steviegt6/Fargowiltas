@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class ShadowflameIcon : BaseSummon
     {
-        public override int Type => NPCID.GoblinSummoner;
+        public override int NPCType => NPCID.GoblinSummoner;
 
         public override string NPCName => "Goblin Summoner";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Deviantt
                                "\nOnly usable during Goblin Army");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.invasionType == InvasionID.GoblinArmy;
-        }
+        public override bool CanUseItem(Player player) => Main.invasionType == InvasionID.GoblinArmy;
     }
 }

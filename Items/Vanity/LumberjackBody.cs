@@ -6,10 +6,7 @@ namespace Fargowiltas.Items.Vanity
     [AutoloadEquip(EquipType.Body)]
     public class LumberjackBody : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lumberjack Body");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Lumberjack Body");
 
         public override void SetDefaults()
         {

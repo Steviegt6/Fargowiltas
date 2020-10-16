@@ -14,17 +14,16 @@ namespace Fargowiltas
         public const byte SummonNPCFromClient = 0;
         private const bool Debug = true;
 
-        public static void SendData(int dataType, int dataA, int dataB, string text, int playerID, float dataC, float dataD, float dataE, int clientType)
-        {
-            NetMessage.SendData(dataType, dataA, dataB, NetworkText.FromLiteral(text), playerID, dataC, dataD, dataE, clientType);
-        }
+        public static void SendData(int dataType, int dataA, int dataB, string text, int playerID, float dataC, float dataD, float dataE, int clientType) => NetMessage.SendData(dataType, dataA, dataB, NetworkText.FromLiteral(text), playerID, dataC, dataD, dataE, clientType);
 
         public static ModPacket WriteToPacket(ModPacket packet, byte msg, params object[] param)
         {
             packet.Write(msg);
+
             for (int m = 0; m < param.Length; m++)
             {
                 object obj = param[m];
+
                 switch (obj)
                 {
                     case byte[] _:
@@ -66,19 +65,20 @@ namespace Fargowiltas
         public static void SyncAI(Entity codable, float[] ai, int aitype)
         {
             int entType = codable is NPC ? 0 : codable is Projectile ? 1 : -1;
-            if (entType == -1)
-            {
-                return;
-            }
 
-            int id = codable is NPC ? ((NPC)codable).whoAmI : ((Projectile)codable).identity;
-            SyncAI(entType, id, ai, aitype);
+            if (entType != -1)
+            {
+                SyncAI(entType, codable is NPC ? ((NPC)codable).whoAmI : ((Projectile)codable).identity, ai, aitype);
+            }
         }
 
-        /*
-         * Used to sync custom ai float arrays. (the npc or projectile requires a method called 'public void SetAI(float[] ai, int type)' that sets the ai for this to work)
-         */
-
+        /// <summary>
+        /// Used to sync custom AI float arrays. (The NPC or Projectile requires a method called <c>public void SetAI(float[] ai, int type)</c> that sets the AI for this to work.)
+        /// </summary>
+        /// <param name="entType"></param>
+        /// <param name="id"></param>
+        /// <param name="ai"></param>
+        /// <param name="aitype"></param>
         public static void SyncAI(int entType, int id, float[] ai, int aitype)
         {
             object[] ai2 = new object[ai.Length + 4];
@@ -86,6 +86,7 @@ namespace Fargowiltas
             ai2[1] = (short)id;
             ai2[2] = (byte)aitype;
             ai2[3] = (byte)ai.Length;
+
             for (int m = 4; m < ai2.Length; m++)
             {
                 ai2[m] = ai[m - 4];
@@ -94,10 +95,11 @@ namespace Fargowiltas
             SendFargoNetMessage(1, ai2);
         }
 
-        /*
-         * Writes a vector2 array to an obj[] array that can be sent via netmessaging.
-         */
-
+        /// <summary>
+        /// Writes a <c>Vector2</c> array to an <c>obj[]</c> array that can be sent via NetMessaging.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static object[] WriteVector2Array(Vector2[] array)
         {
             List<object> list = new List<object>
@@ -114,10 +116,11 @@ namespace Fargowiltas
             return list.ToArray();
         }
 
-        /*
-         * Writes a vector2 array to a binary writer.
-         */
-
+        /// <summary>
+        /// Writes a <c>Vector2</c> array to a binary writer.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="writer"></param>
         public static void WriteVector2Array(Vector2[] array, BinaryWriter writer)
         {
             writer.Write(array.Length);
@@ -128,10 +131,11 @@ namespace Fargowiltas
             }
         }
 
-        /*
-         * Reads a vector2 array from a binary reader.
-         */
-
+        /// <summary>
+        /// Reads a <c>Vector2</c> array from a binary reader.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         public static Vector2[] ReadVector2Array(BinaryReader reader)
         {
             int arrayLength = reader.ReadInt32();
@@ -147,17 +151,16 @@ namespace Fargowiltas
         public static void SendFargoNetMessage(int msg, params object[] param)
         {
             // Nothing to sync in SP
-            if (Main.netMode == NetmodeID.SinglePlayer)
+            if (Main.netMode != NetmodeID.SinglePlayer)
             {
-                return;
+                WriteToPacket(ModContent.GetInstance<Fargowiltas>().GetPacket(), (byte)msg, param).Send();
             }
-
-            WriteToPacket(ModContent.GetInstance<Fargowiltas>().GetPacket(), (byte)msg, param).Send();
         }
 
         public static void HandlePacket(BinaryReader bb)
         {
             byte msg = bb.ReadByte();
+
             if (Debug)
             {
                 ModContent.GetInstance<Fargowiltas>().Logger.Error((Main.netMode == NetmodeID.Server ? "--SERVER-- " : "--CLIENT-- ") + "HANDING MESSAGE: " + msg);
@@ -165,20 +168,17 @@ namespace Fargowiltas
 
             try
             {
-                if (msg == SummonNPCFromClient)
+                if (msg == SummonNPCFromClient && Main.netMode == NetmodeID.Server)
                 {
-                    if (Main.netMode == NetmodeID.Server)
-                    {
-                        int playerID = bb.ReadByte();
-                        int bossType = bb.ReadInt16();
-                        bool spawnMessage = bb.ReadBoolean();
-                        int npcCenterX = bb.ReadInt32();
-                        int npcCenterY = bb.ReadInt32();
-                        string overrideDisplayName = bb.ReadString();
-                        bool namePlural = bb.ReadBoolean();
+                    int playerID = bb.ReadByte();
+                    int bossType = bb.ReadInt16();
+                    bool spawnMessage = bb.ReadBoolean();
+                    int npcCenterX = bb.ReadInt32();
+                    int npcCenterY = bb.ReadInt32();
+                    string overrideDisplayName = bb.ReadString();
+                    bool namePlural = bb.ReadBoolean();
 
-                        Fargowiltas.SpawnBoss(Main.player[playerID], bossType, spawnMessage, new Vector2(npcCenterX, npcCenterY), overrideDisplayName, namePlural);
-                    }
+                    Fargowiltas.SpawnBoss(Main.player[playerID], bossType, spawnMessage, new Vector2(npcCenterX, npcCenterY), overrideDisplayName, namePlural);
                 }
             }
             catch (Exception e)
@@ -210,28 +210,25 @@ namespace Fargowiltas
             }
         }
 
-        public static void SendNetMessage(int msg, params object[] param)
-        {
-            SendNetMessageClient(msg, -1, param);
-        }
+        public static void SendNetMessage(int msg, params object[] param) => SendNetMessageClient(msg, -1, param);
 
         public static void SendNetMessageClient(int msg, int client, params object[] param)
         {
             try
             {
-                if (Main.netMode == NetmodeID.SinglePlayer)
+                if (Main.netMode != NetmodeID.SinglePlayer)
                 {
-                    return;
+                    WriteToPacket(ModContent.GetInstance<Fargowiltas>().GetPacket(), (byte)msg, param).Send(client);
                 }
-
-                WriteToPacket(ModContent.GetInstance<Fargowiltas>().GetPacket(), (byte)msg, param).Send(client);
             }
             catch (Exception e)
             {
                 ModContent.GetInstance<Fargowiltas>().Logger.Error((Main.netMode == NetmodeID.Server ? "--SERVER-- " : "--CLIENT-- ") + "ERROR SENDING MSG: " + msg.ToString() + ": " + e.Message);
                 ModContent.GetInstance<Fargowiltas>().Logger.Error(e.StackTrace);
                 ModContent.GetInstance<Fargowiltas>().Logger.Error("-------");
+
                 string param2 = string.Empty;
+
                 for (int m = 0; m < param.Length; m++)
                 {
                     param2 += param[m];

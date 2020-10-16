@@ -24,7 +24,7 @@ namespace Fargowiltas.Items.Explosives
             item.useAnimation = 20;
             item.useTime = 20;
             item.value = Item.buyPrice(0, 0, 3);
-            item.createTile = ModContent.TileType<AutoHouseTile>(); ;
+            item.createTile = ModContent.TileType<AutoHouseTile>();
         }
 
         public override void AddRecipes()
@@ -32,9 +32,7 @@ namespace Fargowiltas.Items.Explosives
             Recipe recipe = CreateRecipe();
             recipe.AddRecipeGroup("Wood", 50);
             recipe.AddIngredient(ItemID.Torch);
-            recipe.AddTile(TileID.Sawmill);
-
-            recipe.Register();
+            recipe.AddTile(TileID.Sawmill);            recipe.Register();
         }
     }
 }

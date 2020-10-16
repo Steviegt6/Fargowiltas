@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_1133";
 
-        public override int Type => NPCID.QueenBee;
+        public override int NPCType => NPCID.QueenBee;
 
         public override string NPCName => "Queen Bee";
 
@@ -21,9 +21,7 @@ namespace Fargowiltas.Items.Summons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Abeemination);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

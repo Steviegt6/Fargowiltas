@@ -11,10 +11,7 @@ namespace Fargowiltas.Projectiles
 {
     public class FakeHeartDeviantt : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Fake Heart");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Fake Heart");
 
         public override void SetDefaults()
         {
@@ -23,7 +20,6 @@ namespace Fargowiltas.Projectiles
             projectile.timeLeft = 600;
             projectile.friendly = true;
             projectile.aiStyle = -1;
-
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
         }
@@ -31,6 +27,7 @@ namespace Fargowiltas.Projectiles
         public override void AI()
         {
             float rand = Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.5f);
+
             Lighting.AddLight(projectile.Center, 0.5f * rand, 0.1f * rand, 0.1f * rand);
 
             /*projectile.ai[0]--;
@@ -65,6 +62,7 @@ namespace Fargowiltas.Projectiles
             if (projectile.ai[0] >= 0 && projectile.ai[0] < 200)
             {
                 int ai0 = (int)projectile.ai[0];
+
                 if (Main.npc[ai0].CanBeChasedBy())
                 {
                     double num4 = (Main.npc[ai0].Center - projectile.Center).ToRotation() - projectile.velocity.ToRotation();
@@ -91,14 +89,18 @@ namespace Fargowiltas.Projectiles
                 if (++projectile.localAI[1] > 6f)
                 {
                     projectile.localAI[1] = 0f;
+
                     float maxDistance = 700f;
                     int possibleTarget = -1;
+
                     for (int i = 0; i < 200; i++)
                     {
                         NPC npc = Main.npc[i];
+
                         if (npc.CanBeChasedBy())
                         {
                             float npcDistance = projectile.Distance(npc.Center);
+
                             if (npcDistance < maxDistance)
                             {
                                 maxDistance = npcDistance;
@@ -115,15 +117,9 @@ namespace Fargowiltas.Projectiles
             projectile.rotation = projectile.velocity.ToRotation() - (float)Math.PI / 2;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.Lovestruck, 600);
-        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) => target.AddBuff(BuffID.Lovestruck, 600);
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return new Color(255, lightColor.G, lightColor.B, lightColor.A);
-        }
+        public override Color? GetAlpha(Color lightColor) => new Color(255, lightColor.G, lightColor.B, lightColor.A);
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -132,7 +128,9 @@ namespace Fargowiltas.Projectiles
             int y3 = num156 * projectile.frame; // ypos of upper left corner of sprite to draw
             Rectangle rectangle = new Rectangle(0, y3, texture2D13.Width(), num156);
             Vector2 origin2 = rectangle.Size() / 2f;
+
             Main.spriteBatch.Draw(texture2D13.Value, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), projectile.GetAlpha(lightColor), projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+
             return false;
         }
     }

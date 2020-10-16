@@ -13,7 +13,8 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pirate's Bounty");
-            Tooltip.SetDefault("Summons an Overloaded Pirate Invasion\nUse again to stop the event");
+            Tooltip.SetDefault("Summons an Overloaded Pirate Invasion" +
+                "\nUse again to stop the event");
         }
 
         public override void SetDefaults()
@@ -51,7 +52,9 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     Main.invasionDelay = 0;
+
                     Main.StartInvasion(3);
+
                     Main.invasionSize = 15000;
                     Main.invasionSizeStart = 15000;
                 }
@@ -61,6 +64,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
                 }
 
                 FargoWorld.OverloadPirates = true;
+
                 SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             }
 
@@ -72,9 +76,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.PirateMap);
             recipe.AddIngredient(null, "Overloader", 10);
-            recipe.AddTile(TileID.CrystalBall);
-
-            recipe.Register();
+            recipe.AddTile(TileID.CrystalBall);            recipe.Register();
         }
     }
 }

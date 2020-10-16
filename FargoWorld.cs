@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas
 {
@@ -87,6 +86,7 @@ namespace Fargowiltas
         public override TagCompound Save()
         {
             List<string> downed = new List<string>();
+
             foreach (string tag in tags)
             {
                 downed.AddWithCondition(tag, DownedBools[tag]);
@@ -101,6 +101,7 @@ namespace Fargowiltas
         public override void Load(TagCompound tag)
         {
             IList<string> downed = tag.GetList<string>("downed");
+
             foreach (string downedTag in tags)
             {
                 DownedBools[downedTag] = downed.Contains(downedTag);
@@ -130,8 +131,8 @@ namespace Fargowiltas
         public override void PostUpdate()
         {
             // seasonals
-            Main.halloween = GetInstance<FargoConfig>().Halloween;
-            Main.xMas = GetInstance<FargoConfig>().Christmas;
+            Main.halloween = ModContent.GetInstance<FargoConfig>().Halloween;
+            Main.xMas = ModContent.GetInstance<FargoConfig>().Christmas;
 
             // swarm reset in case something goes wrong
             if (Fargowiltas.SwarmActive && NoBosses() && !NPC.AnyNPCs(NPCID.EaterofWorldsHead) && !NPC.AnyNPCs(NPCID.DungeonGuardian))
@@ -176,6 +177,7 @@ namespace Fargowiltas
         {
             ref bool current = ref CurrentSpawnRateTile[0];
             bool oldSpawnRateTile = current;
+
             current = tileCounts[ModContent.TileType<RegalStatueSheet>()] > 0;
 
             if (Main.netMode == NetmodeID.MultiplayerClient && current != oldSpawnRateTile)
@@ -190,11 +192,13 @@ namespace Fargowiltas
         public override void PreUpdate()
         {
             bool rate = false;
+
             for (int i = 0; i < CurrentSpawnRateTile.Length; i++)
             {
                 if (CurrentSpawnRateTile[i])
                 {
                     Player player = Main.player[i];
+
                     if (player.active)
                     {
                         if (!player.dead)
@@ -215,6 +219,6 @@ namespace Fargowiltas
             }
         }
 
-        private bool NoBosses() => Main.npc.All(i => !i.active || !i.boss);
+        private bool NoBosses() => Main.npc.All(npc => !npc.active || !npc.boss);
     }
 }

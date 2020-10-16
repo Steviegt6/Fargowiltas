@@ -4,7 +4,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class DilutedRainbowMatter : BaseSummon
     {
-        public override int Type => NPCID.RainbowSlime;
+        public override int NPCType => NPCID.RainbowSlime;
 
         public override string NPCName => "Rainbow Slime";
 

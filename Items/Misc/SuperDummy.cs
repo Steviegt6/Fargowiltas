@@ -28,10 +28,7 @@ namespace Fargowiltas.Items.Misc
             item.rare = ItemRarityID.Blue;
         }
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
+        public override bool AltFunctionUse(Player player) => true;
 
         public override bool UseItem(Player player)
         {
@@ -48,8 +45,7 @@ namespace Fargowiltas.Items.Misc
             }
             else if (player.whoAmI == Main.myPlayer)
             {
-                Vector2 pos = new Vector2((int)Main.MouseWorld.X - 9, (int)Main.MouseWorld.Y - 20);
-                Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, player.whoAmI, ModContent.NPCType<NPCs.SuperDummy>());
+                Projectile.NewProjectile(new Vector2((int)Main.MouseWorld.X - 9, (int)Main.MouseWorld.Y - 20), Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, player.whoAmI, ModContent.NPCType<NPCs.SuperDummy>());
 
                 //NPC.NewNPC((int)pos.X, (int)pos.Y, ModContent.NPCType<NPCs.SuperDummy>());
             }
@@ -62,9 +58,7 @@ namespace Fargowiltas.Items.Misc
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.TargetDummy);
             recipe.AddIngredient(ItemID.FallenStar);
-            recipe.AddTile(TileID.CookingPots);
-
-            recipe.Register();
+            recipe.AddTile(TileID.CookingPots);            recipe.Register();
         }
     }
 }

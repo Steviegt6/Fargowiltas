@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.NPCs;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -11,8 +12,6 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
     [Autoload(false)]
     public class OverloadRag : ModItem
     {
-        private readonly Mod thorium = Fargowiltas.FargosGetMod("ThoriumMod");
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Doom Sayer's Coin 2.0");
@@ -32,10 +31,7 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
             item.consumable = true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Fargowiltas.SwarmActive;
-        }
+        public override bool CanUseItem(Player player) => !Fargowiltas.SwarmActive;
 
         public override bool UseItem(Player player)
         {
@@ -63,17 +59,17 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
                 Fargowiltas.SwarmSpawned = 50;
             }
 
-            /*for (int i = 0; i < Fargowiltas.SwarmSpawned; i++)
+            for (int i = 0; i < Fargowiltas.SwarmSpawned; i++)
             {
-                int boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), thorium.NPCType("Aquaius"));
+                int boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), Fargowiltas.LoadedMods["Thorium"].NPCType("Aquaius"));
                 Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
-                boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), thorium.NPCType("Omnicide"));
+                boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), Fargowiltas.LoadedMods["Thorium"].NPCType("Omnicide"));
                 Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
-                boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), thorium.NPCType("SlagFury"));
+                boss = NPC.NewNPC((int)player.position.X + Main.rand.Next(-1000, 1000), (int)player.position.Y + Main.rand.Next(-1000, -400), Fargowiltas.LoadedMods["Thorium"].NPCType("SlagFury"));
                 Main.npc[boss].GetGlobalNPC<FargoGlobalNPC>().SwarmActive = true;
             }
 
-            NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, thorium.NPCType("RagSkyChanger"), 0, player.whoAmI, 0f, 0f, 0f, 255);*/
+            NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, Fargowiltas.LoadedMods["Thorium"].NPCType("RagSkyChanger"), 0, player.whoAmI, 0f, 0f, 0f, 255);
 
             if (Main.netMode == NetmodeID.Server)
             {
@@ -85,17 +81,16 @@ namespace Fargowiltas.Items.Summons.SwarmSummons.Thorium
             }
 
             SoundEngine.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+
             return true;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(thorium, "LichCatalyst");
+            recipe.AddIngredient(Fargowiltas.LoadedMods["Thorium"], "LichCatalyst");
             recipe.AddIngredient(null, "Overloader");
-            recipe.AddTile(TileID.DemonAltar);
-
-            recipe.Register();
+            recipe.AddTile(TileID.DemonAltar);            recipe.Register();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class MothronEgg : BaseSummon
     {
-        public override int Type => NPCID.Mothron;
+        public override int NPCType => NPCID.Mothron;
 
         public override string NPCName => "Mothron";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Deviantt
                                "\nOnly usable during Solar Eclipse");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return Main.eclipse;
-        }
+        public override bool CanUseItem(Player player) => Main.eclipse;
     }
 }

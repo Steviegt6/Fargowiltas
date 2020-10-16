@@ -7,7 +7,7 @@ namespace Fargowiltas.Items.Summons
     {
         public override string Texture => "Terraria/Item_560";
 
-        public override int Type => NPCID.KingSlime;
+        public override int NPCType => NPCID.KingSlime;
 
         public override string NPCName => "King Slime";
 
@@ -21,9 +21,7 @@ namespace Fargowiltas.Items.Summons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.SlimeCrown);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

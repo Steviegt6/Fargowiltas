@@ -44,7 +44,9 @@ namespace Fargowiltas.Items.Summons.Mutant
                     Main.time = 0;
 
                     if (Main.netMode == NetmodeID.Server) //sync time
+                    {
                         NetMessage.SendData(MessageID.WorldData, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
+                    }
                 }
 
                 Projectile.NewProjectile(pos, Vector2.Zero, ModContent.ProjectileType<SpawnProj>(), 0, 0, Main.myPlayer, NPCID.SkeletronHead);
@@ -81,9 +83,7 @@ namespace Fargowiltas.Items.Summons.Mutant
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.ClothierVoodooDoll);
-            recipe.AddTile(TileID.WorkBenches);
-
-            recipe.Register();
+            recipe.AddTile(TileID.WorkBenches);            recipe.Register();
         }
     }
 }

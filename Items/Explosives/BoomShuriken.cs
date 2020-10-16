@@ -41,8 +41,7 @@ namespace Fargowiltas.Items.Explosives
             Recipe recipe = CreateRecipe(20);
             recipe.AddIngredient(ItemID.Shuriken, 20);
             recipe.AddIngredient(ItemID.Dynamite, 5);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
+            recipe.AddTile(TileID.Anvils);            recipe.Register();
         }
     }
 }

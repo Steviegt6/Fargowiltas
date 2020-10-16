@@ -10,6 +10,7 @@ namespace Fargowiltas.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Explosion");
+
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
@@ -33,6 +34,7 @@ namespace Fargowiltas.Projectiles
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item, projectile.position, 14);
+
             projectile.position = projectile.Center;
             projectile.width = 100;
             projectile.height = 100;
@@ -57,6 +59,7 @@ namespace Fargowiltas.Projectiles
             for (int i = 0; i < 2; i++)
             {
                 float scaleFactor = 0.4f;
+
                 if (i == 1)
                 {
                     scaleFactor = 0.8f;

@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Abom
 {
     public class FestiveOrnament : BaseSummon
     {
-        public override int Type => NPCID.Everscream;
+        public override int NPCType => NPCID.Everscream;
 
         public override string NPCName => "Everscream";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Abom
                                "\nOnly usable at night");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime;
     }
 }

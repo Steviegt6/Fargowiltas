@@ -37,8 +37,8 @@ namespace Fargowiltas.Tiles
         internal static void DestroyChest(int x, int y)
         {
             int chestType = 1;
-
             int chest = Chest.FindChest(x, y);
+
             if (chest != -1)
             {
                 for (int i = 0; i < 40; i++)
@@ -84,6 +84,7 @@ namespace Fargowiltas.Tiles
         internal static Point16 FindChestTopLeft(int x, int y, bool destroy)
         {
             Tile tile = Main.tile[x, y];
+
             if (TileID.Sets.BasicChest[tile.type])
             {
                 TileObjectData data = TileObjectData.GetTileData(tile.type, 0);
@@ -106,6 +107,7 @@ namespace Fargowiltas.Tiles
             FindChestTopLeft(x, y, true);
 
             Tile tile = Main.tile[x, y];
+
             WorldGen.KillTile(x, y, noItem: true);
             tile.ClearEverything();
             tile.lava(false);

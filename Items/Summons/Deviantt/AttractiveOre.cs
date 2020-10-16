@@ -5,7 +5,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class AttractiveOre : BaseSummon
     {
-        public override int Type => NPCID.UndeadMiner;
+        public override int NPCType => NPCID.UndeadMiner;
 
         public override string NPCName => "Undead Miner";
 
@@ -16,9 +16,6 @@ namespace Fargowiltas.Items.Summons.Deviantt
                                "\nOnly usable at night or underground");
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return !Main.dayTime || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight;
-        }
+        public override bool CanUseItem(Player player) => !Main.dayTime || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight;
     }
 }

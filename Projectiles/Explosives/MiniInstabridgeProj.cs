@@ -9,10 +9,7 @@ namespace Fargowiltas.Projectiles.Explosives
 {
     public class MiniInstabridgeProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Mini Instabridge");
-        }
+        public override void SetStaticDefaults() => DisplayName.SetDefault("Mini Instabridge");
 
         public override void SetDefaults()
         {
@@ -29,33 +26,31 @@ namespace Fargowiltas.Projectiles.Explosives
             Vector2 position = projectile.Center;
             SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                return;
-            }
-
-            // All the way across
-            for (int x = -200; x < 200; x++)
-            {
-                int xPosition = (int)(x + position.X / 16.0f);
-                int yPosition = (int)(position.Y / 16.0f);
-
-                Tile tile = Main.tile[xPosition, yPosition];
-
-                if (tile == null)
+                // All the way across
+                for (int x = -200; x < 200; x++)
                 {
-                    continue;
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(position.Y / 16.0f);
+
+                    Tile tile = Main.tile[xPosition, yPosition];
+
+                    if (tile == null)
+                    {
+                        continue;
+                    }
+
+                    if (tile.type == TileID.Trees || tile.type == TileID.Cactus)
+                    {
+                        FargoGlobalTile.ClearEverything(xPosition, yPosition);
+                    }
+
+                    // Spawn platforms
+                    WorldGen.PlaceTile(xPosition, yPosition, TileID.Platforms);
+
+                    NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
                 }
-
-                if (tile.type == TileID.Trees || tile.type == TileID.Cactus)
-                {
-                    FargoGlobalTile.ClearEverything(xPosition, yPosition);
-                }
-
-                // Spawn platforms
-                WorldGen.PlaceTile(xPosition, yPosition, TileID.Platforms);
-
-                NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
             }
         }
     }

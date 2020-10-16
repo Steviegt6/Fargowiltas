@@ -10,15 +10,11 @@ using Terraria.ObjectData;
 ////using ThoriumMod.Projectiles.Bard;
 ////using ThoriumMod.Utilities;
 ////using CalamityMod.NPCs;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.Items.Tiles
 {
     public class OmnistationPlusSheet : ModTile
     {
-        private Mod thorium;
-        private Mod calamity;
-
         public virtual Color color => new Color(221, 85, 125);
 
         public override void SetDefaults()
@@ -33,9 +29,6 @@ namespace Fargowiltas.Items.Tiles
             AddMapEntry(color, name);
             // // TODO: Uncomment when tML adds this back
             //disableSmartCursor = true;
-
-            thorium = Fargowiltas.FargosGetMod("ThoriumMod");
-            calamity = Fargowiltas.FargosGetMod("CalamityMod");
         }
 
         public override void NearbyEffects(int i, int j, bool closer)
@@ -44,9 +37,12 @@ namespace Fargowiltas.Items.Tiles
             {
                 if (Main.LocalPlayer.active && !Main.LocalPlayer.dead)
                 {
-                    Main.LocalPlayer.AddBuff(BuffType<Buffs.OmnistationPlus>(), 10);
+                    Main.LocalPlayer.AddBuff(ModContent.BuffType<Buffs.OmnistationPlus>(), 10);
 
-                    if (Fargowiltas.ModLoaded["CalamityMod"]) Calamity();
+                    if (Fargowiltas.ModLoaded("CalamityMod"))
+                    {
+                        Calamity();
+                    }
                 }
             }
         }
@@ -54,14 +50,16 @@ namespace Fargowiltas.Items.Tiles
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
+
             player.noThrow = 2;
             player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ItemType<Omnistation>();
+            player.cursorItemIconID = ModContent.ItemType<Omnistation>();
         }
 
         public override bool RightClick(int i, int j)
         {
             Item item = Main.LocalPlayer.HeldItem;
+
             if (item.melee)
             {
                 Main.LocalPlayer.AddBuff(BuffID.Sharpened, 60 * 60 * 10);
@@ -82,7 +80,10 @@ namespace Fargowiltas.Items.Tiles
                 Main.LocalPlayer.AddBuff(BuffID.Bewitched, 60 * 60 * 10);
             }
 
-            if (Fargowiltas.ModLoaded["ThoriumMod"]) Thorium(item, i, j);
+            if (Fargowiltas.ModLoaded("ThoriumMod"))
+            {
+                Thorium(item, i, j);
+            }
 
             if (item.melee || item.ranged || item.magic || item.summon)
             {
@@ -96,17 +97,20 @@ namespace Fargowiltas.Items.Tiles
         {
             Tile tile = Main.tile[i, j];
             Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
+
             if (Main.drawToScreen)
             {
                 zero = Vector2.Zero;
             }
+
             int height = tile.frameY == 36 ? 18 : 16;
+
             Main.spriteBatch.Draw(ModContent.GetTexture("Fargowiltas/Items/Tiles/OmnistationSheet_Glow").Value, new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         private void Thorium(Item item, int i, int j)
         {
-            // TODO: Thorium Crossmod
+            // TODO: BardItem & HealerItem
             /*BardItem bardItem = item.modItem as BardItem;
             ThoriumItem healerItem = item.modItem as ThoriumItem;
 
@@ -133,22 +137,24 @@ namespace Fargowiltas.Items.Tiles
 
         private void Calamity()
         {
-            // TODO: Calamity Crossmod
-            /*if (Main.netMode != 1)
+            if (Main.netMode != 1)
             {
                 for (int k = 0; k < 200; k++)
                 {
                     if (Main.npc[k].active && !Main.npc[k].friendly)
                     {
-                        Main.npc[k].buffImmune[calamity.BuffType("YellowDamageCandle")] = false;
-                        if (Main.npc[k].GetGlobalNPC<CalamityGlobalNPC>().DR >= 0.99f)
+                        Main.npc[k].buffImmune[Fargowiltas.LoadedMods["CalamityMod"].BuffType("YellowDamageCandle")] = false;
+
+                        // TODO: CalamityGlobalNPC
+                        /*if (Main.npc[k].GetGlobalNPC<CalamityGlobalNPC>().DR >= 0.99f)
                         {
-                            Main.npc[k].buffImmune[calamity.BuffType("YellowDamageCandle")] = true;
-                        }
-                        Main.npc[k].AddBuff(calamity.BuffType("YellowDamageCandle"), 0x14, false);
+                            Main.npc[k].buffImmune[Fargowiltas.LoadedMods["CalamityMod"].BuffType("YellowDamageCandle")] = true;
+                        }*/
+
+                        Main.npc[k].AddBuff(Fargowiltas.LoadedMods["CalamityMod"].BuffType("YellowDamageCandle"), 0x14, false);
                     }
                 }
-            }*/
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Fargowiltas.Items.Summons.Deviantt
 {
     public class CorruptChest : BaseSummon
     {
-        public override int Type => NPCID.BigMimicCorruption;
+        public override int NPCType => NPCID.BigMimicCorruption;
 
         public override string NPCName => "Corrupt Mimic";
 

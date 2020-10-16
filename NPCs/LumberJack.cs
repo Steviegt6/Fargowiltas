@@ -8,7 +8,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace Fargowiltas.NPCs
 {
@@ -22,6 +21,7 @@ namespace Fargowiltas.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("LumberJack");
+
             Main.npcFrameCount[npc.type] = 25;
             NPCID.Sets.ExtraFramesCount[npc.type] = 9;
             NPCID.Sets.AttackFrameCount[npc.type] = 4;
@@ -57,10 +57,7 @@ namespace Fargowiltas.NPCs
             npc.catchItem = (short)ModContent.ItemType<Items.CaughtNPCs.LumberJack>();
         }
 
-        public override bool CanTownNPCSpawn(int numTownnpcs, int money)
-        {
-            return GetInstance<FargoConfig>().Lumber && (FargoWorld.MovedLumberjack || Main.player.Where(player => player.active).Any(player => player.HasItem(ItemType<Items.Tiles.WoodenToken>())));
-        }
+        public override bool CanTownNPCSpawn(int numTownnpcs, int money) => ModContent.GetInstance<FargoConfig>().Lumber && (FargoWorld.MovedLumberjack || Main.player.Where(player => player.active).Any(player => player.HasItem(ModContent.ItemType<Items.Tiles.WoodenToken>())));
 
         public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 
@@ -77,11 +74,7 @@ namespace Fargowiltas.NPCs
             }
         }
 
-        public override string TownNPCName()
-        {
-            string[] names = { "Griff", "Jack", "Bruce", "Larry", "Will", "Jerry", "Liam", "Stan", "Lee", "Woody", "Leif", "Paul" };
-            return Main.rand.Next(names);
-        }
+        public override string TownNPCName() => Main.rand.Next(new string[] { "Griff", "Jack", "Bruce", "Larry", "Will", "Jerry", "Liam", "Stan", "Lee", "Woody", "Leif", "Paul" });
 
         public override string GetChat()
         {
@@ -110,18 +103,20 @@ namespace Fargowiltas.NPCs
             };
 
             int dryad = NPC.FindFirstNPC(NPCID.Dryad);
+
             if (dryad >= 0)
             {
                 dialogue.Add($"{Main.npc[dryad].GivenName} told me to start hugging trees... I hug trees with my chainsaw.");
             }
 
             int nurse = NPC.FindFirstNPC(NPCID.Nurse);
+
             if (nurse >= 0)
             {
                 dialogue.Add($"I always see {Main.npc[nurse].GivenName} looking at my biceps when I'm working. Wonder if she wants some of my wood.");
             }
 
-            if (Fargowiltas.ModLoaded["ThoriumMod"])
+            if (Fargowiltas.ModLoaded("ThoriumMod"))
             {
                 dialogue.Add("Astroturf? Sorry I only grow trees on real grass.");
                 dialogue.Add("Yew tree? Sakura tree? Nope, haven't found any.");
@@ -143,6 +138,7 @@ namespace Fargowiltas.NPCs
             if (firstButton)
             {
                 shop = true;
+
                 return;
             }
 
@@ -153,77 +149,140 @@ namespace Fargowiltas.NPCs
                 if (player.ZoneDesert && !player.ZoneBeach)
                 {
                     quote = "While I was chopping down a cactus this thing leaped at me, why don't you take care of it?";
+
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Scorpion, ItemID.BlackScorpion }));
                 }
                 else if (player.ZoneJungle)
                 {
                     quote = "These mahogany trees are full of life, but a tree only has one purpose: to be chopped. Oh yea this fell out of the last one.";
+
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Buggy, ItemID.Sluggy, ItemID.Grubby, ItemID.Frog }));
                     //add mango and pineapple
                 }
                 else if (player.ZoneHallow)
                 {
                     quote = "This place is a bit fanciful for my tastes, but the wood's as choppable as any. Nighttime has these cool bugs though, take a few.";
-                    player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.LightningBug }));
-                    //add fairies
-                    //add star fruit and dragonfruit
 
-                    //add prismatic lacewing if post plantera
+                    List<int> items = new List<int>
+                    {
+                        ItemID.LightningBug,
+                        ItemID.FairyCritterPink,
+                        ItemID.FairyCritterBlue,
+                        ItemID.FairyCritterGreen,
+                        ItemID.Starfruit,
+                        ItemID.Dragonfruit
+                    };
+
+                    if (Main.hardMode)
+                    {
+                        items.Add(ItemID.EmpressButterfly);
+                    }
+
+                    player.QuickSpawnItem(Main.rand.Next(items));
                 }
                 else if (player.ZoneGlowshroom && Main.hardMode)
                 {
                     quote = "Whatever causes these to glow is beyond me, you're probably gonna eat them anyway so have this while youre at it.";
-                    player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.GlowingSnail, ItemID.TruffleWorm }));
-                    //add mushroom grass seeds
+
+                    player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.GlowingSnail, ItemID.TruffleWorm, ItemID.MushroomGrassSeeds }));
                 }
                 else if (player.ZoneCorrupt || player.ZoneCrimson)
                 {
                     quote = "The trees here are probably the toughest in this branch of reality.. Sorry, just tree puns, I haven't found anything interesting here.";
-                    //add elderberry and blackcurrant for corrupt
-                    //add blood orange and rambutan to crimson
+
+                    if (player.ZoneCorrupt)
+                    {
+                        player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Elderberry, ItemID.BlackCurrant }));
+                    }
+                    else
+                    {
+                        player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.BloodOrange, ItemID.Rambutan }));
+                    }
                 }
                 //purity, most common option likely
                 else if (!player.ZoneSnow && player.position.Y > Main.worldSurface)
                 {
                     if (Main.dayTime)
                     {
-                        //butterfly
-                        if (Main.rand.Next(2) == 0)
+                        switch (Main.rand.Next(3))
                         {
-                            quote = "Back in the day, people used to forge butterflies into powerful gear. We try to forget those days... but here have one.";
-                            player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.JuliaButterfly, ItemID.MonarchButterfly, ItemID.PurpleEmperorButterfly, ItemID.RedAdmiralButterfly, ItemID.SulphurButterfly, ItemID.TreeNymphButterfly, ItemID.UlyssesButterfly, ItemID.ZebraSwallowtailButterfly }));
+                            case 0:
+                                quote = "Back in the day, people used to forge butterflies into powerful gear. We try to forget those days... but here have one.";
+
+                                player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.JuliaButterfly, ItemID.MonarchButterfly, ItemID.PurpleEmperorButterfly, ItemID.RedAdmiralButterfly, ItemID.SulphurButterfly, ItemID.TreeNymphButterfly, ItemID.UlyssesButterfly, ItemID.ZebraSwallowtailButterfly }));
+                                break;
+
+                            case 1:
+                                quote = "These little critters are always falling out of the trees I cut down. Maybe you can find a use for them?";
+
+                                player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Grasshopper, ItemID.Squirrel, ItemID.SquirrelRed, ItemID.Bird, ItemID.Cardinal, ItemID.BlueJay }));
+                                break;
+
+                            case 2:
+                                // TODO: Dialogue.
+                                quote = "lol fruit yummy iirc";
+
+                                List<int> items = new List<int>()
+                                {
+                                    ItemID.Apple,
+                                    ItemID.Peach,
+                                    ItemID.Apricot,
+                                    ItemID.Grapefruit,
+                                    ItemID.Lemon
+                                };
+
+                                if (Main.rand.NextBool(2))
+                                {
+                                    items.Add(ItemID.EucaluptusSap);
+                                }
+
+                                if (Main.IsItAHappyWindyDay)
+                                {
+                                    items.Add(ItemID.LadyBug);
+                                }
+
+                                if (player.ZoneGraveyard)
+                                {
+                                    items.Add(ItemID.Rat);
+                                }
+
+                                player.QuickSpawnItem(Main.rand.Next(items));
+                                break;
                         }
-                        else
-                        {
-                            quote = "These little critters are always falling out of the trees I cut down. Maybe you can find a use for them?";
-                            player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Grasshopper, ItemID.Squirrel, ItemID.SquirrelRed }));
-                            //add bird, cardinal, blue jay
-                        }
-                        //add fruit option
-                        //apple, peach, apricot, grapefruit, lemon
-                        //add eucalyptus sap as some rare meme
-                        //add ladybug if its windy
-                        //add rat if in graveyard
                     }
                     else
                     {
                         quote = "Chopping trees at night is always relaxing... well except for the flying eyeballs. Have one of these little guys to keep you company.";
+
                         player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Firefly }));
                     }
                 }
-                //add beach
-                //drop seagull
-                //drop coconut or banana
-
-                //add snow
-                //plum or cherry, penguin
-                else
+                else if (player.ZoneBeach)
                 {
-                    //add underground dialogue, he gives you gems and gem critters
+                    // TODO: Dialogue.
+                    quote = "BEACH PALM WOOD";
 
-                    //move current dialogue to underworld
+                    player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Seagull, ItemID.Coconut, ItemID.Banana }));
+                }
+                else if (player.ZoneSnow)
+                {
+                    // TODO: Dialogue.
+                    quote = "boreal wood cold";
 
-                    quote = "I looked around here for a while and didn't find any trees. I did find this little thing though. Maybe you'll want it?";
+                    player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Plum, ItemID.Cherry, ItemID.Penguin }));
+                }
+                else if (player.ZoneRockLayerHeight)
+                {
+                    if (player.ZoneRockLayerHeight)
+                    {
+                        // TODO: Dialogue.
+                        quote = "Gem trees are hard :(";
+                    }
+                    else
+                    {
+                        quote = "I looked around here for a while and didn't find any trees. I did find this little thing though. Maybe you'll want it?";
+                    }
+
                     player.QuickSpawnItem(Main.rand.Next(new int[] { ItemID.Snail }));
                 }
 
@@ -263,20 +322,19 @@ namespace Fargowiltas.NPCs
             shop.item[nextSlot].value = 15;
             nextSlot++;
 
-            // TODO: MORE FUCKING CROSSMOD
-            /*if (Fargowiltas.ModLoaded["CrystiliumMod"])
+            if (Fargowiltas.ModLoaded("CrystiliumMod"))
             {
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("CrystiliumMod").ItemType("CrystalWood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["CrystiliumMod"].ItemType("CrystalWood"));
                 shop.item[nextSlot].value = 20;
                 nextSlot++;
             }
 
-            if (Fargowiltas.FargosGetMod("CosmeticVariety") != null && NPC.downedBoss2)
+            if (Fargowiltas.ModLoaded("CosmeticVariety") && NPC.downedBoss2)
             {
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("CosmeticVariety").ItemType("Starwood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["CosmeticVariety"].ItemType("Starwood"));
                 shop.item[nextSlot].value = 20;
                 nextSlot++;
-            }*/
+            }
 
             shop.item[nextSlot].SetDefaults(ItemID.Pearlwood);
             shop.item[nextSlot].value = 20;
@@ -289,28 +347,27 @@ namespace Fargowiltas.NPCs
                 nextSlot++;
             }
 
-            // TODO: THE SECOND COMING OF CHRIST (CROSSMOD)
-            /*if (Fargowiltas.ModLoaded["Redemption"])
+            if (Fargowiltas.ModLoaded("Redemption"))
             {
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("Redemption").ItemType("AncientWood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["Redemption"].ItemType("AncientWood"));
                 shop.item[nextSlot].value = 20;
                 nextSlot++;
             }
 
-            if (Fargowiltas.ModLoaded["AAMod"])
+            if (Fargowiltas.ModLoaded("AAMod"))
             {
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("AAmod").ItemType("Razewood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["AAmod"].ItemType("Razewood"));
                 shop.item[nextSlot].value = 50;
                 nextSlot++;
 
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("AAmod").ItemType("Bogwood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["AAmod"].ItemType("Bogwood"));
                 shop.item[nextSlot].value = 50;
                 nextSlot++;
 
-                shop.item[nextSlot].SetDefaults(Fargowiltas.FargosGetMod("AAmod").ItemType("OroborosWood"));
+                shop.item[nextSlot].SetDefaults(Fargowiltas.LoadedMods["AAmod"].ItemType("OroborosWood"));
                 shop.item[nextSlot].value = 50;
                 nextSlot++;
-            }*/
+            }
 
             shop.item[nextSlot].SetDefaults(ItemID.Cactus);
             shop.item[nextSlot].value = 10;
@@ -361,10 +418,7 @@ namespace Fargowiltas.NPCs
             randomOffset = 2f;
         }
 
-        public override void OnKill()
-        {
-            FargoWorld.MovedLumberjack = true;
-        }
+        public override void OnKill() => FargoWorld.MovedLumberjack = true;
 
         public override void HitEffect(int hitDirection, double damage)
         {

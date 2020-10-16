@@ -33,9 +33,7 @@ namespace Fargowiltas.Items.Explosives
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            int j = Main.rand.Next(10);
-
-            switch (j)
+            switch (Main.rand.Next(19))
             {
                 case 0:
                     type = ProjectileID.Bomb;
@@ -76,6 +74,42 @@ namespace Fargowiltas.Items.Explosives
                 case 9:
                     type = ProjectileID.BouncyGrenade;
                     break;
+
+                case 10:
+                    type = ProjectileID.DirtBomb;
+                    break;
+
+                case 11:
+                    type = ProjectileID.DirtStickyBomb;
+                    break;
+
+                case 12:
+                    type = ProjectileID.DryBomb;
+                    break;
+
+                case 13:
+                    type = ProjectileID.WetBomb;
+                    break;
+
+                case 14:
+                    type = ProjectileID.HoneyBomb;
+                    break;
+
+                case 15:
+                    type = ProjectileID.LavaBomb;
+                    break;
+
+                case 16:
+                    type = ProjectileID.ScarabBomb;
+                    break;
+
+                case 17:
+                    type = ProjectileID.Beenade;
+                    break;
+
+                case 18:
+                    type = ProjectileID.PartyGirlGrenade;
+                    break;
             }
 
             Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, Main.myPlayer);
@@ -91,9 +125,7 @@ namespace Fargowiltas.Items.Explosives
             recipe.AddIngredient(ItemID.BouncyBomb, 10);
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.ManaCrystal);
-            recipe.AddTile(TileID.Anvils);
-
-            recipe.Register();
+            recipe.AddTile(TileID.Anvils);            recipe.Register();
         }
     }
 }
