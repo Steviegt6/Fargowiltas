@@ -1,6 +1,10 @@
 This is a Quality of life mod that adds the Mutant town NPC who sells boss summons of nearly every mod
 There are several other items such as infinite ammos, craftable instant builds for common world infrastructure like skybridges, obsidian underworld bridges, hellevators, unlimited potions, increased spawn rates toggle item, and more!
 
+UNRELEASED - V 3.0.0
+-Massive code-base refactors.
+-Updated to 1.4.
+
 NEW UPDATE - V 2.3.3
 -Added Pincushion to Deviantt shop
 -Fixed Super Dummy taking up enemy slots
