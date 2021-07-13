@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		description.txt = description.txt
 		Fargowiltas.sln.DotSettings = Fargowiltas.sln.DotSettings
 		icon.png = icon.png
-		LICENSE = LICENSE
+		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
 EndProject
