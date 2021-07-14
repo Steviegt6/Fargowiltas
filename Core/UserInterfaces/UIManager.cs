@@ -14,6 +14,8 @@ namespace Fargowiltas.Core.UserInterfaces
     {
         public static List<IUIProfile> Interfaces { get; private set; }
 
+        public GameTime CachedTime { get; protected set; }
+
         public UIManager()
         {
             Interfaces = new List<IUIProfile>();
@@ -25,8 +27,10 @@ namespace Fargowiltas.Core.UserInterfaces
         {
             base.UpdateUI(gameTime);
 
-            foreach (IUIProfile profile in Interfaces)
-                profile.UserInterface.CurrentState?.Update(gameTime);
+            CachedTime = gameTime;
+
+            foreach (IUIProfile profile in Interfaces.Where(profile => profile.UserInterface.CurrentState != null))
+                profile.UserInterface.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -41,7 +45,8 @@ namespace Fargowiltas.Core.UserInterfaces
                     layers.Insert(index, new LegacyGameInterfaceLayer($"{Mod.Name}:Interface {profile.Identifier}",
                         () =>
                         {
-                            profile.UserInterface.CurrentState?.Draw(Main.spriteBatch);
+                            if (CachedTime != null)
+                                profile.UserInterface.Draw(Main.spriteBatch, CachedTime);
                             return true;
                         }, InterfaceScaleType.UI));
             }
