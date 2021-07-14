@@ -44,9 +44,6 @@ namespace Fargowiltas.Content.UI.StatSheet
         {
             if (Main.playerInventory)
                 base.Draw(spriteBatch);
-
-            if (IsMouseHovering)
-                Main.NewText("cum");
         }
     }
 }
