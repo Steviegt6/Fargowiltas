@@ -10,8 +10,12 @@ namespace MutantTests
         {
             base.Load();
 
-            ModLoader.GetMod("Fargowiltas")
-                .Call("StatSheet", "Add", (Func<string>) (() => "Example Mod.Call Stat"), ItemID.FallenStar);
+            AddContent(new DoActionCommand("addstat",
+                (_, _) =>
+                {
+                    ModLoader.GetMod("Fargowiltas").Call("StatSheet", "Add",
+                        (Func<string>) (() => "Example Mod.Call Stat"), ItemID.FallenStar);
+                }));
         }
     }
 }

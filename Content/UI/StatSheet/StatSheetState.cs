@@ -15,8 +15,11 @@ namespace Fargowiltas.Content.UI.StatSheet
     public class StatSheetState : UIState
     {
         public const int BackWidth = 720;
-        public const int BackHeight = 251 + 28; // 28 = search bar height (26) + padding (2)
-        public const int HowManyPerColumn = 10;
+        public const int MinimumBackHeight = 251 + 28; // 28 = search bar height (26) + padding (2)
+        public const int BackIncrease = 25;
+        public int BackHeight = MinimumBackHeight;
+        public const int MinimumPerColumn = 10;
+        public int HowManyPerColumn = MinimumPerColumn;
         public const int HowManyColumns = 3;
 
         public int LineCounter;
@@ -69,11 +72,12 @@ namespace Fargowiltas.Content.UI.StatSheet
         public void RebuildStatList()
         {
             Player player = Main.LocalPlayer;
+            int amount = 0;
 
             InnerPanel.RemoveAllChildren();
             ColumnCounter = LineCounter = 0;
 
-            void Format(string key, object arg, int item) => AddStat(LanguageHelper.GetTextValue(key, arg), item);
+            void Format(string key, object arg, int item) => AddStat(ref amount, LanguageHelper.GetTextValue(key, arg), item);
 
             Format("StatSheet.MeleeDamage", (int) (player.GetDamage(DamageClass.Melee) * 100), ItemID.CopperBroadsword);
             Format("StatSheet.MeleeCrit", player.GetCritChance(DamageClass.Melee), ItemID.CopperBroadsword);
@@ -102,11 +106,40 @@ namespace Fargowiltas.Content.UI.StatSheet
             Format("StatSheet.MinimumLuck", player.luckMinimumCap, ItemID.LuckPotionLesser);
             Format("StatSheet.MaximumLuck", player.luckMaximumCap, ItemID.LuckPotionGreater);
 
-            ModCallStats.ForEach(x => AddStat(x.Item1?.Invoke(), x.Item2));
+            ModCallStats.ForEach(x => AddStat(ref amount, x.Item1?.Invoke(), x.Item2));
+
+            int perColumn = HowManyPerColumn;
+
+            while (amount > HowManyPerColumn * HowManyColumns) 
+                HowManyPerColumn++;
+
+            if (HowManyPerColumn != perColumn)
+                Recalculate();
         }
 
-        public void AddStat(string text, int item = -1)
+        public override void Recalculate()
         {
+            base.Recalculate();
+
+            if (HowManyPerColumn < MinimumPerColumn)
+                HowManyPerColumn = MinimumPerColumn;
+
+            BackHeight = MinimumBackHeight;
+            BackHeight += (HowManyPerColumn - MinimumPerColumn) * BackIncrease;
+
+            Vector2 offset = new(Main.screenWidth / 2f - BackWidth * 0.75f,
+                Main.screenHeight / 2f - BackHeight * 0.75f);
+
+            BackPanel?.Left.Set(offset.X, 0f);
+            BackPanel?.Top.Set(offset.Y, 0f);
+            BackPanel?.Height.Set(BackHeight, 0f);
+            InnerPanel?.Height.Set(BackHeight - 12f - 28f, 0f);
+        }
+
+        public void AddStat(ref int amount, string text, int item = -1)
+        {
+            amount++;
+            
             int left = 8 + ColumnCounter * ((BackWidth - 8) / HowManyColumns);
             int top = 8 + LineCounter * 23; // I don't know why but 23 works perfectly
 
