@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Fargowiltas.Core.Localization;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -9,9 +10,6 @@ namespace Fargowiltas.Content.UI.Shared.Elements
 {
     public class UISearchBar : UIElement
     {
-        // TODO: localize this
-        public const string HintText = "Search...";
-
         public UIPanel BackPanel;
         public string Input;
         public bool Focused;
@@ -85,7 +83,7 @@ namespace Fargowiltas.Content.UI.Shared.Elements
             string displayText = Input ?? "";
 
             if (string.IsNullOrEmpty(displayText) && !Focused)
-                Utils.DrawBorderString(spriteBatch, HintText, position, Color.DarkGray);
+                Utils.DrawBorderString(spriteBatch, LanguageHelper.GetTextValue("UI.SearchDefault"), position, Color.DarkGray);
 
             if (Focused && ++CursorBlinkTimer >= 20)
             {
