@@ -1,9 +1,11 @@
 ﻿using Fargowiltas.Content.UI.Shared.Elements;
+using Fargowiltas.Core.Localization;
 using Fargowiltas.Core.UserInterfaces;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -14,6 +16,13 @@ namespace Fargowiltas.Content.UI.StatSheet
         public UIImage Icon;
         public UIHoverTextImageButton IconHighlight;
 
+        private static readonly Asset<Texture2D> IconTexture =
+            ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton", AssetRequestMode.ImmediateLoad);
+
+        private static readonly Asset<Texture2D> GlowTexture =
+            ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton_MouseOver",
+                AssetRequestMode.ImmediateLoad);
+
         public override void OnActivate()
         {
             base.OnActivate();
@@ -21,15 +30,14 @@ namespace Fargowiltas.Content.UI.StatSheet
             IgnoresMouseInteraction = false;
 
             // TODO: localization
-            Asset<Texture2D> statIcon = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton", AssetRequestMode.ImmediateLoad);
-            Icon = new UIImage(statIcon);
+            Icon = new UIImage(IconTexture);
             Icon.Left.Set(26f, 0f);
             Icon.Top.Set(262f, 0f);
             Append(Icon);
 
-            Asset<Texture2D> glow = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton_MouseOver", AssetRequestMode.ImmediateLoad);
-            IconHighlight = new UIHoverTextImageButton(glow, "Stat Sheet");
-            IconHighlight.Left.Set( -2f, 0f);
+            IconHighlight = new UIHoverTextImageButton(GlowTexture,
+                () => LanguageHelper.GetTextValue("StatSheet.StatSheetName"));
+            IconHighlight.Left.Set(-2f, 0f);
             IconHighlight.Top.Set(-2f, 0f);
             IconHighlight.SetVisibility(1f, 0f);
             IconHighlight.OnClick += IconHighlight_OnClick;

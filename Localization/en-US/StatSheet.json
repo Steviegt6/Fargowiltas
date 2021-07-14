@@ -1,0 +1,32 @@
+﻿{
+  "StatSheet": {
+    "MeleeDamage": "Melee Damage: {0}%",
+    "MeleeCrit": "Melee Crit: {0}%",
+    "MeleeSpeed": "Melee Speed: {0}%",
+    "RangedDamage": "Ranged Damage: {0}%",
+    "RangedCrit": "Ranged Crit: {0}%",
+    "MagicDamage": "Magic Damage: {0}%",
+    "MagicCrit": "Magic Crit: {0}%",
+    "SummonDamage": "Summon Damage: {0}%",
+    "MaxMinions": "Max Minions: {0}",
+    "MaxSentries": "Max Sentries: {0}",
+
+    "Life": "Life: {0}",
+    "Defense": "Defense: {0}",
+    "DamageReduction": "Damage Reduction: {0}%",
+    "LifeRegen": "Life Regen: {0} HP/second",
+    "Man": "Mana: {0}",
+    "ManaRegen": "Mana Regen: {0} Mana/second",
+
+    "ArmorPenetration": "Armor Penetration: {0}",
+    "Aggro": "Aggro: {0}",
+    "MaxSpeed": "Max Speed: {0} mph",
+    "WingTime": "Wing Time: {0} seconds",
+
+    "Luck": "Luck: {0}",
+    "MaximumLuck": "Maximum Luck: {0}",
+    "MinimumLuck": "Minimum Luck: {0}",
+
+    "StatSheetName": "Stat Sheet"
+  } 
+}

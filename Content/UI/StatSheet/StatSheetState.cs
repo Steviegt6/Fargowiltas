@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Fargowiltas.Content.UI.Shared.Panels;
+using Fargowiltas.Core.Localization;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -26,7 +27,8 @@ namespace Fargowiltas.Content.UI.StatSheet
 
         public override void OnInitialize()
         {
-            Vector2 offset = new(Main.screenWidth / 2f - BackWidth * 0.75f, Main.screenHeight / 2f - BackHeight * 0.75f);
+            Vector2 offset =
+                new(Main.screenWidth / 2f - BackWidth * 0.75f, Main.screenHeight / 2f - BackHeight * 0.75f);
 
             BackPanel = new UIDragPanel();
             BackPanel.Left.Set(offset.X, 0f);
@@ -58,7 +60,8 @@ namespace Fargowiltas.Content.UI.StatSheet
         {
             base.Update(gameTime);
 
-            if (Main.GameUpdateCount % (!SearchBar.IsEmpty ? 2 : 4) == 0) // 15 times a second, or 30 times a second if search bar has text
+            if (Main.GameUpdateCount % (!SearchBar.IsEmpty ? 2 : 4) ==
+                0) // 15 times a second, or 30 times a second if search bar has text
                 RebuildStatList();
         }
 
@@ -69,33 +72,34 @@ namespace Fargowiltas.Content.UI.StatSheet
             InnerPanel.RemoveAllChildren();
             ColumnCounter = LineCounter = 0;
 
-            AddStat($"Melee Damage: {(int)(player.GetDamage(DamageClass.Melee) * 100)}%", ItemID.CopperBroadsword);
-            AddStat($"Melee Crit: {player.GetCritChance(DamageClass.Melee)}%", ItemID.CopperBroadsword);
-            AddStat($"Melee Speed: {(int)(player.meleeSpeed * 100)}%", ItemID.CopperBroadsword);
-            AddStat($"Ranged Damage: {(int)(player.GetDamage(DamageClass.Ranged) * 100)}%", ItemID.CopperBow);
-            AddStat($"Ranged Crit: {player.GetCritChance(DamageClass.Ranged)}%", ItemID.CopperBow);
-            AddStat($"Magic Damage: {(int)(player.GetDamage(DamageClass.Magic) * 100)}%", ItemID.WandofSparking);
-            AddStat($"Magic Crit: {player.GetCritChance(DamageClass.Magic)}%", ItemID.WandofSparking);
-            AddStat($"Summon Damage: {(int)(player.GetDamage(DamageClass.Summon) * 100)}%", ItemID.SlimeStaff);
-            AddStat($"Max Minions: {player.maxMinions}", ItemID.SlimeStaff);
-            AddStat($"Max Sentries: {player.maxTurrets}", ItemID.SlimeStaff);
+            void Format(string key, object arg, int item) => AddStat(LanguageHelper.GetTextValue(key, arg), item);
 
+            Format("StatSheet.MeleeDamage", (int) (player.GetDamage(DamageClass.Melee) * 100), ItemID.CopperBroadsword);
+            Format("StatSheet.MeleeCrit", player.GetCritChance(DamageClass.Melee), ItemID.CopperBroadsword);
+            Format("StatSheet.MeleeSpeed", (int) (player.meleeSpeed * 100), ItemID.CopperBroadsword);
+            Format("StatSheet.RangedDamage", (int) (player.GetDamage(DamageClass.Ranged) * 100), ItemID.CopperBow);
+            Format("StatSheet.RangedCrit", player.GetCritChance(DamageClass.Ranged), ItemID.CopperBow);
+            Format("StatSheet.MagicDamage", (int) (player.GetDamage(DamageClass.Magic) * 100), ItemID.WandofSparking);
+            Format("StatSheet.MagicCrit", player.GetCritChance(DamageClass.Magic), ItemID.WandofSparking);
+            Format("StatSheet.SummonDamage", (int) (player.GetDamage(DamageClass.Summon) * 100), ItemID.SlimeStaff);
+            Format("StatSheet.MaxMinions", player.maxMinions, ItemID.SlimeStaff);
+            Format("StatSheet.MaxSentries", player.maxTurrets, ItemID.SlimeStaff);
 
-            AddStat($"HP: {player.statLifeMax2}", ItemID.LifeCrystal);
-            AddStat($"Defense: {player.statDefense}", ItemID.CobaltShield);
-            AddStat($"Damage Reduction: {(int)(player.endurance * 100)}%", ItemID.WormScarf);
-            AddStat($"Life Regen: {player.lifeRegen} HP/second", ItemID.BandofRegeneration);
-            AddStat($"Mana: {player.statManaMax2}", ItemID.ManaCrystal);
-            AddStat($"Mana Regen: {player.manaRegen / 2}/second", ItemID.ManaCrystal);
+            Format("StatSheet.HP", player.statLifeMax2, ItemID.LifeCrystal);
+            Format("StatSheet.Defense", player.statDefense, ItemID.CobaltShield);
+            Format("StatSheet.DamageReduction", (int) (player.endurance * 100), ItemID.WormScarf);
+            Format("StatSheet.LifeRegen", player.lifeRegen, ItemID.BandofRegeneration);
+            Format("StatSheet.Mana", player.statManaMax2, ItemID.ManaCrystal);
+            Format("StatSheet.ManaRegen", player.manaRegen / 2, ItemID.ManaCrystal);
 
-            AddStat($"Armor Penetration: {player.armorPenetration}", ItemID.SharkToothNecklace);
-            AddStat($"Aggro: {player.aggro}", ItemID.FleshKnuckles);
-            AddStat($"Max Speed: {(int)((player.accRunSpeed + player.maxRunSpeed) / 2f * player.moveSpeed * 6)} mph", ItemID.HermesBoots);
-            AddStat($"Wing Time: {player.wingTimeMax / 60} seconds", ItemID.AngelWings);
+            Format("StatSheet.ArmorPenetration", player.armorPenetration, ItemID.SharkToothNecklace);
+            Format("StatSheet.Aggro", player.aggro, ItemID.FleshKnuckles);
+            Format("StatSheet.MaxSpeed", (int) ((player.accRunSpeed + player.maxRunSpeed) / 2f * player.moveSpeed * 6), ItemID.HermesBoots);
+            Format("StatSheet.WingTime", player.wingTimeMax / 60, ItemID.AngelWings);
 
-            AddStat($"Luck: {player.NormalizedLuck}", ItemID.LuckPotion);
-            AddStat($"Minimum Luck: {player.luckMinimumCap}", ItemID.LuckPotionLesser);
-            AddStat($"Maximum Luck: {player.luckMaximumCap}", ItemID.LuckPotionGreater);
+            Format("StatSheet.Luck", player.NormalizedLuck, ItemID.LuckPotion);
+            Format("StatSheet.MinimumLuck", player.luckMinimumCap, ItemID.LuckPotionLesser);
+            Format("StatSheet.MaximumLuck", player.luckMaximumCap, ItemID.LuckPotionGreater);
         }
 
         public void AddStat(string text, int item = -1)
@@ -119,7 +123,7 @@ namespace Fargowiltas.Content.UI.StatSheet
             {
                 if (words.Any(s => s.StartsWith(SearchBar.Input, StringComparison.OrdinalIgnoreCase)))
                 {
-                    float fade = MathHelper.Lerp(0.1f, 0.9f, (float)(Math.Sin(Main.GameUpdateCount / 10f) + 1f) / 2f);
+                    float fade = MathHelper.Lerp(0.1f, 0.9f, (float) (Math.Sin(Main.GameUpdateCount / 10f) + 1f) / 2f);
                     Color color = Color.Lerp(Color.Yellow, Color.Goldenrod, fade);
                     ui.TextColor = color;
                 }
