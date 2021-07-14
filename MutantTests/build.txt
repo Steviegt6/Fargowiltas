@@ -1,0 +1,5 @@
+﻿author = Tomat
+version = 1.0.0.0
+displayName = Mutant Mod Tests
+modReferences = Fargowiltas
+sortAfter = Fargowiltas

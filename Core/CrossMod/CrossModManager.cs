@@ -11,9 +11,9 @@ namespace Fargowiltas.Core.CrossMod
     {
         public IModCallCataloger CallCataloger { get; }
 
-        public CrossModManager(IModCallCataloger callCataloger)
+        public CrossModManager()
         {
-            CallCataloger = callCataloger;
+            CallCataloger = new ModCallCataloger(Mod);
         }
 
         public override void OnModLoad()
@@ -22,7 +22,7 @@ namespace Fargowiltas.Core.CrossMod
 
             foreach (Type type in Mod.Code.GetTypes().Where(x =>
                 !x.IsAbstract && x.GetConstructor(Array.Empty<Type>()) != null &&
-                x.IsInstanceOfType(typeof(IModCaller)) && !x.IsValueType))
+                x.IsSubclassOf(typeof(ModCaller))))
             {
                 IModCaller caller = (IModCaller) Activator.CreateInstance(type);
 

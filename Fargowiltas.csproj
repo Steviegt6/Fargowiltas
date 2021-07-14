@@ -8,6 +8,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="MutantTests\**" />
+    <EmbeddedResource Remove="MutantTests\**" />
+    <None Remove="MutantTests\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
     <None Remove="build.txt" />

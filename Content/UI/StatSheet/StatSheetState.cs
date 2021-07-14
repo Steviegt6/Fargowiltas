@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fargowiltas.Content.UI.Shared.Panels;
 using Fargowiltas.Core.Localization;
@@ -24,6 +25,8 @@ namespace Fargowiltas.Content.UI.StatSheet
         public Shared.Elements.UISearchBar SearchBar;
         public UIDragPanel BackPanel;
         public UIPanel InnerPanel;
+
+        internal static List<(Func<string>, int)> ModCallStats = new();
 
         public override void OnInitialize()
         {
@@ -98,6 +101,8 @@ namespace Fargowiltas.Content.UI.StatSheet
             Format("StatSheet.Luck", player.NormalizedLuck, ItemID.LuckPotion);
             Format("StatSheet.MinimumLuck", player.luckMinimumCap, ItemID.LuckPotionLesser);
             Format("StatSheet.MaximumLuck", player.luckMaximumCap, ItemID.LuckPotionGreater);
+
+            ModCallStats.ForEach(x => AddStat(x.Item1?.Invoke(), x.Item2));
         }
 
         public void AddStat(string text, int item = -1)
