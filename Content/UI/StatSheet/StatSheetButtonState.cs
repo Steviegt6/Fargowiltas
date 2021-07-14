@@ -2,7 +2,6 @@
 using Fargowiltas.Core.UserInterfaces;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -18,6 +17,9 @@ namespace Fargowiltas.Content.UI.StatSheet
         public override void OnActivate()
         {
             base.OnActivate();
+
+            IgnoresMouseInteraction = false;
+
             // TODO: localization
             Asset<Texture2D> statIcon = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton");
             Icon = new UIImage(statIcon);

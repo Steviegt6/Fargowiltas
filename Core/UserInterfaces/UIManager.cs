@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -11,14 +12,11 @@ namespace Fargowiltas.Core.UserInterfaces
     // https://github.com/Pbone3/PboneLib/blob/master/Core/UI/UIManager.cs
     public class UIManager : ModSystem
     {
-        public static Dictionary<IUIStateIdentity, IUIProfile> UserInterfaceCollection { get; private set; }
-
-        public static List<UIState> States { get; private set; }
+        public static List<IUIProfile> Interfaces { get; private set; }
 
         public UIManager()
         {
-            UserInterfaceCollection = new Dictionary<IUIStateIdentity, IUIProfile>();
-            States = new List<UIState>();
+            Interfaces = new List<IUIProfile>();
         }
 
         #region ModSystem
@@ -27,7 +25,7 @@ namespace Fargowiltas.Core.UserInterfaces
         {
             base.UpdateUI(gameTime);
 
-            foreach (IUIProfile profile in UserInterfaceCollection.Values)
+            foreach (IUIProfile profile in Interfaces)
                 profile.UserInterface.CurrentState?.Update(gameTime);
         }
 
@@ -35,17 +33,18 @@ namespace Fargowiltas.Core.UserInterfaces
         {
             base.ModifyInterfaceLayers(layers);
 
-            foreach ((IUIStateIdentity identity, IUIProfile profile) in UserInterfaceCollection)
+            foreach (IUIProfile profile in Interfaces)
             {
                 int index = layers.FindIndex(x => x.Name.Equals(profile.InsertionLayer));
 
                 if (index != -1)
-                    layers.Insert(index, new LegacyGameInterfaceLayer($"Fargowiltas:Interface {identity.Identity}", () =>
-                    {
-                        profile.UserInterface.CurrentState?.Draw(Main.spriteBatch);
+                    layers.Insert(index, new LegacyGameInterfaceLayer($"Fargowiltas:Interface {profile.Identifier}",
+                        () =>
+                        {
+                            profile.UserInterface.CurrentState?.Draw(Main.spriteBatch);
 
-                        return true;
-                    }, InterfaceScaleType.UI));
+                            return true;
+                        }, InterfaceScaleType.UI));
             }
         }
 
@@ -53,20 +52,10 @@ namespace Fargowiltas.Core.UserInterfaces
 
         #region UIManager
 
-        public static void CreateInterface(IUIStateIdentity identity, string layer)
+        public static void CreateInterface(UIState state, string layer)
         {
             if (!Main.dedServ)
-                UserInterfaceCollection.Add(identity, new UIProfile(new UserInterface(), layer));
-        }
-
-        public static IUIStateIdentity CreateInterface<TUIState>(string layer) where TUIState : UIState
-        {
-            UIStateIdentity<TUIState> @return = new();
-
-            if (!Main.dedServ)
-                UserInterfaceCollection.Add(@return, new UIProfile(new UserInterface(), layer));
-
-            return @return;
+                Interfaces.Add(new UIProfile(state, layer));
         }
 
         public static void Register<TUIState>(string layer) where TUIState : UIState, new()
@@ -75,33 +64,28 @@ namespace Fargowiltas.Core.UserInterfaces
 
             TUIState state = new();
             state.Activate();
-            States.Add(state);
-            CreateInterface<TUIState>(layer);
+            CreateInterface(state, layer);
         }
 
         public static void Open<TUIState>() where TUIState : UIState
         {
-            if (!Main.dedServ)
-                GetInterface<TUIState>().UserInterface.SetState(States.First(x =>
-                {
-                    string fullName = x.GetType().FullName;
-                    return fullName != null && fullName.Equals(typeof(TUIState).FullName);
-                }));
+            if (Main.dedServ) return;
+
+            IUIProfile profile = GetProfile<TUIState>();
+            profile.UserInterface.SetState(profile.State);
         }
 
         public static void Close<TUIState>() where TUIState : UIState
         {
             if (!Main.dedServ)
-                GetInterface<TUIState>().UserInterface.SetState(null);
+                GetProfile<TUIState>().UserInterface.SetState(null);
         }
 
         public static void Toggle<TUIState>() where TUIState : UIState
         {
             if (Main.dedServ) return;
 
-            UserInterface @interface = GetInterface<TUIState>().UserInterface;
-
-            if (@interface.CurrentState is null)
+            if (GetProfile<TUIState>().UserInterface.CurrentState == null)
                 Open<TUIState>();
             else
                 Close<TUIState>();
@@ -109,10 +93,9 @@ namespace Fargowiltas.Core.UserInterfaces
 
         #endregion
 
-        public static IUIProfile GetInterface<TUIState>() =>
-            UserInterfaceCollection.First(x => x.Key.TypeName.Equals(typeof(TUIState).FullName)).Value;
+        public static IUIProfile GetProfile<TUIState>() where TUIState : UIState =>
+            Interfaces.First(x => x.State.GetType() == typeof(TUIState));
 
-        public static IUIStateIdentity GetIdentity<TUIState>() =>
-            UserInterfaceCollection.First(x => x.Key.TypeName.Equals(typeof(TUIState).FullName)).Key;
+        public static IUIProfile GetProfile(Guid guid) => Interfaces.First(x => x.Identifier.Equals(guid));
     }
 }

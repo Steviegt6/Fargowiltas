@@ -1,4 +1,5 @@
-﻿using Terraria.UI;
+﻿using System;
+using Terraria.UI;
 
 namespace Fargowiltas.Core.UserInterfaces
 {
@@ -6,6 +7,10 @@ namespace Fargowiltas.Core.UserInterfaces
     {
         UserInterface UserInterface { get; }
 
+        UIState State { get; }
+
         string InsertionLayer { get; }
+
+        Guid Identifier { get; }
     }
 }

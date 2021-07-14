@@ -1,4 +1,7 @@
-﻿using Terraria.UI;
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using Terraria.UI;
 
 namespace Fargowiltas.Core.UserInterfaces
 {
@@ -6,12 +9,26 @@ namespace Fargowiltas.Core.UserInterfaces
     {
         public UserInterface UserInterface { get; }
 
+        public UIState State { get; }
+
         public string InsertionLayer { get; }
 
-        public UIProfile(UserInterface userInterface, string insertionLayer)
+        public Guid Identifier
         {
-            UserInterface = userInterface;
+            get
+            {
+                using MD5 algorithm = MD5.Create();
+                byte[] computerHash = algorithm.ComputeHash(Encoding.Default.GetBytes(State.GetType().FullName ??
+                    throw new InvalidOperationException("Could not retrieve state type name.")));
+                return new Guid(computerHash);
+            }
+        }
+
+        public UIProfile(UIState state, string insertionLayer)
+        {
+            State = state;
             InsertionLayer = insertionLayer;
+            UserInterface = new UserInterface();
         }
     }
 }
