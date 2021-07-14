@@ -13,7 +13,7 @@ namespace Fargowiltas.Content.UI.StatSheet
 {
     public class StatSheetState : UIState
     {
-        public const int BackWidth = 660;
+        public const int BackWidth = 720;
         public const int BackHeight = 251 + 28; // 28 = search bar height (26) + padding (2)
         public const int HowManyPerColumn = 10;
         public const int HowManyColumns = 3;
@@ -27,8 +27,10 @@ namespace Fargowiltas.Content.UI.StatSheet
 
         public override void OnInitialize()
         {
-            Vector2 offset =
-                new(Main.screenWidth / 2f - BackWidth * 0.75f, Main.screenHeight / 2f - BackHeight * 0.75f);
+            base.OnInitialize();
+
+            Vector2 offset = new(Main.screenWidth / 2f - BackWidth * 0.75f, 
+                Main.screenHeight / 2f - BackHeight * 0.75f);
 
             BackPanel = new UIDragPanel();
             BackPanel.Left.Set(offset.X, 0f);
@@ -36,7 +38,6 @@ namespace Fargowiltas.Content.UI.StatSheet
             BackPanel.Width.Set(BackWidth, 0f);
             BackPanel.Height.Set(BackHeight, 0f);
             BackPanel.PaddingLeft = BackPanel.PaddingRight = BackPanel.PaddingTop = BackPanel.PaddingBottom = 0f;
-            // BackPanel.BackgroundColor = new Color(29f, 33f, 70f) * 0.7f;
             Append(BackPanel);
 
             SearchBar = new Shared.Elements.UISearchBar(BackWidth - 8, 26);
@@ -50,18 +51,15 @@ namespace Fargowiltas.Content.UI.StatSheet
             InnerPanel.Width.Set(BackWidth - 12f, 0f);
             InnerPanel.Height.Set(BackHeight - 12f - 28f, 0f);
             InnerPanel.PaddingLeft = InnerPanel.PaddingRight = InnerPanel.PaddingTop = InnerPanel.PaddingBottom = 0f;
-            // InnerPanel.BackgroundColor = new Color(73f, 94f, 171f) * 0.9f;
             BackPanel.Append(InnerPanel);
-
-            base.OnInitialize();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (Main.GameUpdateCount % (!SearchBar.IsEmpty ? 2 : 4) ==
-                0) // 15 times a second, or 30 times a second if search bar has text
+            // 15 times a second, or 30 times a second if search bar has text
+            if (Main.GameUpdateCount % (!SearchBar.IsEmpty ? 2 : 4) == 0)
                 RebuildStatList();
         }
 
@@ -85,12 +83,12 @@ namespace Fargowiltas.Content.UI.StatSheet
             Format("StatSheet.MaxMinions", player.maxMinions, ItemID.SlimeStaff);
             Format("StatSheet.MaxSentries", player.maxTurrets, ItemID.SlimeStaff);
 
-            Format("StatSheet.HP", player.statLifeMax2, ItemID.LifeCrystal);
-            Format("StatSheet.Defense", player.statDefense, ItemID.CobaltShield);
-            Format("StatSheet.DamageReduction", (int) (player.endurance * 100), ItemID.WormScarf);
+            Format("StatSheet.Life", player.statLifeMax2, ItemID.LifeCrystal);
             Format("StatSheet.LifeRegen", player.lifeRegen, ItemID.BandofRegeneration);
             Format("StatSheet.Mana", player.statManaMax2, ItemID.ManaCrystal);
             Format("StatSheet.ManaRegen", player.manaRegen / 2, ItemID.ManaCrystal);
+            Format("StatSheet.Defense", player.statDefense, ItemID.CobaltShield);
+            Format("StatSheet.DamageReduction", (int) (player.endurance * 100), ItemID.WormScarf);
 
             Format("StatSheet.ArmorPenetration", player.armorPenetration, ItemID.SharkToothNecklace);
             Format("StatSheet.Aggro", player.aggro, ItemID.FleshKnuckles);

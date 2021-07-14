@@ -14,9 +14,9 @@
     "Life": "Life: {0}",
     "Defense": "Defense: {0}",
     "DamageReduction": "Damage Reduction: {0}%",
-    "LifeRegen": "Life Regen: {0} HP/second",
-    "Man": "Mana: {0}",
-    "ManaRegen": "Mana Regen: {0} Mana/second",
+    "LifeRegen": "Life Regen: {0} hp/s",
+    "Mana": "Mana: {0}",
+    "ManaRegen": "Mana Regen: {0} m/s",
 
     "ArmorPenetration": "Armor Penetration: {0}",
     "Aggro": "Aggro: {0}",
