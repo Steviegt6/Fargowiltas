@@ -38,11 +38,10 @@ namespace Fargowiltas.Core.UserInterfaces
                 int index = layers.FindIndex(x => x.Name.Equals(profile.InsertionLayer));
 
                 if (index != -1)
-                    layers.Insert(index, new LegacyGameInterfaceLayer($"Fargowiltas:Interface {profile.Identifier}",
+                    layers.Insert(index, new LegacyGameInterfaceLayer($"{Mod.Name}:Interface {profile.Identifier}",
                         () =>
                         {
                             profile.UserInterface.CurrentState?.Draw(Main.spriteBatch);
-
                             return true;
                         }, InterfaceScaleType.UI));
             }
