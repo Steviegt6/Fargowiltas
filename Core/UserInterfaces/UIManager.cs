@@ -29,7 +29,7 @@ namespace Fargowiltas.Core.UserInterfaces
 
             CachedTime = gameTime;
 
-            foreach (IUIProfile profile in Interfaces.Where(profile => profile.UserInterface.CurrentState != null))
+            foreach (IUIProfile profile in Interfaces.Where(profile => profile.UserInterface?.CurrentState != null))
                 profile.UserInterface.Update(gameTime);
         }
 
@@ -46,7 +46,7 @@ namespace Fargowiltas.Core.UserInterfaces
                         () =>
                         {
                             if (CachedTime != null)
-                                profile.UserInterface.Draw(Main.spriteBatch, CachedTime);
+                                profile.UserInterface?.Draw(Main.spriteBatch, CachedTime);
                             return true;
                         }, InterfaceScaleType.UI));
             }

@@ -16,13 +16,12 @@ namespace Fargowiltas.Content.UI.Shared.Elements
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            if (IsMouseHovering)
-            {
-                Main.LocalPlayer.mouseInterface = true;
-                Main.hoverItemName = Text;
-            }
-
             base.DrawSelf(spriteBatch);
+
+            if (!IsMouseHovering) return;
+
+            Main.LocalPlayer.mouseInterface = true;
+            Main.instance.MouseText(Text);
         }
     }
 }

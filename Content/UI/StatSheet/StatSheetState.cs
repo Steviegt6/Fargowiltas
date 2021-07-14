@@ -34,7 +34,7 @@ namespace Fargowiltas.Content.UI.StatSheet
             BackPanel.Width.Set(BackWidth, 0f);
             BackPanel.Height.Set(BackHeight, 0f);
             BackPanel.PaddingLeft = BackPanel.PaddingRight = BackPanel.PaddingTop = BackPanel.PaddingBottom = 0f;
-            BackPanel.BackgroundColor = new Color(29f, 33f, 70f) * 0.7f;
+            // BackPanel.BackgroundColor = new Color(29f, 33f, 70f) * 0.7f;
             Append(BackPanel);
 
             SearchBar = new Shared.Elements.UISearchBar(BackWidth - 8, 26);
@@ -48,7 +48,7 @@ namespace Fargowiltas.Content.UI.StatSheet
             InnerPanel.Width.Set(BackWidth - 12f, 0f);
             InnerPanel.Height.Set(BackHeight - 12f - 28f, 0f);
             InnerPanel.PaddingLeft = InnerPanel.PaddingRight = InnerPanel.PaddingTop = InnerPanel.PaddingBottom = 0f;
-            InnerPanel.BackgroundColor = new Color(73f, 94f, 171f) * 0.9f;
+            // InnerPanel.BackgroundColor = new Color(73f, 94f, 171f) * 0.9f;
             BackPanel.Append(InnerPanel);
 
             base.OnInitialize();

@@ -21,13 +21,13 @@ namespace Fargowiltas.Content.UI.StatSheet
             IgnoresMouseInteraction = false;
 
             // TODO: localization
-            Asset<Texture2D> statIcon = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton");
+            Asset<Texture2D> statIcon = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton", AssetRequestMode.ImmediateLoad);
             Icon = new UIImage(statIcon);
             Icon.Left.Set(26f, 0f);
             Icon.Top.Set(262f, 0f);
             Append(Icon);
 
-            Asset<Texture2D> glow = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton_MouseOver");
+            Asset<Texture2D> glow = ModContent.Request<Texture2D>("Fargowiltas/Assets/UI/Icons/StatsButton_MouseOver", AssetRequestMode.ImmediateLoad);
             IconHighlight = new UIHoverTextImageButton(glow, "Stat Sheet");
             IconHighlight.Left.Set( -2f, 0f);
             IconHighlight.Top.Set(-2f, 0f);
@@ -39,7 +39,7 @@ namespace Fargowiltas.Content.UI.StatSheet
         private static void IconHighlight_OnClick(UIMouseEvent evt, UIElement listeningElement)
         {
             if (Main.playerInventory)
-                UIManager.Toggle<StatSheetButtonState>();
+                UIManager.Toggle<StatSheetState>();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
